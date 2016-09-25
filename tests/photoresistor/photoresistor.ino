@@ -20,6 +20,14 @@ void setup() {
 
 void loop() {
   // put your main code here, to run repeatedly:
-  int photoResistorRead = analogRead(PHOTO_RESISTOR_PIN);
+  display.clearDisplay();
   
+  int photoResistorRead = analogRead(PHOTO_RESISTOR_PIN);
+
+  display.setTextSize(1);
+  display.setTextColor(WHITE);
+  display.setCursor(0, 0);
+  display.print("val: ");
+  display.print(photoResistorRead);
+  display.display();
 }
