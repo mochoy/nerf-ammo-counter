@@ -15,6 +15,8 @@ void setup() {
   // put your setup code here, to run once:
   display.begin(SSD1306_SWITCHCAPVCC, 0x3C);
   display.clearDisplay();
+
+  pinMode(BTN_PIN, INPUT);
   
 }
 
