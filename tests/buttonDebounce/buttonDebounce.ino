@@ -25,6 +25,7 @@ void loop() {
   // put your main code here, to run repeatedly:
   display.clearDisplay();
 
-  btnState = digitalRead(BTN_PIN);
+  btnState = digitalRead(BTN_PIN);  
 
+  lastBtnState = btnState;
 }
