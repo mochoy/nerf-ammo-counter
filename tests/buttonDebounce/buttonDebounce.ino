@@ -10,7 +10,7 @@ Adafruit_SSD1306 display(OLED_RESET);
 #define SCREEN_HEIGHT 64
 
 const byte BTN_PIN = 2;
-int btnState, lastBtnState = LOW;
+int btnState, lastBtnState = LOW; 
 
 void setup() {
   // put your setup code here, to run once:
@@ -24,5 +24,7 @@ void setup() {
 void loop() {
   // put your main code here, to run repeatedly:
   display.clearDisplay();
+
+  btnState = digitalRead(BTN_PIN);
 
 }
