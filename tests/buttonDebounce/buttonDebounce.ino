@@ -12,6 +12,8 @@ Adafruit_SSD1306 display(OLED_RESET);
 const byte BTN_PIN = 2;
 int btnState, lastBtnState = LOW; 
 
+unsigned long lastDebounceTime = -0, debounceDelay = 50;
+
 void setup() {
   // put your setup code here, to run once:
   display.begin(SSD1306_SWITCHCAPVCC, 0x3C);
