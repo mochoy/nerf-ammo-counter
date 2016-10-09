@@ -35,9 +35,13 @@ void loop() {
 
   if ((millis()-lastDebounceTime) > debounceDelay) {
     if (btnState == HIGH) {
-      
+      display.setTextSize(1);
+      display.setTextColor(WHITE);
+      display.setCursor(0, 0);
+      display.print("Button Pressed!");
+      display.display();
     }
-  }
+  } 
 
   lastBtnState = btnState;
 }
