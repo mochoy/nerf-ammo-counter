@@ -13,7 +13,7 @@ Adafruit_SSD1306 display(OLED_RESET);
 const byte BTN_PIN = 2;
 int btnState, lastBtnState = LOW; 
 
-unsigned long lastDebounceTime = -0, debounceDelay = 50;
+unsigned long lastDebounceTime = 0, debounceDelay = 50;
 
 void setup() {
   // put your setup code here, to run once:
@@ -28,7 +28,10 @@ void loop() {
   // put your main code here, to run repeatedly:
   display.clearDisplay();
 
-  btnState = digitalRead(BTN_PIN);  
+  btnState = digitalRead(BTN_PIN);
+  if (btnState != lastBtnState) {
+      lastDebounceTime = millis();
+  }
 
   lastBtnState = btnState;
 }
