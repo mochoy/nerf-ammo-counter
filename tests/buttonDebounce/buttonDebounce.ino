@@ -33,5 +33,11 @@ void loop() {
       lastDebounceTime = millis();
   }
 
+  if ((millis()-lastDebounceTime) > debounceDelay) {
+    if (btnState == HIGH) {
+      
+    }
+  }
+
   lastBtnState = btnState;
 }
