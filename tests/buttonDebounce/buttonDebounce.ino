@@ -40,6 +40,12 @@ void loop() {
       display.setCursor(0, 0);
       display.print("Button Pressed!");
       display.display();
+    } else if (btnState == LOW) {
+      display.setTextSize(1);
+      display.setTextColor(WHITE);
+      display.setCursor(0, 0);
+      display.print("Button Not Pressed!");
+      display.display();
     }
   } 
 
