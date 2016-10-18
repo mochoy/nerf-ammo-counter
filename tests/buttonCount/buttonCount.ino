@@ -42,7 +42,7 @@ void loop() {
   lastBtnState = btnState;
 }
 
-void printToScreen (int x, int y, String text) {
+void printToScreen (int x, int y, String text, bool toClearScreen) {
   display.clearDisplay();
   display.setTextSize(1);
   display.setTextColor(WHITE);
