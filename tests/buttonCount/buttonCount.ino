@@ -30,6 +30,7 @@ void loop() {
   if (btnState != lastBtnState) {
     if (btnState == HIGH) {
       cntr++;
+      printToScreen(0, 0, String(cntr));
     } else {
       
     }
