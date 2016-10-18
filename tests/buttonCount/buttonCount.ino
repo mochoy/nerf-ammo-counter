@@ -44,7 +44,7 @@ void printToScreen (x, y, text) {
   display.setTextSize(1);
   display.setTextColor(WHITE);
   display.setCursor(x, y);
-  display.print("Hello, world!");
+  display.print(text);
   display.display();
 }
 
