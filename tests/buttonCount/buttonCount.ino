@@ -31,6 +31,8 @@ void loop() {
     if (btnState == HIGH) {
       cntr++;
       printToScreen(0, 0, String(cntr));
+
+      printToScreen(0, 10, "Pressed!")
     } else {
       
     }
