@@ -30,14 +30,14 @@ void loop() {
   if (btnState != lastBtnState) {
     if (btnState == HIGH) {
       cntr++;
-      printToScreen(0, 0, String(cntr));
-
       printToScreen(0, 10, "Pressed!")
     } else {
       printToScreen(0, 10, "Not Pressed!")      
     }
     
   }
+  
+  printToScreen(0, 0, String(cntr));
   
   lastBtnState = btnState;
 }
