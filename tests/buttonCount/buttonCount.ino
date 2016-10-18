@@ -10,7 +10,7 @@ Adafruit_SSD1306 display(OLED_RESET);
 #define SCREEN_HEIGHT 64
 
 const byte BTN_PIN = 2;
-int btnState, lastBtnState = LOW; 
+int btnState, lastBtnState = LOW, cntr = 0; 
 
 unsigned long lastDebounceTime = 0, debounceDelay = 50;
 
