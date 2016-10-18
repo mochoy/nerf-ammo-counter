@@ -39,8 +39,7 @@ void loop() {
   lastBtnState = btnState;
 }
 
-void printToScreen (text) {
+void printToScreen (x, y, text) {
 
-}
 }
 
