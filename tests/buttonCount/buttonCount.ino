@@ -27,6 +27,14 @@ void loop() {
   // put your main code here, to run repeatedly:
   btnState = digitalRead(BTN_PIN);
 
-
+  if (btnState != lastBtnState) {
+    if (btnState == HIGH) {
+      
+    } else {
+      
+    }
+    
+  }
+  
   lastBtnState = btnState;
 }
