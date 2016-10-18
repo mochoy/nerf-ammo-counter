@@ -34,7 +34,7 @@ void loop() {
 
       printToScreen(0, 10, "Pressed!")
     } else {
-      
+      printToScreen(0, 10, "Not Pressed!")      
     }
     
   }
