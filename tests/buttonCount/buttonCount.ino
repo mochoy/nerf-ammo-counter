@@ -29,7 +29,7 @@ void loop() {
 
   if (btnState != lastBtnState) {
     if (btnState == HIGH) {
-      
+      cntr++;
     } else {
       
     }
@@ -39,7 +39,7 @@ void loop() {
   lastBtnState = btnState;
 }
 
-void printToScreen (x, y, text) {
+void printToScreen (int x, int y, String text) {
   display.clearDisplay();
   display.setTextSize(1);
   display.setTextColor(WHITE);
