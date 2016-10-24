@@ -8,5 +8,10 @@ class Button {
         int btnState;
         int lastBtnState = LOW;
     
+    public:
+        void initPin (int pin) {
+            const int PIN = pin;
+        }
+    
 
 }
