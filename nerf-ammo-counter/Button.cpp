@@ -27,6 +27,7 @@ class Button {
 
 
 int main () {
+    Button btnArr[5];
     
 }
 
