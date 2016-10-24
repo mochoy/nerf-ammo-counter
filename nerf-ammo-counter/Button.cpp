@@ -7,6 +7,11 @@ using namespace std;
 
 class Button {
     public:
+        Button () {
+            cout << "instantiated" << endl;
+        }
+    
+    public:
         unsigned long lastDebounceTime;
         unsigned long debounceDelay = 50;
         
@@ -23,7 +28,5 @@ class Button {
 
 int main () {
     
-    cout << "hello" << endl;
-    Button btn1;
 }
 
