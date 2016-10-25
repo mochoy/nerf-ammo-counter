@@ -6,6 +6,9 @@ using namespace std;
 #define ARRAY_SIZE(array) (sizeof((array))/sizeof((array[0])))
 
 class Button {
+    public:
+        const int PIN;
+    
     //constructors
     public:
         Button();
@@ -26,11 +29,11 @@ class Button {
 };
 
 Button::Button () {
-    cout << "instantiated" << endl;
+    PIN = 1;
 }
 
 Button::Button (int pin) { 
-    const int PIN = pin;
+    PIN = pin;
 }
 
 
