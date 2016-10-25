@@ -7,7 +7,8 @@ using namespace std;
 
 class Button {
     public:
-        Button (int);
+        Button();
+        Button(int);
     
     public:
         unsigned long lastDebounceTime;
@@ -23,15 +24,17 @@ class Button {
 
 };
 
-Button::Button (int pin) { 
+Button::Button () {
     cout << "instantiated" << endl;
 }
 
-
+Button::Button (int pin) { 
+    cout << pin<< endl;
+}
 
 
 int main () {
-    Button(2);
+    new Button(5);
     
 }
 
