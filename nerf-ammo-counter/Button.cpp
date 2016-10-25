@@ -7,7 +7,7 @@ using namespace std;
 
 class Button {
     public:
-        const int PIN;
+        int PIN;
     
     //constructors
     public:
@@ -29,7 +29,7 @@ class Button {
 };
 
 Button::Button () {
-    PIN = 1;
+    PIN = 0;
 }
 
 Button::Button (int pin) { 
