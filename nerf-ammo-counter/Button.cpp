@@ -6,6 +6,7 @@ using namespace std;
 #define ARRAY_SIZE(array) (sizeof((array))/sizeof((array[0])))
 
 class Button {
+    //constructors
     public:
         Button();
         Button(int);
@@ -18,8 +19,8 @@ class Button {
         int lastBtnState = 0;
     
     public:
-        void initPin (int pin) {
-            const int PIN = pin;
+        void printPin() {
+            cout << this -> PIN << endl;
         }
 
 };
@@ -29,16 +30,20 @@ Button::Button () {
 }
 
 Button::Button (int pin) { 
-    cout << pin<< endl;
+    const int PIN = pin;
 }
 
 
 int main () {
+    //create and fill arr
     Button btnArr[5];
     
     for (int i = 0; i <  ARRAY_SIZE(btnArr); i ++) {
         btnArr[i] = Button(i);
     }
     
+    for (int i = 0; i <  ARRAY_SIZE(btnArr); i ++) {
+        btnArr[i].printPin();
+    }    
 }
 
