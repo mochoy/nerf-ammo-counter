@@ -3,7 +3,7 @@
 #include <iostream>
 using namespace std;
 
-
+#define ARRAY_SIZE(array) (sizeof((array))/sizeof((array[0])))
 
 class Button {
     public:
@@ -35,6 +35,10 @@ Button::Button (int pin) {
 
 int main () {
     Button btnArr[5];
+    
+    for (int i = 0; i <  ARRAY_SIZE(btnArr); i ++) {
+        btnArr[i] = Button(i);
+    }
     
 }
 
