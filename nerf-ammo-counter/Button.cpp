@@ -34,7 +34,7 @@ Button::Button (int pin) {
 
 
 int main () {
-    new Button(5);
+    Button btnArr[5];
     
 }
 
