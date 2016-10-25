@@ -19,12 +19,21 @@ class Button {
         unsigned long debounceDelay = 50;
         
         int btnState;
-        int lastBtnState = 0;
+        int lastBtnState = LOW;
     
     public:
-        void printPin() {
-            cout << this -> PIN << endl;
-        }
+        bool isBtnPressed() {
+            this -> btnState = digitalRead(this -> PIN);
+            
+            //check if btn acutally pressed
+            if (this -> btnState != this -> lastBtnState) {
+                if (this -> btnState == HIGH) {
+                    
+                }
+            }
+            
+            
+        }   //method
 
 };
 
@@ -44,9 +53,6 @@ int main () {
     for (int i = 0; i <  ARRAY_SIZE(btnArr); i ++) {
         btnArr[i] = Button(i);
     }
-    
-    for (int i = 0; i <  ARRAY_SIZE(btnArr); i ++) {
-        btnArr[i].printPin();
-    }    
+
 }
 
