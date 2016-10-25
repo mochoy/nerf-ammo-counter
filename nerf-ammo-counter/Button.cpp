@@ -32,7 +32,7 @@ class Button {
                 }
             }
             
-            
+            this -> lastBtnState = this -> btnState;
         }   //method
 
 };
