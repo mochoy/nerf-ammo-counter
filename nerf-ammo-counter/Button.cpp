@@ -1,10 +1,3 @@
-//for Button class
-
-#include <iostream>
-using namespace std;
-
-#define ARRAY_SIZE(array) (sizeof((array))/sizeof((array[0])))
-
 class Button {
     public:
         int PIN;
@@ -33,7 +26,7 @@ class Button {
                 if (this -> btnState != this -> lastBtnState) {
                     //check if btn acutally pressed
                     if (this -> btnState == HIGH) {
-                        return val = true;
+                        returnVal = true;
                     }
                 }   
                 
@@ -54,15 +47,3 @@ Button::Button () {
 Button::Button (int pin) { 
     PIN = pin;
 }
-
-
-int main () {
-    //create and fill arr
-    Button btnArr[5];
-    
-    for (int i = 0; i <  ARRAY_SIZE(btnArr); i ++) {
-        btnArr[i] = Button(i);
-    }
-
-}
-
