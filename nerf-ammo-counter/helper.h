@@ -42,7 +42,7 @@ class Button {
 
 //constructors
 Button::Button () {
-    PIN = 0;
+    PIN = -1;
 }
 
 Button::Button (int pin) { 
@@ -52,7 +52,12 @@ Button::Button (int pin) {
 }
 
 
-void initButtons (byte numOfButtons) {
+void initButtons (int numOfBtns) {
+  Button btnArr [numOfBtns];
+
+  for (int i = 0; i < numOfBtns; i++) {
+    btnArr[i] = Button(i);  
+  }
   
 }
 
