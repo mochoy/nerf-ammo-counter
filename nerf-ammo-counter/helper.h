@@ -52,6 +52,8 @@ Button::Button (int pin) {
 }
 
 
+int magSizArr[8] = {5, 6, 10, 12, 15, 18, 25, 36};
+
 void initButtons (int numOfBtns) {
   Button btnArr [numOfBtns];
 
