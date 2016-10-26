@@ -47,6 +47,8 @@ Button::Button () {
 
 Button::Button (int pin) { 
     PIN = pin;
+
+    pinMode(pin, INPUT);
 }
 
 
