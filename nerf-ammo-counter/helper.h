@@ -40,6 +40,7 @@ class Button {
 
 };
 
+//constructors
 Button::Button () {
     PIN = 0;
 }
@@ -47,6 +48,8 @@ Button::Button () {
 Button::Button (int pin) { 
     PIN = pin;
 }
+
+
 
 
 
