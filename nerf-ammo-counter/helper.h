@@ -67,9 +67,20 @@ void initButtons (int numOfBtns) {
   
 }
 
+void displayAmmo(){
+  String text = (String)currentAmmo;
+  
+  display.setTextSize(4);
+  display.setTextColor(WHITE);
+  display.setCursor( (SCREEN_WIDTH/2) - ((text.length()*2) * (4 * 1.5)), 0);  //center text
+  display.print(text);
+  display.display();
+}
+
 void changeMag() {
   if (btnArr[1].isBtnPressed()) {
     currentAmmo = magSizeArr[currentMagSize];
+    displayAmmo();
   }
 }
 
@@ -82,6 +93,8 @@ void toggleMags () {
     }
   }
 }
+
+
 
 
 
