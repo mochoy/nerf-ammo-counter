@@ -25,11 +25,14 @@ class Button {
         bool isBtnPressed() {
             this -> btnState = digitalRead(this -> PIN);
             
-            //check if btn acutally pressed
-            if (this -> btnState != this -> lastBtnState) {
-                if (this -> btnState == HIGH) {
+            //delay
+            if (micros() >= (this -> lastDebounceTime) + (this -> debounceDelay)) {
+                //check if btn acutally pressed
+                if (this -> btnState != this -> lastBtnState) {
+                    if (this -> btnState == HIGH) {
                     
-                }
+                    }
+                }   
             }
             
             this -> lastBtnState = this -> btnState;
