@@ -52,7 +52,7 @@ Button::Button (int pin) {
 }
 
 
-byte magSizArr[8] = {5, 6, 10, 12, 15, 18, 25, 36};
+byte magSizeArr[9] = {5, 6, 10, 12, 15, 18, 22, 25, 36};
 byte currentMagSize = 6;
 byte currentAmmo = currentMagSize; 
 
@@ -65,6 +65,12 @@ void initButtons (int numOfBtns) {
     btnArr[i] = Button(i);  
   }
   
+}
+
+void changeMag() {
+  if (btnArr[1].isBtnPressed()) {
+    currentAmmo = magSizeArr[currentMagSize];
+  }
 }
 
 void toggleMags () {
