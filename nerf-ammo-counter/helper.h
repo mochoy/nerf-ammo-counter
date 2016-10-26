@@ -78,11 +78,22 @@ void displayAmmo(){
   display.display();
 }
 
+void countAmmo() {
+  if (btnArr[0].isBtnPressed()) {
+    if (currentAmmo > 0) {
+      currentAmmo--;
+    }
+  }
+  displayAmmo();
+  
+}
+
 void changeMag() {
   if (btnArr[1].isBtnPressed()) {
     currentAmmo = maxAmmo;
     displayAmmo();
   }
+  
 }
 
 void toggleMags () {
@@ -96,6 +107,7 @@ void toggleMags () {
     maxAmmo = magSizeArr[currentMagSize];
     currentAmmo = maxAmmo;
   }
+  
 }
 
 
