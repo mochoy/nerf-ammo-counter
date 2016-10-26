@@ -52,6 +52,11 @@ Button::Button (int pin) {
 }
 
 
+void initButtons (byte numOfButtons) {
+  
+}
+
+
 
 
 
