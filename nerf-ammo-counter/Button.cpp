@@ -23,6 +23,8 @@ class Button {
     
     public:
         bool isBtnPressed() {
+            bool returnVal = false;     //flag so can return at end of method
+            
             this -> btnState = digitalRead(this -> PIN);
             
             //delay
@@ -31,9 +33,7 @@ class Button {
                 if (this -> btnState != this -> lastBtnState) {
                     //check if btn acutally pressed
                     if (this -> btnState == HIGH) {
-                        return true;
-                    } else {
-                        return false;
+                        return val = true;
                     }
                 }   
                 
@@ -41,6 +41,8 @@ class Button {
             
             this -> lastDebounceTime = micros();
             this -> lastBtnState = this -> btnState;
+            
+            return returnVal;
         }   //method
 
 };
