@@ -18,10 +18,14 @@ void setup() {
   display.clearDisplay();
 
   initButtons(3);
+  displayAmmo();
   
 }
 
 void loop() {
   // put your main code here, to run repeatedly:
-
+  countAmmo();
+  toggleMags();
+  changeMag();
+  
 }
