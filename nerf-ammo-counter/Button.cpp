@@ -1,6 +1,8 @@
 class Button {
-    public:
+    static:
         int PIN;
+        int LOW;
+        int HIGH;
     
     //constructors
     public:
@@ -44,6 +46,9 @@ Button::Button () {
     PIN = 0;
 }
 
-Button::Button (int pin) { 
+Button::Button (int pin, int low, int high) { 
     PIN = pin;
+    LOW = low;
+    HIGH = high;
 }
+
