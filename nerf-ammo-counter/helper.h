@@ -53,11 +53,12 @@ Button::Button (int pin) {
 
 
 byte magSizArr[8] = {5, 6, 10, 12, 15, 18, 25, 36};
-byte currentMagSize = 0;
+byte currentMagSize = 6;
 byte currentAmmo = currentMagSize; 
 
+Button btnArr[5];
 void initButtons (int numOfBtns) {
-  Button btnArr [numOfBtns];
+  btnArr [numOfBtns];
 
   //0 = trigger, 1 = mag release, 2 = toggle mag
   for (int i = 0; i < numOfBtns; i++) {
@@ -67,8 +68,12 @@ void initButtons (int numOfBtns) {
 }
 
 void toggleMags () {
-  if (btnArr[2].isBtnPressed) {
-    
+  if (btnArr[2].isBtnPressed()) {
+    if (currentMagSize < 8) {
+      currentMagSize ++;
+    } else {
+      currentMagSize = 0;
+    }
   }
 }
 
