@@ -27,10 +27,13 @@ class Button {
             
             //delay
             if (micros() >= (this -> lastDebounceTime) + (this -> debounceDelay)) {
-                //check if btn acutally pressed
+                //check if button changes state
                 if (this -> btnState != this -> lastBtnState) {
+                    //check if btn acutally pressed
                     if (this -> btnState == HIGH) {
-                    
+                        return true;
+                    } else {
+                        return false;
                     }
                 }   
             }
