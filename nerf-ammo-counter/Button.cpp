@@ -36,8 +36,10 @@ class Button {
                         return false;
                     }
                 }   
+                
             }
             
+            this -> lastDebounceTime = micros();
             this -> lastBtnState = this -> btnState;
         }   //method
 
