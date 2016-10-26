@@ -1,3 +1,5 @@
+//yay done! Now just need to test...
+
 //libraries
 #include <Adafruit_GFX.h>
 #include <Adafruit_SSD1306.h>
