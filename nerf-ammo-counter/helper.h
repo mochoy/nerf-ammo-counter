@@ -73,7 +73,8 @@ void initButtons (int numOfBtns) {
 
 void displayAmmo(){
   String text = (String)currentAmmo;
-  
+
+  display.clearDisplay();
   display.setTextSize(4);
   display.setTextColor(WHITE);
   display.setCursor( (SCREEN_WIDTH/2) - ((text.length()*2) * (4 * 1.5)), 0);  //center text
