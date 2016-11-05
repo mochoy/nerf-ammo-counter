@@ -1,4 +1,4 @@
-include "Button.cpp"
+#include "Button.cpp"
 
 byte magSizeArr[9] = {5, 6, 10, 12, 15, 18, 22, 25, 36};
 byte currentMagSize = 5;
@@ -12,6 +12,8 @@ void initButtons (int numOfBtns) {
   //0 = trigger, 1 = mag release, 2 = toggle mag
   for (int i = 0; i < numOfBtns; i++) {
     btnArr[i] = Button(i);  
+    pinMode(i, INPUT);
+
   }
   
 }

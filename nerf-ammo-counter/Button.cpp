@@ -5,7 +5,7 @@ class Button {
     //constructors
     public:
         Button();
-        Button(int);
+        Button(int, int, int);
     
     public:
         unsigned long lastDebounceTime;
@@ -15,13 +15,13 @@ class Button {
         int lastBtnState = LOW;
     
     public:
-        bool isBtnPressed() {
+        bool isBtnPressed(int reading, double micros) {
             bool returnVal = false;     //flag so can return at end of method
             
-            this -> btnState = digitalRead(this -> PIN);
+            this -> btnState = reading;
             
             //delay
-            if (micros() >= (this -> lastDebounceTime) + (this -> debounceDelay)) {
+            if (micros >= (this -> lastDebounceTime) + (this -> debounceDelay)) {
                 //check if button changes state
                 if (this -> btnState != this -> lastBtnState) {
                     //check if btn acutally pressed
@@ -32,7 +32,7 @@ class Button {
                 
             }
             
-            this -> lastDebounceTime = micros();
+            this -> lastDebounceTime = micros;
             this -> lastBtnState = this -> btnState;
             
             return returnVal;
@@ -45,8 +45,7 @@ Button::Button () {
     PIN = -1;
 }
 
-Button::Button (int pin) { 
+Button::Button (int pin, int low, int high) { 
     PIN = pin;
 
-    pinMode(pin, INPUT);
 }
