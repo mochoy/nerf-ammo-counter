@@ -78,7 +78,7 @@ void displayAmmo(){
   display.clearDisplay();
   display.setTextSize(textSize);
   display.setTextColor(WHITE);
-  display.setCursor( (SCREEN_WIDTH/2) - ((text.length()*2) * (textSize * 1.5)), 0);  //center text
+  display.setCursor( (SCREEN_WIDTH/2) - ((text.length()*2) * (textSize * 1.5)), (SCREEN_HEIGHT/2) - (textSize * 3) );  //center text
   display.print(text);
   display.display();
 }
