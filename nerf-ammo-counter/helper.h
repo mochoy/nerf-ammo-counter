@@ -11,7 +11,7 @@ void initButtons (int numOfBtns) {
 
   //0 = trigger, 1 = mag release, 2 = toggle mag
   for (int i = 0; i < numOfBtns; i++) {
-    btnArr[i] = Button(i);  
+    btnArr[i] = Button(i, LOW);  
     pinMode(i, INPUT);
 
   }
@@ -31,7 +31,7 @@ void displayAmmo(){
 }
 
 void countAmmo() {
-  if (btnArr[0].isBtnPressed()) {
+  if (btnArr[0].isBtnPressed(digitalRead(2), micros(), HIGH)) {
     if (currentAmmo > 0) {
       currentAmmo--;
     }
@@ -41,7 +41,7 @@ void countAmmo() {
 }
 
 void changeMag() {
-  if (btnArr[1].isBtnPressed()) {
+  if (btnArr[1].isBtnPressed(digitalRead(2), micros(), HIGH)) {
     currentAmmo = maxAmmo;
     displayAmmo();
   }
@@ -49,7 +49,7 @@ void changeMag() {
 }
 
 void toggleMags () {
-  if (btnArr[2].isBtnPressed()) {
+  if (btnArr[2].isBtnPressed(digitalRead(2), micros(), HIGH)) {
     if (currentMagSize < 8) {
       currentMagSize ++;
     } else {
