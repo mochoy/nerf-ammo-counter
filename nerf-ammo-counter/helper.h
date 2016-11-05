@@ -74,10 +74,11 @@ void initButtons (int numOfBtns) {
 void displayAmmo(){
   String text = (String)currentAmmo;
 
+  byte textSize = 8;
   display.clearDisplay();
-  display.setTextSize(4);
+  display.setTextSize(textSize);
   display.setTextColor(WHITE);
-  display.setCursor( (SCREEN_WIDTH/2) - ((text.length()*2) * (4 * 1.5)), 0);  //center text
+  display.setCursor( (SCREEN_WIDTH/2) - ((text.length()*2) * (textSize * 1.5)), 0);  //center text
   display.print(text);
   display.display();
 }
@@ -109,7 +110,7 @@ void toggleMags () {
     }
 
     maxAmmo = magSizeArr[currentMagSize];
-    currentAmmo = maxAmmo;
+//    currentAmmo = maxAmmo;
   }
   
 }
