@@ -110,7 +110,8 @@ void toggleMags () {
     }
 
     maxAmmo = magSizeArr[currentMagSize];
-//    currentAmmo = maxAmmo;
+    currentAmmo = maxAmmo;
+    displayAmmo();
   }
   
 }
