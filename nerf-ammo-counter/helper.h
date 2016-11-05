@@ -1,4 +1,59 @@
-#include "Button.cpp"
+//yay done! Now just need to test...
+
+
+class Button {
+    public:
+        int PIN;
+    
+    //constructors
+    public:
+        Button();
+        Button(int);
+    
+    public:
+        unsigned long lastDebounceTime;
+        unsigned long debounceDelay = 50;
+        
+        int btnState;
+        int lastBtnState = LOW;
+    
+    public:
+        bool isBtnPressed() {
+            bool returnVal = false;     //flag so can return at end of method
+            
+            this -> btnState = digitalRead(this -> PIN);
+            
+            //delay
+            if (micros() >= (this -> lastDebounceTime) + (this -> debounceDelay)) {
+                //check if button changes state
+                if (this -> btnState != this -> lastBtnState) {
+                    //check if btn acutally pressed
+                    if (this -> btnState == HIGH) {
+                        returnVal = true;
+                    }
+                }   
+                
+            }
+            
+            this -> lastDebounceTime = micros();
+            this -> lastBtnState = this -> btnState;
+            
+            return returnVal;
+        }   //method
+
+};
+
+//constructors
+Button::Button () {
+    PIN = -1;
+}
+
+Button::Button (int pin) { 
+    PIN = pin;
+
+    pinMode(pin, INPUT);
+}
+
 
 byte magSizeArr[9] = {5, 6, 10, 12, 15, 18, 22, 25, 36};
 byte currentMagSize = 5;
@@ -11,9 +66,7 @@ void initButtons (int numOfBtns) {
 
   //0 = trigger, 1 = mag release, 2 = toggle mag
   for (int i = 0; i < numOfBtns; i++) {
-    btnArr[i] = Button(i, LOW);  
-    pinMode(i, INPUT);
-
+    btnArr[i] = Button(i);  
   }
   
 }
@@ -31,7 +84,7 @@ void displayAmmo(){
 }
 
 void countAmmo() {
-  if (btnArr[0].isBtnPressed(digitalRead(2), micros(), HIGH)) {
+  if (btnArr[0].isBtnPressed()) {
     if (currentAmmo > 0) {
       currentAmmo--;
     }
@@ -41,7 +94,7 @@ void countAmmo() {
 }
 
 void changeMag() {
-  if (btnArr[1].isBtnPressed(digitalRead(2), micros(), HIGH)) {
+  if (btnArr[1].isBtnPressed()) {
     currentAmmo = maxAmmo;
     displayAmmo();
   }
@@ -49,7 +102,7 @@ void changeMag() {
 }
 
 void toggleMags () {
-  if (btnArr[2].isBtnPressed(digitalRead(2), micros(), HIGH)) {
+  if (btnArr[2].isBtnPressed()) {
     if (currentMagSize < 8) {
       currentMagSize ++;
     } else {
