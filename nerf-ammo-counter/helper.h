@@ -56,9 +56,9 @@ Button::Button (int pin) {
 
 
 byte magSizeArr[9] = {5, 6, 10, 12, 15, 18, 22, 25, 36};
-byte currentMagSize = 6;
-byte currentAmmo = currentMagSize; 
-byte maxAmmo = currentMagSize;
+byte currentMagSize = 5;
+byte currentAmmo = magSizeArr[currentMagSize]; 
+byte maxAmmo = magSizeArr[currentMagSize];
 
 Button btnArr[5];
 void initButtons (int numOfBtns) {
