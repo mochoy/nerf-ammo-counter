@@ -94,7 +94,14 @@ void displayText(String text) {
 }
 
 void displayAmmo(){
-  String text = (String)currentAmmo;
+  String text;
+  
+  if (currentAmmo < 10) {
+    text = "0" + (String)currentAmmo;
+  } else {
+    text = (String)currentAmmo;
+  }
+  
   displayText(text);
 
   lastDelayTime = 0;
@@ -102,7 +109,7 @@ void displayAmmo(){
 
 void flashAmmo() {
   bool toDisplay = false;
-  String text = "0";
+  String text = "00";
   
   if ( (lastDelayTime == 0) || (lastDelayTime + 500 > micros()) ) {
     toDisplay = true;
