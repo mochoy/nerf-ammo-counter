@@ -65,6 +65,8 @@ Button::Button (int pin) {
 
 const byte pinArr[] = {3, 4, 5};  //first = trigger, second = mag release, third = toggle mag
 
+long int lastDelayTime = 0;
+
 byte magSizeArr[9] = {5, 6, 10, 12, 15, 18, 22, 25, 36};
 byte currentMagSize = 5;
 byte currentAmmo = magSizeArr[currentMagSize]; 
@@ -81,9 +83,7 @@ void initButtons (int numOfBtns) {
   
 }
 
-void displayAmmo(){
-  String text = (String)currentAmmo;
-
+void displayText(String text) {
   byte textSize = 8;
   display.clearDisplay();
   display.setTextSize(textSize);
@@ -91,6 +91,32 @@ void displayAmmo(){
   display.setCursor( (SCREEN_WIDTH/2) - ((text.length()*2) * (textSize * 1.5)), (SCREEN_HEIGHT/2) - (textSize * 3) );  //center text
   display.print(text);
   display.display();
+}
+
+void displayAmmo(){
+  String text = (String)currentAmmo;
+  displayText(text);
+
+  lastDelayTime = 0;
+}
+
+void flashAmmo() {
+  bool toDisplay = false;
+  String text = "0";
+  
+  if ( (lastDelayTime == 0) || (lastDelayTime + 500 > micros()) ) {
+    toDisplay = true;
+    lastDelayTime = micros();
+  } else {
+    toDisplay = false;
+  }
+
+  if (toDisplay) {
+    displayText(text);
+  } else {
+    display.clearDisplay();
+  }
+  
 }
 
 void countAmmo() {
@@ -107,6 +133,8 @@ void changeMag() {
   if (btnArr[1].isBtnPressed()) {
     currentAmmo = maxAmmo;
     displayAmmo();
+  } else if (btnArr[1].isOpen()) {
+    
   }
 
   
