@@ -41,6 +41,15 @@ class Button {
             return returnVal;
         }   //method
 
+  public:
+    bool isOpen() {
+        if (digitalRead(this -> PIN) == LOW) {
+          return true;
+        } else {
+          return false;
+        }
+    }
+
 };
 
 //constructors
@@ -99,6 +108,7 @@ void changeMag() {
     currentAmmo = maxAmmo;
     displayAmmo();
   }
+
   
 }
 
