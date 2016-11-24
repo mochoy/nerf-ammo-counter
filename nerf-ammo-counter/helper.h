@@ -19,12 +19,7 @@ class Button {
         unsigned long numTimesPressed = 0;
     
     public:
-        bool isBtnPressed(bool onHigh) {
-            int checkVal = LOW;
-            if (onHigh) {
-              checkVal = HIGH;
-            }
-          
+        bool isBtnPressed(bool isCheckHighVal) {
             bool returnVal = false;     //flag so can return at end of method
             
             this -> btnState = digitalRead(this -> PIN);
@@ -35,7 +30,7 @@ class Button {
               //delay
               if (micros() >= (this -> lastDebounceTime) + (this -> debounceDelay)) {
                 //check if btn acutally pressed
-                if (this -> btnState == checkVal) {
+                if (this -> btnState == isCheckHighVal) {
                     returnVal = true;
                     isPressed = true;
                     numTimesPressed++;
@@ -127,13 +122,7 @@ void countAmmo() {
 }
 
 void changeMag() {
-  if (btnArr[1].isBtnPressed(true)) {
-    digitalWrite(13, HIGH);
-  } else {
-    digitalWrite(13, LOW);
-  }
-  
-  if (btnArr[1].numTimesPressed) {
+  if (btnArr[1].isBtnPressed(false) ) {
       currentAmmo = maxAmmo;
       displayAmmo();
   }
@@ -141,7 +130,7 @@ void changeMag() {
 }
 
 void toggleMags () {
-  if (btnArr[2].isBtnPressed(true) ) {
+  if (btnArr[2].isBtnPressed(true)) {
     if (currentMagSize < 9) {
       currentMagSize ++;
     } else {
