@@ -148,12 +148,23 @@ void toggleMags () {
   
 }
 
+unsigned long lastFlashTime;
+int flashDelay = 300;
 void flashEmptyMag () {
-  if (!isMagInserted() ) {
-      currentAmmo = 00;
-      displayAmmo();
+  if (!isMagInserted()) {
+    currentAmmo = 00;
+
+    displayAmmo();
+    delay(1000);
+    display.clearDisplay();
+    delay(1000);
+  
+    lastFlashTime = millis();
   }
+  
 }
+
+
 
   
 
