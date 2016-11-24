@@ -15,6 +15,8 @@ class Button {
         int lastBtnState = LOW;
 
         bool isPressed = false;
+
+        int numTimesPressed = 0;
     
     public:
         bool isBtnPressed() {
@@ -31,6 +33,7 @@ class Button {
                 if (this -> btnState == HIGH) {
                     returnVal = true;
                     isPressed = true;
+                    numTimesPressed++;
                 } else {
                     isPressed = false;
                 }
@@ -117,9 +120,12 @@ void countAmmo() {
 }
 
 void changeMag() {
-  if ( (btnArr[1].isBtnPressed()) && (true) ) {
-    currentAmmo = maxAmmo;
-    displayAmmo();
+  if (btnArr[1].isBtnPressed() ) {
+    digitalWrite(13, HIGH);
+    if (isMagInserted()) {
+      currentAmmo = maxAmmo;
+      displayAmmo();
+    }
   }
   
 }
