@@ -10,37 +10,12 @@ class Button {
     public:
         unsigned long lastDebounceTime;
         unsigned long debounceDelay = 50;
-        unsigned long lastDebounceTime_Pressed;
         
         int btnState;
         int lastBtnState = LOW;
     
     public:
         bool isBtnPressed() {
-             bool returnVal = false;     //flag so can return at end of method
-            
-            this -> btnState = digitalRead(this -> PIN);
-            
-            //delay
-            if (micros() >= (this -> lastDebounceTime_Pressed) + (this -> debounceDelay)) {
-                //check if button changes state
-                if (this -> btnState != this -> lastBtnState) {
-                    //check if btn acutally pressed
-                    if (this -> btnState == HIGH) {
-                        returnVal = true;
-                    }
-                }   
-                
-            }
-            
-            this -> lastDebounceTime_Pressed = micros();
-            this -> lastBtnState = this -> btnState;
-            
-            return returnVal;
-        }   //method
-
-    public:
-        bool isBtnStateChange() {
             bool returnVal = false;     //flag so can return at end of method
             
             this -> btnState = digitalRead(this -> PIN);
@@ -50,7 +25,9 @@ class Button {
                 //check if button changes state
                 if (this -> btnState != this -> lastBtnState) {
                     //check if btn acutally pressed
+                    if (this -> btnState == HIGH) {
                         returnVal = true;
+                    }
                 }   
                 
             }
@@ -76,9 +53,7 @@ Button::Button (int pin) {
 
 const byte pinArr[] = {3, 4, 5};  //first = trigger, second = mag release, third = toggle mag
 
-unsigned long lastDelayTime = 0;
-
-byte magSizeArr[10] = {5, 6, 10, 12, 15, 18, 22, 25, 36, 0};
+byte magSizeArr[9] = {5, 6, 10, 12, 15, 18, 22, 25, 36};
 byte currentMagSize = 5;
 byte currentAmmo = magSizeArr[currentMagSize]; 
 byte maxAmmo = magSizeArr[currentMagSize];
@@ -94,7 +69,9 @@ void initButtons (int numOfBtns) {
   
 }
 
-void displayText(String text) {
+void displayAmmo(){
+  String text = (String)currentAmmo;
+
   byte textSize = 8;
   display.clearDisplay();
   display.setTextSize(textSize);
@@ -104,60 +81,27 @@ void displayText(String text) {
   display.display();
 }
 
-void displayAmmo(){
-  String text;
-  
-  if (currentAmmo < 10) {
-    text = "0" + (String)currentAmmo;
-  } else {
-    text = (String)currentAmmo;
-  }
-  
-  displayText(text);
-}
-
-void flashAmmo() {  
-  displayText("00");
-  
-//  if (lastDelayTime + 5000 < millis()) {
-//    lastDelayTime = millis();
-//    displayText("00");
-//  } else {
-//    display.clearDisplay();
-//  }
-//
-//  if ( lastDelayTime == 0) {
-//    lastDelayTime = millis();
-//  }
-  
-}
-
-void countAmmo() {  
-  if ( (btnArr[0].isBtnPressed()) && (btnArr[1].btnState != HIGH) ) {
-    if (currentMagSize == 9) {
-      currentAmmo++;
-    } else {
-      if (currentAmmo > 0) {
-        currentAmmo--;
-      }
+void countAmmo() {
+  if (btnArr[0].isBtnPressed()) {
+    if (currentAmmo > 0) {
+      currentAmmo--;
     }
-    displayAmmo();
   }
+  displayAmmo();
   
 }
 
 void changeMag() {
-  if ( (btnArr[1].isBtnStateChange()) && (btnArr[1].btnState != HIGH) )  {
-    lastDelayTime = 0;
-    
+  if (btnArr[1].isBtnPressed()) {
     currentAmmo = maxAmmo;
     displayAmmo();
   }
+  
 }
 
 void toggleMags () {
   if (btnArr[2].isBtnPressed()) {
-    if (currentMagSize < 9) {
+    if (currentMagSize < 8) {
       currentMagSize ++;
     } else {
       currentMagSize = 0;
@@ -169,11 +113,3 @@ void toggleMags () {
   }
   
 }
-
-
-
-
-
-
-
-
