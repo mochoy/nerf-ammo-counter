@@ -80,7 +80,12 @@ void displayText(String text) {
 }
 
 void displayAmmo(){
-  String text = (String)currentAmmo;
+  String text;
+  if (currentAmmo < 10) {
+    text = "0" + (String)currentAmmo;
+  } else {
+    text = (String)currentAmmo;
+  }
 
   displayText(text);
 }
