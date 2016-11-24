@@ -9,7 +9,7 @@ class Button {
     
     public:
         unsigned long lastDebounceTime;
-        unsigned long debounceDelay = 100;
+        unsigned long debounceDelay = 50;
         
         int btnState;
         int lastBtnState = LOW;
@@ -28,10 +28,10 @@ class Button {
               //delay
               if (micros() >= (this -> lastDebounceTime) + (this -> debounceDelay)) {
                 //check if btn acutally pressed
-                if (this -> btnState != LOW) {
+                if (this -> btnState == HIGH) {
                     returnVal = true;
                     isPressed = true;
-                } else if (this -> btnState == LOW) {
+                } else {
                     isPressed = false;
                 }
               }
@@ -97,7 +97,13 @@ void displayAmmo(){
 }
 
 void countAmmo() {
-    if (btnArr[1].btnState == LOW) {
+  if (!btnArr[1].isPressed) {
+    digitalWrite(13, HIGH);
+  } else if (btnArr[1].isPressed) {
+    digitalWrite(13, LOW);
+  }
+  
+//  if (!btnArr[1].isPressed) {
     if (btnArr[0].isBtnPressed()) {
       if ( (currentMagSize == 9) && (currentAmmo < 99) ) {
         currentAmmo++;
@@ -106,12 +112,12 @@ void countAmmo() {
       }
     }
     displayAmmo();  
-  }
+//  }
   
 }
 
 void changeMag() {
-  if ( (btnArr[1].isBtnPressed()) && (true) ) {
+  if (btnArr[1].isBtnPressed()) {
     currentAmmo = maxAmmo;
     displayAmmo();
   }
@@ -119,10 +125,6 @@ void changeMag() {
 }
 
 void toggleMags () {
-  if (btnArr[0].isBtnPressed()) {
-    digitalWrite(13, HIGH);
-  }
-  
   if (btnArr[2].isBtnPressed()) {
     if (currentMagSize < 9) {
       currentMagSize ++;
@@ -136,27 +138,3 @@ void toggleMags () {
   }
   
 }
-
-unsigned long lastFlashDisplayTime = 0;
-byte flashDisplayDelay = 300;
-void flashEmptyMag() {
-  if (btnArr[1].btnState == LOW) {
-//    if ( (lastFlashDisplayTime == 0) || ((lastFlashDisplayTime + flashDisplayDelay) > micros()) ) {
-//      displayAmmo();
-//      lastFlashDisplayTime = micros();
-//
-//      digitalWrite(13, HIGH);
-//    } else if ( (lastFlashDisplayTime + flashDisplayDelay) < micros()) {
-//      display.clearDisplay();
-//
-//      digitalWrite(13, LOW);
-//    }
-      lastFlashDisplayTime = micros();
-      delay(300);
-      display.clearDisplay();
-      delay(300);
-  }
-  
-}
-
-
