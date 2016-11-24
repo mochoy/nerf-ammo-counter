@@ -97,14 +97,7 @@ void displayAmmo(){
 }
 
 void countAmmo() {
-  if (!btnArr[1].isPressed) {
-    digitalWrite(13, HIGH);
-  } else if (btnArr[1].isPressed) {
-    digitalWrite(13, LOW);
-  }
-  
-//  if (!btnArr[1].isPressed) {
-    if (btnArr[0].isBtnPressed()) {
+    if ( (btnArr[0].isBtnPressed()) && (btnArr[1].btnState == LOW) ){
       if ( (currentMagSize == 9) && (currentAmmo < 99) ) {
         currentAmmo++;
       } else if ( (currentAmmo > 0) && (currentMagSize != 9) ){
@@ -112,7 +105,6 @@ void countAmmo() {
       }
     }
     displayAmmo();  
-//  }
   
 }
 
