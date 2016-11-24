@@ -119,7 +119,7 @@ void flashAmmo() {
 }
 
 void countAmmo() {
-  if (btnArr[0].isBtnPressed()) {
+  if ( (btnArr[0].isBtnPressed()) && (!btnArr[1].isOpen()) ) {
     if (currentMagSize == 9) {
       currentAmmo++;
     } else {
@@ -139,7 +139,7 @@ void changeMag() {
     currentAmmo = maxAmmo;
     displayAmmo();
   } else if (btnArr[1].isOpen()) {
-    flashAmmo();
+//    flashAmmo();
   }
 
   if (btnArr[1].isOpen()) {
