@@ -141,3 +141,11 @@ void toggleMags () {
   }
   
 }
+
+void flashEmptyMag () {
+
+}
+
+  
+
+
