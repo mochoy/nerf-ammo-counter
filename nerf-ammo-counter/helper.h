@@ -69,9 +69,7 @@ void initButtons (int numOfBtns) {
   
 }
 
-void displayAmmo(){
-  String text = (String)currentAmmo;
-
+void displayText(String text) {
   byte textSize = 8;
   display.clearDisplay();
   display.setTextSize(textSize);
@@ -79,6 +77,12 @@ void displayAmmo(){
   display.setCursor( (SCREEN_WIDTH/2) - ((text.length()*2) * (textSize * 1.5)), (SCREEN_HEIGHT/2) - (textSize * 3) );  //center text
   display.print(text);
   display.display();
+}
+
+void displayAmmo(){
+  String text = (String)currentAmmo;
+
+  displayText(text);
 }
 
 void countAmmo() {
