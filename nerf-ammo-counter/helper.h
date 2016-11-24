@@ -115,7 +115,10 @@ void countAmmo() {
         currentAmmo--;
       }
     }
-    displayAmmo();  
+
+    if (isMagInserted()) {
+      displayAmmo();  
+    }
   
 }
 
@@ -137,13 +140,19 @@ void toggleMags () {
 
     maxAmmo = magSizeArr[currentMagSize];
     currentAmmo = maxAmmo;
-    displayAmmo();
   }
+
+   if (isMagInserted()) {
+      displayAmmo();  
+    }
   
 }
 
 void flashEmptyMag () {
-
+  if (!isMagInserted() ) {
+      currentAmmo = 00;
+      displayAmmo();
+  }
 }
 
   
