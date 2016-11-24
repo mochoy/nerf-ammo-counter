@@ -105,7 +105,7 @@ bool isMagInserted() {
 }
 
 void countAmmo() {
-    if ( (btnArr[0].isBtnPressed()) && (btnArr[1].btnState == LOW) ){
+    if ( (btnArr[0].isBtnPressed()) && isMagInserted() ){
       if ( (currentMagSize == 9) && (currentAmmo < 99) ) {
         currentAmmo++;
       } else if ( (currentAmmo > 0) && (currentMagSize != 9) ){
