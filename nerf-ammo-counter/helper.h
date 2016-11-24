@@ -137,7 +137,7 @@ void countAmmo() {
 }
 
 void changeMag() {
-  if (btnArr[1].isBtnPressed()) {
+  if ( (btnArr[1].isBtnPressed()) && (!btnArr[1].isOpen()) )  {
     currentAmmo = maxAmmo;
     displayAmmo();
   } else if (btnArr[1].isOpen()) {
