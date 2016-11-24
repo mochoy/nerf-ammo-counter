@@ -38,16 +38,6 @@ class Button {
             return returnVal;
         }   //method
 
-  public:
-    bool isClosed() {      
-        if (digitalRead(this -> PIN) == HIGH) {
-          digitalWrite(13, HIGH);
-          return false;
-        } else if (digitalRead(this -> PIN) == LOW) {
-          digitalWrite(13, LOW);
-          return true;
-        }
-    }
 
 };
 
@@ -121,13 +111,7 @@ void flashAmmo() {
 }
 
 void countAmmo() {
-//  if (!btnArr[1].isOpen()) {
-//    digitalWrite(13, HIGH);
-//  } else if (btnArr[1].isOpen()) {
-//    digitalWrite(13, LOW);
-//  }
-  
-  if ( (btnArr[0].isBtnPressed()) && (btnArr[1].isClosed()) ) {
+  if ( (btnArr[0].isBtnPressed()) && (btnArr[1].btnState == LOW) ) {
     if (currentMagSize == 9) {
       currentAmmo++;
     } else {
@@ -143,7 +127,7 @@ void countAmmo() {
 }
 
 void changeMag() {
-  if ( (btnArr[1].isBtnPressed()) && (btnArr[1].isClosed()) )  {
+  if ( (btnArr[1].isBtnPressed()) && (true) )  {
     lastDelayTime = 0;
     
     currentAmmo = maxAmmo;
