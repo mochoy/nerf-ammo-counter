@@ -53,7 +53,7 @@ Button::Button (int pin) {
 
 const byte pinArr[] = {3, 4, 5};  //first = trigger, second = mag release, third = toggle mag
 
-byte magSizeArr[9] = {5, 6, 10, 12, 15, 18, 22, 25, 36};
+byte magSizeArr[10] = {5, 6, 10, 12, 15, 18, 22, 25, 36, 0};
 byte currentMagSize = 5;
 byte currentAmmo = magSizeArr[currentMagSize]; 
 byte maxAmmo = magSizeArr[currentMagSize];
@@ -92,7 +92,9 @@ void displayAmmo(){
 
 void countAmmo() {
   if (btnArr[0].isBtnPressed()) {
-    if (currentAmmo > 0) {
+    if (currentMagSize == 9) {
+      currentAmmo++;
+    } else if (currentAmmo > 0) {
       currentAmmo--;
     }
   }
@@ -110,7 +112,7 @@ void changeMag() {
 
 void toggleMags () {
   if (btnArr[2].isBtnPressed()) {
-    if (currentMagSize < 8) {
+    if (currentMagSize < 9) {
       currentMagSize ++;
     } else {
       currentMagSize = 0;
