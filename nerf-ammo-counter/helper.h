@@ -10,15 +10,33 @@ class Button {
     public:
         unsigned long lastDebounceTime;
         unsigned long debounceDelay = 50;
+        unsigned long lastDebounceTime_Pressed;
         
         int btnState;
         int lastBtnState = LOW;
     
     public:
         bool isBtnPressed() {
-            if ( (this -> isBtnStateChange()) && (this -> btnState == HIGH) ){
-              return true;
+             bool returnVal = false;     //flag so can return at end of method
+            
+            this -> btnState = digitalRead(this -> PIN);
+            
+            //delay
+            if (micros() >= (this -> lastDebounceTime_Pressed) + (this -> debounceDelay)) {
+                //check if button changes state
+                if (this -> btnState != this -> lastBtnState) {
+                    //check if btn acutally pressed
+                    if (this -> btnState == HIGH) {
+                        returnVal = true;
+                    }
+                }   
+                
             }
+            
+            this -> lastDebounceTime_Pressed = micros();
+            this -> lastBtnState = this -> btnState;
+            
+            return returnVal;
         }   //method
 
     public:
@@ -129,7 +147,7 @@ void countAmmo() {
 }
 
 void changeMag() {
-  if ( (btnArr[1].isBtnPressed()) && (btnArr[1].btnState != HIGH) )  {
+  if ( (btnArr[1].isBtnStateChange()) && (btnArr[1].btnState != HIGH) )  {
     lastDelayTime = 0;
     
     currentAmmo = maxAmmo;
