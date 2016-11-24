@@ -13,6 +13,8 @@ class Button {
         
         int btnState;
         int lastBtnState = LOW;
+
+        bool isPressed = false;
     
     public:
         bool isBtnPressed() {
@@ -20,17 +22,21 @@ class Button {
             
             this -> btnState = digitalRead(this -> PIN);
             
-            //delay
-            if (micros() >= (this -> lastDebounceTime) + (this -> debounceDelay)) {
-                //check if button changes state
-                if (this -> btnState != this -> lastBtnState) {
-                    //check if btn acutally pressed
-                    if (this -> btnState == HIGH) {
-                        returnVal = true;
-                    }
-                }   
+
+            //check if button changes state
+            if (this -> btnState != this -> lastBtnState) {
+              //delay
+              if (micros() >= (this -> lastDebounceTime) + (this -> debounceDelay)) {
+                //check if btn acutally pressed
+                if (this -> btnState == HIGH) {
+                    returnVal = true;
+                    isPressed = true;
+                } else {
+                    isPressed = false;
+                }
+              }
+            }   
                 
-            }
             
             this -> lastDebounceTime = micros();
             this -> lastBtnState = this -> btnState;
@@ -91,14 +97,22 @@ void displayAmmo(){
 }
 
 void countAmmo() {
-  if (btnArr[0].isBtnPressed()) {
-    if ( (currentMagSize == 9) && (currentAmmo < 99) ) {
-      currentAmmo++;
-    } else if ( (currentAmmo > 0) && (currentMagSize != 9) ){
-      currentAmmo--;
-    }
+  if (!btnArr[1].isPressed) {
+    digitalWrite(13, HIGH);
+  } else if (btnArr[1].isPressed) {
+    digitalWrite(13, LOW);
   }
-  displayAmmo();
+  
+//  if (!btnArr[1].isPressed) {
+    if (btnArr[0].isBtnPressed()) {
+      if ( (currentMagSize == 9) && (currentAmmo < 99) ) {
+        currentAmmo++;
+      } else if ( (currentAmmo > 0) && (currentMagSize != 9) ){
+        currentAmmo--;
+      }
+    }
+    displayAmmo();  
+//  }
   
 }
 
