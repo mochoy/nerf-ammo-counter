@@ -67,8 +67,6 @@ byte currentMagSize = 5;
 byte currentAmmo = magSizeArr[currentMagSize]; 
 byte maxAmmo = magSizeArr[currentMagSize];
 
-unsigned long magInsertIndex = 0;
-
 Button btnArr[5];
 void initButtons (int numOfBtns) {
   btnArr [numOfBtns];

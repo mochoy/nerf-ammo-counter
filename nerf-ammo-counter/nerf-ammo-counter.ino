@@ -18,11 +18,6 @@ void setup() {
   initButtons(3);
   displayAmmo();
 
-  if (isMagInserted()) {
-    magInsertIndex = 1;
-  } else {
-    magInsertIndex = 0;
-  }
 }
 
 void loop() {
