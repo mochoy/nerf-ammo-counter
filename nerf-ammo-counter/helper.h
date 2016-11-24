@@ -92,9 +92,9 @@ void displayAmmo(){
 
 void countAmmo() {
   if (btnArr[0].isBtnPressed()) {
-    if (currentMagSize == 9) {
+    if ( (currentMagSize == 9) && (currentAmmo < 99) ) {
       currentAmmo++;
-    } else if (currentAmmo > 0) {
+    } else if ( (currentAmmo > 0) && (currentMagSize != 9) ){
       currentAmmo--;
     }
   }
