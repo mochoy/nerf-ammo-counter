@@ -9,7 +9,7 @@ class Button {
     
     public:
         unsigned long lastDebounceTime;
-        unsigned long debounceDelay = 50;
+        unsigned long debounceDelay = 100;
         
         int btnState;
         int lastBtnState = LOW;
@@ -28,10 +28,10 @@ class Button {
               //delay
               if (micros() >= (this -> lastDebounceTime) + (this -> debounceDelay)) {
                 //check if btn acutally pressed
-                if (this -> btnState == HIGH) {
+                if (this -> btnState != LOW) {
                     returnVal = true;
                     isPressed = true;
-                } else {
+                } else if (this -> btnState == LOW) {
                     isPressed = false;
                 }
               }
@@ -97,13 +97,7 @@ void displayAmmo(){
 }
 
 void countAmmo() {
-  if (!btnArr[1].isPressed) {
-    digitalWrite(13, HIGH);
-  } else if (btnArr[1].isPressed) {
-    digitalWrite(13, LOW);
-  }
-  
-//  if (!btnArr[1].isPressed) {
+    if (!btnArr[1].btnState == HIGH) {
     if (btnArr[0].isBtnPressed()) {
       if ( (currentMagSize == 9) && (currentAmmo < 99) ) {
         currentAmmo++;
@@ -112,7 +106,7 @@ void countAmmo() {
       }
     }
     displayAmmo();  
-//  }
+  }
   
 }
 
