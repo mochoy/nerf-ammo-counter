@@ -25,5 +25,6 @@ void loop() {
   countAmmo();
   toggleMags();
   changeMag();
+  flashEmptyMag();
   
 }
