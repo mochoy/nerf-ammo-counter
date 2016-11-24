@@ -1,6 +1,3 @@
-//yay done! Now just need to test...
-
-
 class Button {
     public:
         int PIN;
@@ -65,9 +62,9 @@ Button::Button (int pin) {
 
 const byte pinArr[] = {3, 4, 5};  //first = trigger, second = mag release, third = toggle mag
 
-long int lastDelayTime = 0;
+unsigned long lastDelayTime = 0;
 
-byte magSizeArr[9] = {5, 6, 10, 12, 15, 18, 22, 25, 36};
+byte magSizeArr[10] = {5, 6, 10, 12, 15, 18, 22, 25, 36, 0};
 byte currentMagSize = 5;
 byte currentAmmo = magSizeArr[currentMagSize]; 
 byte maxAmmo = magSizeArr[currentMagSize];
@@ -103,45 +100,53 @@ void displayAmmo(){
   }
   
   displayText(text);
-
-  lastDelayTime = 0;
 }
 
-void flashAmmo() {
-  bool toDisplay = false;
-  String text = "00";
+void flashAmmo() {  
+  displayText("00");
   
-  if ( (lastDelayTime == 0) || (lastDelayTime + 500 > micros()) ) {
-    toDisplay = true;
-    lastDelayTime = micros();
-  } else {
-    toDisplay = false;
-  }
-
-  if (toDisplay) {
-    displayText(text);
-  } else {
-    display.clearDisplay();
-  }
+//  if (lastDelayTime + 5000 < millis()) {
+//    lastDelayTime = millis();
+//    displayText("00");
+//  } else {
+//    display.clearDisplay();
+//  }
+//
+//  if ( lastDelayTime == 0) {
+//    lastDelayTime = millis();
+//  }
   
 }
 
 void countAmmo() {
   if (btnArr[0].isBtnPressed()) {
-    if (currentAmmo > 0) {
-      currentAmmo--;
+    if (currentMagSize == 9) {
+      currentAmmo++;
+    } else {
+      if (currentAmmo > 0) {
+        currentAmmo--;
+      }
     }
+    displayAmmo();
   }
-  displayAmmo();
   
 }
 
 void changeMag() {
   if ( (btnArr[1].isBtnPressed()) && (!btnArr[1].isOpen()) )  {
+    lastDelayTime = 0;
+    
     currentAmmo = maxAmmo;
     displayAmmo();
   } else if (btnArr[1].isOpen()) {
-    
+    flashAmmo();
+  }
+
+  if (btnArr[1].isOpen()) {
+    digitalWrite(13, HIGH);
+  } else if (!btnArr[1].isOpen()) {
+    digitalWrite(13, LOW);
+
   }
 
   
@@ -149,7 +154,7 @@ void changeMag() {
 
 void toggleMags () {
   if (btnArr[2].isBtnPressed()) {
-    if (currentMagSize < 8) {
+    if (currentMagSize < 9) {
       currentMagSize ++;
     } else {
       currentMagSize = 0;
