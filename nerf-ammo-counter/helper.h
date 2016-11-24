@@ -16,7 +16,7 @@ class Button {
 
         bool isPressed = false;
 
-        int numTimesPressed = 0;
+        unsigned long numTimesPressed = 0;
     
     public:
         bool isBtnPressed() {
@@ -66,6 +66,8 @@ byte magSizeArr[10] = {5, 6, 10, 12, 15, 18, 22, 25, 36, 0};
 byte currentMagSize = 5;
 byte currentAmmo = magSizeArr[currentMagSize]; 
 byte maxAmmo = magSizeArr[currentMagSize];
+
+unsigned long magInsertIndex = 0;
 
 Button btnArr[5];
 void initButtons (int numOfBtns) {
