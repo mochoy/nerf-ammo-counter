@@ -96,6 +96,14 @@ void displayAmmo(){
   displayText(text);
 }
 
+bool isMagInserted() {
+  if (btnArr[1].btnState == LOW) {
+    return true;
+  } else if (btnArr[1].btnState == HIGH) {
+    return false;
+  }
+}
+
 void countAmmo() {
     if ( (btnArr[0].isBtnPressed()) && (btnArr[1].btnState == LOW) ){
       if ( (currentMagSize == 9) && (currentAmmo < 99) ) {
@@ -109,7 +117,7 @@ void countAmmo() {
 }
 
 void changeMag() {
-  if (btnArr[1].isBtnPressed()) {
+  if ( (btnArr[1].isBtnPressed()) && (true) ) {
     currentAmmo = maxAmmo;
     displayAmmo();
   }
