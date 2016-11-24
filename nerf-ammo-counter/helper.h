@@ -8,7 +8,7 @@ class Button {
         Button(int);
     
     public:
-        unsigned long lastDebounceTime;
+        unsigned long lastDebounceTime_btnPressed;
         unsigned long debounceDelay = 50;
         
         int btnState;
@@ -21,7 +21,7 @@ class Button {
             this -> btnState = digitalRead(this -> PIN);
             
             //delay
-            if (micros() >= (this -> lastDebounceTime) + (this -> debounceDelay)) {
+            if (micros() >= (this -> lastDebounceTime_btnPressed) + (this -> debounceDelay)) {
                 //check if button changes state
                 if (this -> btnState != this -> lastBtnState) {
                     //check if btn acutally pressed
@@ -32,12 +32,38 @@ class Button {
                 
             }
             
-            this -> lastDebounceTime = micros();
+            this -> lastDebounceTime_btnPressed = micros();
             this -> lastBtnState = this -> btnState;
             
             return returnVal;
         }   //method
 
+  public:
+    unsigned long lastDebounceTime_btnChange;
+
+    public:
+        bool isBtnStateChange() {
+            bool returnVal = false;     //flag so can return at end of method
+            
+            this -> btnState = digitalRead(this -> PIN);
+            
+            //delay
+            if (micros() >= (this -> lastDebounceTime_btnChange) + (this -> debounceDelay)) {
+                //check if button changes state
+                if (this -> btnState != this -> lastBtnState) {
+                    //check if btn acutally pressed
+                    if (this -> btnState == HIGH) {
+                        returnVal = true;
+                    }
+                }   
+                
+            }
+            
+            this -> lastDebounceTime_btnChange = micros();
+            this -> lastBtnState = this -> btnState;
+            
+            return returnVal;
+        }   //method
 
 };
 
@@ -110,8 +136,8 @@ void flashAmmo() {
   
 }
 
-void countAmmo() {
-  if ( (btnArr[0].isBtnPressed()) && (btnArr[1].btnState == LOW) ) {
+void countAmmo() {  
+  if ( (btnArr[0].isBtnPressed()) && (btnArr[1].btnState != HIGH) ) {
     if (currentMagSize == 9) {
       currentAmmo++;
     } else {
@@ -119,15 +145,13 @@ void countAmmo() {
         currentAmmo--;
       }
     }
-    digitalWrite(13, HIGH);
     displayAmmo();
   }
-  digitalWrite(13, LOW);
   
 }
 
 void changeMag() {
-  if ( (btnArr[1].isBtnPressed()) && (true) )  {
+  if ( (btnArr[1].isBtnPressed()) && (btnArr[1].btnState != HIGH) )  {
     lastDelayTime = 0;
     
     currentAmmo = maxAmmo;
