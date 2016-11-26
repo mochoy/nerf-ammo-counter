@@ -18,6 +18,8 @@ void setup() {
   initButtons(3);
   displayAmmo();
 
+  digitalWrite(13, HIGH);
+
 }
 
 void loop() {
