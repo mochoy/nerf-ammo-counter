@@ -110,6 +110,19 @@ void initButtons (int numOfBtns) {
   
 }
 
+//check if the magazine is instered
+//when the magazine is inserted, the magazine detection switch is pressed, and the microcontroller sees this as LOW
+//when the magazine is not inserted, the magazine detection switch is not pressed, and the microcontroller sees this as HIGH
+bool isMagInserted() {
+  //check if micro controller sees the value as LOW -> the button is pressed -> a magazine is inserted
+  if (btnArr[1].btnState == LOW) {    
+      return true;
+    //check if micro controller sees the value as HIGH -> the button is not pressed -> a magazine is not inserted
+    } else if (btnArr[1].btnState == HIGH) { 
+      return false;
+    }
+}
+
 //display text onto the display
 void displayText(String text) {
   byte textSize = 8;  //set the size of the text
@@ -124,29 +137,21 @@ void displayText(String text) {
 
 //display ammo onto the display
 void displayAmmo(){
-  String text;    //create something to store what to print. This is empty now
-  //if the ammo to print, current ammo, is less that 10, make it like '01' or '04'  
-    //if not, leave it as is
-    if (currentAmmo < 10) {
-      text = "0" + (String)currentAmmo; //fill the thing we used to store what to print
-    } else {
-      text = (String)currentAmmo;   //fill the thing we used to store what to print
+  String textToDisplay;    //create something to store what to print. This is empty now
+  //if magazine not inserted, display '00'
+    if (!isMagInserted()) {
+        textToDisplay = "00";
     }
+    else {  //make sure magazine is inserted before displaying ammo
+        //if the ammo to print, current ammo, is less that 10, make it like '01' or '04'  
+        if (currentAmmo < 10) {
+          textToDisplay = "0" + (String)currentAmmo; //fill the thing we used to store what to print
+        } else {    //if not, leave it as is
+          textToDisplay = (String)currentAmmo;   //fill the thing we used to store what to print
+        }
+    } 
 
-  displayText(text);  //display the text, the ammo
-}
-
-//check if the magazine is instered
-//when the magazine is inserted, the magazine detection switch is pressed, and the microcontroller sees this as LOW
-//when the magazine is not inserted, the magazine detection switch is not pressed, and the microcontroller sees this as HIGH
-bool isMagInserted() {
-  //check if micro controller sees the value as LOW -> the button is pressed -> a magazine is inserted
-  if (btnArr[1].btnState == LOW) {    
-      return true;
-    //check if micro controller sees the value as HIGH -> the button is not pressed -> a magazine is not inserted
-    } else if (btnArr[1].btnState == HIGH) { 
-      return false;
-    }
+    displayText(textToDisplay);  //display the text, the ammo
 }
 
 //count ammo
@@ -191,7 +196,7 @@ void toggleMags () {
         //must keep the value trying to access is within the amount of values there are. 
         if (currentMagSize < ((sizeof(magSizeArr)/sizeof(magSizeArr[0])) - 1) ) {
             currentMagSize ++;  //change current magazine size
-        } else {  //when it reaches 9, set it back to 0 so it doesn't go to 10 and ruin things
+        } else {  
             currentMagSize = 0;
         }
 
@@ -206,6 +211,10 @@ void toggleMags () {
     }
   
 }
+
+
+
+
 
 
 
