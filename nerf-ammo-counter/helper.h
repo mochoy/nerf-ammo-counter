@@ -155,12 +155,12 @@ void countAmmo() {
     if ( (btnArr[0].isBtnPressed(true)) && isMagInserted() ){
       //make sure that the ammo is less than 99 so it doesnt overflow the display
       //make sure it's in increment mode
-      if ( (currentMagSize == 9) && (currentAmmo < 99) ) {
+      if ( (magSizeArr[currentMagSize] == 0) && (currentAmmo < 99) ) {
           currentAmmo++;    //increment ammo
 
           //make sure that the ammo is more than 0 so no negative numbers are displayed
         //make sure it's in increment mode
-        } else if ( (currentAmmo > 0) && (currentMagSize != 9) ){
+        } else if ( (currentAmmo > 0) && (magSizeArr[currentMagSize] != 0) ){
           currentAmmo--;    //decrement ammo
         }
     }
@@ -206,6 +206,7 @@ void toggleMags () {
     }
   
 }
+
 
 
 
