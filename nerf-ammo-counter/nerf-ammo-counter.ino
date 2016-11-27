@@ -1,3 +1,15 @@
+//By Monty C
+
+/*Here's how it will work:
+ * It's simple. When the trigger is pulled, count down 1 from the ammo. When a magazine is inserted, refill the ammo. A button can be 
+ * used to toggle through the different magazine sizes: 5, 6, 10, 12, 15, 18, 22, 25, and 36. The last mode is counts up, starting from 0, 
+ * which can be accessed from the toggling the magazine sizes. The magazine sizes will increment, with the press of the button, from 0, 
+ * 5, 6, 12 … 36 and will not decrement, for the sake of simplicity.  
+ * 
+ * 
+ * I am aware that the code isn't that good. It's not my best, not my neatest, and it's not too efficient for working with micro controllers, but it should be fine.
+ */
+
 //libraries, so the display can work
 #include <Adafruit_GFX.h>
 #include <Adafruit_SSD1306.h>
@@ -6,6 +18,7 @@
 #define OLED_RESET 4
 Adafruit_SSD1306 display(OLED_RESET);
 
+//set the height and width of the screen
 #define SCREEN_WIDTH 128
 #define SCREEN_HEIGHT 64
 
@@ -14,7 +27,7 @@ Adafruit_SSD1306 display(OLED_RESET);
 
 //this code will run when the Arduino turns on
 void setup() {
-  // put your setup code here, to run once:
+  //begin stuff for the display
   display.begin(SSD1306_SWITCHCAPVCC, 0x3C);
 
   //set up buttons
