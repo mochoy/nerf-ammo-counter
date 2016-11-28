@@ -93,7 +93,7 @@ const byte pinArr[] = {3, 4, 5};
 //If I want to access the value 1, which is the first value of the array/list, which the computer sees as the 
 //"zeroith" value, I would do array[0]. If I want to access the value 3, the third value of the array, I would do array[2]
 byte magSizeArr[] = {5, 6, 10, 12, 15, 18, 20, 22, 25, 36, 0};  //keep track of the magazine sizes
-byte currentMagSize = 5;  //keep track of the current magazine size
+byte currentMagSize = 0;  //keep track of the current magazine size
 byte currentAmmo = magSizeArr[currentMagSize];    //keep track of how much ammo there currently is
 byte maxAmmo = magSizeArr[currentMagSize];    //keep track of what the max ammo is, for use when reloading 
 
@@ -179,10 +179,16 @@ void countAmmo() {
 
 //change magazines
 void changeMag() {
-  //make sure the magazine insertion detection button is pressed from not being pressed
-  if (btnArr[1].isBtnPressed(false) ) {
+    //make sure the magazine insertion detection button is pressed from not being pressed
+    if (btnArr[1].isBtnPressed(false) ) {   //when the magazine is inserted
         currentAmmo = maxAmmo;  //set current ammo to the max amount of ammo
         displayAmmo();  //display ammo
+        displayText("1");
+    } else if (btnArr[1].isBtnPressed(true) ) {   //when the magazine is removed
+        currentAmmo = 0;
+        displayAmmo();
+        displayText("2");
+
     }
   
 }
