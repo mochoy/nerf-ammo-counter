@@ -101,7 +101,7 @@ byte maxAmmo = magSizeArr[currentMagSize];    //keep track of what the max ammo 
 Button btnArr[5]; //keep track of all the buttons
 //create buttons, using the code at the top of this file, so the microcontroller knows they exist and what to do with them
 void initButtons (int numOfBtns) {
-  btnArr[numOfBtns];
+    btnArr[numOfBtns];
 
     //0 = trigger, 1 = mag release, 2 = toggle mag
     for (int i = 0; i < numOfBtns; i++) {
@@ -114,12 +114,14 @@ void initButtons (int numOfBtns) {
 //when the magazine is inserted, the magazine detection switch is pressed, and the microcontroller sees this as LOW
 //when the magazine is not inserted, the magazine detection switch is not pressed, and the microcontroller sees this as HIGH
 bool isMagInserted() {
-  //check if micro controller sees the value as LOW -> the button is pressed -> a magazine is inserted
-  if (btnArr[1].btnState == LOW) {    
-      return true;
+    //check if micro controller sees the value as LOW -> the button is pressed -> a magazine is inserted
+    if (btnArr[1].btnState == LOW) {    
+        digitalWrite(13, LOW);
+        return true;
     //check if micro controller sees the value as HIGH -> the button is not pressed -> a magazine is not inserted
     } else if (btnArr[1].btnState == HIGH) { 
-      return false;
+        digitalWrite(13, HIGH);
+        return false;
     }
 }
 
@@ -137,12 +139,8 @@ void displayText(String text) {
 
 //display ammo onto the display
 void displayAmmo(){
-  String textToDisplay;    //create something to store what to print. This is empty now
-  //if magazine not inserted, display '00'
-    if (!isMagInserted()) {
-        textToDisplay = "00";
-    }
-    else {  //make sure magazine is inserted before displaying ammo
+    String textToDisplay = "00";    //create something to store what to print. This is empty now
+    if (isMagInserted()) {  //make sure magazine is inserted before displaying ammo
         //if the ammo to print, current ammo, is less that 10, make it like '01' or '04'  
         if (currentAmmo < 10) {
           textToDisplay = "0" + (String)currentAmmo; //fill the thing we used to store what to print
@@ -183,12 +181,9 @@ void changeMag() {
     if (btnArr[1].isBtnPressed(false) ) {   //when the magazine is inserted
         currentAmmo = maxAmmo;  //set current ammo to the max amount of ammo
         displayAmmo();  //display ammo
-        displayText("1");
     } else if (btnArr[1].isBtnPressed(true) ) {   //when the magazine is removed
         currentAmmo = 0;
         displayAmmo();
-        displayText("2");
-
     }
   
 }
