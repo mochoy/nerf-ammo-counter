@@ -92,7 +92,7 @@ const byte pinArr[] = {3, 4, 5};
 //stores, and the number between the parenthesis indicates which place they are, their "index", where they are in the list/array. 
 //If I want to access the value 1, which is the first value of the array/list, which the computer sees as the 
 //"zeroith" value, I would do array[0]. If I want to access the value 3, the third value of the array, I would do array[2]
-byte magSizeArr[] = {5, 6, 10, 12, 15, 18, 20, 22, 25, 36, 0};  //keep track of the magazine sizes
+byte magSizeArr[] = {5, 6, 8, 10, 12, 15, 18, 20, 22, 25, 36, 0};  //keep track of the magazine sizes
 byte currentMagSize = 0;  //keep track of the current magazine size
 byte currentAmmo = magSizeArr[currentMagSize];    //keep track of how much ammo there currently is
 byte maxAmmo = magSizeArr[currentMagSize];    //keep track of what the max ammo is, for use when reloading 
