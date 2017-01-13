@@ -174,9 +174,6 @@ class Adafruit_SSD1306 : public Adafruit_GFX {
   PortMask mosipinmask, clkpinmask, cspinmask, dcpinmask;
 #endif
 
-  inline void drawFastVLineInternal(int16_t x, int16_t y, int16_t h, uint16_t color) __attribute__((always_inline));
-  inline void drawFastHLineInternal(int16_t x, int16_t y, int16_t w, uint16_t color) __attribute__((always_inline));
-
 };
 
 #endif /* _Adafruit_SSD1306_H_ */
