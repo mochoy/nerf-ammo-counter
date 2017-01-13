@@ -77,6 +77,21 @@ const byte pinArr[] = {3, 4, 5};  //first = trigger, second = mag release, third
 //stuff to help keep track of magazine stuff
 byte magSizeArr[10] = {5, 6, 10, 12, 15, 18, 22, 25, 36, 0};  //keep track of the magazine sizes
 byte currentMagSize = 5;  //keep track of the current magazine size
+//
+//
+//
+//if you want to add/remove magazine sizes, do that here. Remember, they go in order when you toggle between them, from left to right in this.
+//
+//when you change the value, the "currentMagSize"(several lines below) has to be less than the number of different magazines sizes, 
+//the number of different magazine size values in the "magSizeArr" you can change "currentMagSize" to whatever you want. 
+//When it program first starts, when the microcontroller turns on, the 5th element of "magSizeArr" is the current magazine size,
+//starting from 0. 
+//Ex: byte array = {1(0), 2(1), 3(2), 4(3)} - the numbers without parenthesis are the values this array/list 
+//stores, and the number between the parenthesis indicates which place they are, their "index", where they are in the list/array. 
+//If I want to access the value 1, which is the first value of the array/list, which the computer sees as the 
+//"zeroith" value, I would do array[0]. If I want to access the value 3, the third value of the array, I would do array[2]
+byte magSizeArr[] = {5, 6, 8, 10, 12, 15, 18, 20, 22, 25, 36, 0};  //keep track of the magazine sizes
+byte currentMagSize = 0;  //keep track of the current magazine size
 byte currentAmmo = magSizeArr[currentMagSize];    //keep track of how much ammo there currently is
 byte maxAmmo = magSizeArr[currentMagSize];    //keep track of what the max ammo is, for use when reloading 
 
@@ -84,13 +99,28 @@ byte maxAmmo = magSizeArr[currentMagSize];    //keep track of what the max ammo 
 Button btnArr[5]; //keep track of all the buttons
 //create buttons, using the code at the top of this file, so the microcontroller knows they exist and what to do with them
 void initButtons (int numOfBtns) {
-  btnArr[numOfBtns];
+    btnArr[numOfBtns];
 
     //0 = trigger, 1 = mag release, 2 = toggle mag
     for (int i = 0; i < numOfBtns; i++) {
       btnArr[i] = Button(pinArr[i]);  
     }
   
+}
+
+//check if the magazine is instered
+//when the magazine is inserted, the magazine detection switch is pressed, and the microcontroller sees this as LOW
+//when the magazine is not inserted, the magazine detection switch is not pressed, and the microcontroller sees this as HIGH
+bool isMagInserted() {
+    //check if micro controller sees the value as LOW -> the button is pressed -> a magazine is inserted
+    if (btnArr[1].btnState == LOW) {    
+        digitalWrite(13, LOW);
+        return true;
+    //check if micro controller sees the value as HIGH -> the button is not pressed -> a magazine is not inserted
+    } else if (btnArr[1].btnState == HIGH) { 
+        digitalWrite(13, HIGH);
+        return false;
+    }
 }
 
 //display text onto the display
@@ -115,7 +145,15 @@ void displayAmmo(){
     } else {
       text = (String)currentAmmo;   //fill the thing we used to store what to print
     }
-
+    String textToDisplay = "00";    //create something to store what to print. This is empty now
+    if (isMagInserted()) {  //make sure magazine is inserted before displaying ammo
+        //if the ammo to print, current ammo, is less that 10, make it like '01' or '04'  
+        if (currentAmmo < 10) {
+          textToDisplay = "0" + (String)currentAmmo; //fill the thing we used to store what to print
+        } else {    //if not, leave it as is
+          textToDisplay = (String)currentAmmo;   //fill the thing we used to store what to print
+        }
+    } 
   displayText(text);  //display the text, the ammo
 }
 
@@ -157,10 +195,13 @@ void countAmmo() {
 
 //change magazines
 void changeMag() {
-  //make sure the magazine insertion detection button is pressed from not being pressed
-  if (btnArr[1].isBtnPressed(false) ) {
+    //make sure the magazine insertion detection button is pressed from not being pressed
+    if (btnArr[1].isBtnPressed(false) ) {   //when the magazine is inserted
         currentAmmo = maxAmmo;  //set current ammo to the max amount of ammo
         displayAmmo();  //display ammo
+    } else if (btnArr[1].isBtnPressed(true) ) {   //when the magazine is removed
+        currentAmmo = 0;
+        displayAmmo();
     }
   
 }

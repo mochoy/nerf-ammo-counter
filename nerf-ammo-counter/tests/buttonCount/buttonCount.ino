@@ -11,7 +11,7 @@ Adafruit_SSD1306 display(OLED_RESET);
 #define SCREEN_HEIGHT 64
 
 //keep track of button information
-const byte BTN_PIN = 2;   //which pin the button is connected to
+const byte BTN_PIN = 4;   //which pin the button is connected to
 int btnState, lastBtnState = LOW, cntr = 0;   //button states
 
 //delay and timing of the button presses
@@ -49,7 +49,7 @@ void loop() {
 }
 
 //pring stuff to the screen
-void printToScreen (int x, int y, String text, bool toClearScreen) {
+void printToScreen (int x, int y, String text) {
     display.clearDisplay();     //clear the display
     display.setTextSize(1);     //set the size of text to 1
     display.setTextColor(WHITE);    //set the color to white

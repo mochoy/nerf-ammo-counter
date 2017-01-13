@@ -35,7 +35,7 @@ void setup() {
   //show the ammo
   displayAmmo();
 
-  //turn on an LED on the board
+  //turn on an LED on the board. This will make the red LED an indicator that the board is powered up and all. 
   digitalWrite(13, HIGH);
 
 }
