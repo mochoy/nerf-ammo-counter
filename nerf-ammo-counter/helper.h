@@ -166,13 +166,10 @@ void countAmmo() {
         } else if ( (currentAmmo > 0) && (magSizeArr[currentMagSize] != 0) ){
           currentAmmo--;    //decrement ammo
         }
-    }
 
-    //make sure a magazine is inserted before displaying the ammo
-    if (isMagInserted()) {
-      displayAmmo();    //display the ammo
+        displayAmmo();    //display the ammo
+
     }
-  
 }
 
 //change magazines
@@ -181,10 +178,7 @@ void changeMag() {
     if (btnArr[1].isBtnPressed(false) ) {   //when the magazine is inserted
         currentAmmo = maxAmmo;  //set current ammo to the max amount of ammo
         displayAmmo();  //display ammo
-    } else if (btnArr[1].isBtnPressed(true) ) {   //when the magazine is removed
-        currentAmmo = 0;
-        displayAmmo();
-    }
+    } 
   
 }
 
@@ -204,11 +198,9 @@ void toggleMags () {
         //there's a new max ammo, because there's a new magazine size
         maxAmmo = magSizeArr[currentMagSize];
         currentAmmo = maxAmmo;
-    }
 
-    //make sure a magazine is inserted before display ammo
-    if (isMagInserted()) {
         displayAmmo();    //display the maxAmmo
+
     }
   
 }
