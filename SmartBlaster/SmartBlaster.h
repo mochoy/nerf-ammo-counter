@@ -46,8 +46,8 @@ class SmartBlaster {
         byte _voltMeterInputPin;
         byte _toggleSelectFireInputPin;
 
-        byte _I2C-SPA-Pin;
-        byte _I2C-SCK-Pin;   
+        byte _I2C-SDA-Pin;
+        byte _I2C-SCL-Pin;   
 
         byte _selectFireOutputPin; 
 
@@ -71,10 +71,10 @@ class SmartBlaster {
         SmartBlaster(bool[], byte[], byte[], init[]);
 
         //init stuff
-        void initModes(bool, bool, bool, bool);
-        void initIOPins(byte, byte, byte, byte, byte, byte);
-        void initButtons(byte[]);
-        void initMagSizes(int[]);
+        SmartBlaster& initModes(bool, bool, bool, bool);
+        SmartBlaster& initIOPins(byte, byte, byte, byte, byte, byte);
+        SmartBlaster& initButtons(byte[]);
+        SmartBlaster& initMagSizes(int[]);
 
         //display stuff
         void displayValues();
