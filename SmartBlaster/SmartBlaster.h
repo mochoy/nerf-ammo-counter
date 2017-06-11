@@ -3,6 +3,11 @@
 
 #include "Arduino.h"
 
+#include <Adafruit_GFX.h>
+#include <Adafruit_SSD1306.h>
+
+#include <Button.h>
+
 //stuff to help keep track of magazine stuff
 //
 //
@@ -19,6 +24,8 @@
 //"zeroith" value, I would do array[0]. If I want to access the value 3, the third value of the array, I would do array[2]
 class SmartBlaster {
 	public:
+        Button buttonArr[];
+
         //stuff to help keep track of magazine stuff
         //
         //
