@@ -68,13 +68,13 @@ class SmartBlaster {
     //methods
     public:
         //constructor
-        SmartBlaster();
+        SmartBlaster(bool[], byte[], byte[], init[]);
 
         //init stuff
-        SmartBlaster initModes(bool isIRGate, bool isChrono, bool isVoltmeter, bool isSelectFire);
-        SmartBlaster initIOPins(byte ammoCountingInputPin, byte magInsertionDetectionInputPin, byte magSizeToggleInputPin, byte voltMeterInputPin, byte toggleSelectFireInputPin, byte selectFireOutputPin);
-        SmartBlaster initButton(byte buttonPin);
-        SmartBlaster initMagSizes(int magSizes[]);
+        void initModes(bool, bool, bool, bool);
+        void initIOPins(byte, byte, byte, byte, byte, byte);
+        void initButtons(byte[]);
+        void initMagSizes(int[]);
 
         //display stuff
         void displayValues();
@@ -83,8 +83,8 @@ class SmartBlaster {
 
         //chrono stuff
         void resetChronoVals();
-        double calculateChronoReadings(double firstTime, double secondTime);
-        void initDisplayChronoValues(double fps);
+        double calculateChronoReadings(double, double);
+        void initDisplayChronoValues(double);
         void chrono();
 
         //mag stuff
