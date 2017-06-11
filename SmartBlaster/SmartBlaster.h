@@ -25,6 +25,8 @@
 class SmartBlaster {
 	public:
         Button buttonArr[];
+        Adafruit_SSD1306 display;
+
 
         //stuff to help keep track of magazine stuff
         //
@@ -82,7 +84,7 @@ class SmartBlaster {
         SmartBlaster& initIOPins(byte, byte, byte, byte, byte, byte);
         SmartBlaster& initButtons(byte[]);
         SmartBlaster& initMagSizes(int[]);
-        SmartBlaster& initDisplay();
+        SmartBlaster& initDisplay(Adafruit_SSD1306);
 
 
         //display stuff

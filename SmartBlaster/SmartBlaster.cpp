@@ -71,7 +71,8 @@ SmartBlaster& initMagSizes(int[] magSizes) {
 	return *this;
 }
 
-SmartBlaster& initDisplay() {
+SmartBlaster& initDisplay(Adafruit_SSD1306 displayArg) {
+	display = displayArg;
 
 	return *this;
 }
