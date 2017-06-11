@@ -7,6 +7,13 @@ SmartBlaster (bool[] modes, byte[] IOPins, byte[] buttons, init[] magSizes) {
 	lastVoltageCheckTime = 0;
 	delayTime = 500;
 
+	chronoToPrint = "";
+    ammoToPrint = "";
+    voltageToPrint = "";
+    firingModeToPrint = "";
+
+    fireMode = 0;
+
 	initModes().initIOPins().initButtons();
 }
 
@@ -75,4 +82,29 @@ SmartBlaster& initDisplay(Adafruit_SSD1306 displayArg) {
 	display = displayArg;
 
 	return *this;
+}
+
+void displayValues () {
+	//display ammo
+	display.clearDisplay(); //clear the display, so the stuff that was here before is no longer here
+	display.setTextSize(6);  //set the size of the text
+	display.setTextColor(WHITE);    //set the color of text text
+	//tell the display where to draw the text
+	display.setCursor( (SCREEN_WIDTH/2) - ((ammoToPrint.length()*2) * 9) , (SCREEN_HEIGHT/2) - 30 );  //center text
+	display.print(ammoToPrint);    //print the text
+
+	//display chrono values
+	display.setTextSize(1);
+	display.setCursor(0, 50);  
+	display.print(chronoToPrint);
+
+	//display voltage values
+	display.setCursor(60, 50);
+	display.print(voltageToPrint);
+
+	  //display fire mode
+	display.setCursor(80, 50);  
+	display.print(firingModeToPrint);
+  
+	display.display(); //display the text
 }

@@ -25,7 +25,15 @@
 class SmartBlaster {
 	public:
         Button buttonArr[];
+
         Adafruit_SSD1306 display;
+
+        String chronoToPrint;
+        String ammoToPrint;
+        String voltageToPrint;
+        String firingModeToPrint;
+
+        byte fireMode;
 
 
         //stuff to help keep track of magazine stuff
@@ -89,13 +97,14 @@ class SmartBlaster {
 
         //display stuff
         void displayValues();
-        void displayVoltage();
-        void displayAmmo();
+        void initDisplayVoltage();
+        void initDisplayAmmo();
+        void initDisplayChrono(double);
+        void initDisplayMode();
 
         //chrono stuff
         void resetChronoVals();
         double calculateChronoReadings(double, double);
-        void initDisplayChronoValues(double);
         void chrono();
 
         //mag stuff
@@ -103,8 +112,9 @@ class SmartBlaster {
         void toggleMags();
 
         void voltmeter();
-
         void ammoCounter();
+        void fireModeMotorControl();
+
 
         void smartMyBlaster();
 };
