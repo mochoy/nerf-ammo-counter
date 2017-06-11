@@ -94,6 +94,8 @@ class SmartBlaster {
         void voltmeter();
 
         void ammoCounter();
+
+        void smartMyBlaster();
 };
 
 #endif

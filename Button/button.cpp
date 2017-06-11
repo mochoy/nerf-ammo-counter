@@ -10,6 +10,8 @@ Button(int pin){
     debounceDelay = 50;
     lastBtnState = LOW;
     numTimesPressed = 0;
+
+    isPressed = false
 }
 
 bool isButtonPressed(bool isCheckHighVal){

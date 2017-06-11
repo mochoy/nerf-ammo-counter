@@ -20,7 +20,7 @@ class Button {
 
 
 	public:
-        bool isPressed = false;   //so we can check the state of the button in other places
+        bool isPressed;   //so we can check the state of the button in other places
 
         unsigned long numTimesPressed;    //keep track of how many times the button is pressed
 
