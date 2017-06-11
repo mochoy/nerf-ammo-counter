@@ -75,6 +75,8 @@ class SmartBlaster {
         SmartBlaster& initIOPins(byte, byte, byte, byte, byte, byte);
         SmartBlaster& initButtons(byte[]);
         SmartBlaster& initMagSizes(int[]);
+        SmartBlaster& initDisplay();
+
 
         //display stuff
         void displayValues();
