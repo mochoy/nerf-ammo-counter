@@ -4,14 +4,16 @@
 using namespace Button;
 
 Button(int pin){
-  	pinMode(pin, INPUT);
-  	_pin = pin;
+    if (pin > 0){
+      	pinMode(pin, INPUT);
+      	_pin = pin;
 
-    debounceDelay = 50;
-    lastBtnState = LOW;
-    numTimesPressed = 0;
+        debounceDelay = 50;
+        lastBtnState = LOW;
+        numTimesPressed = 0;
 
-    isPressed = false
+        isPressed = false
+    }
 }
 
 bool isButtonPressed(bool isCheckHighVal){
