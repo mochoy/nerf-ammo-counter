@@ -93,18 +93,25 @@ void displayValues () {
 	display.setCursor( (SCREEN_WIDTH/2) - ((ammoToPrint.length()*2) * 9) , (SCREEN_HEIGHT/2) - 30 );  //center text
 	display.print(ammoToPrint);    //print the text
 
-	//display chrono values
 	display.setTextSize(1);
-	display.setCursor(0, 50);  
-	display.print(chronoToPrint);
+	
+	//display chrono values
+	if (_isChrono) {
+		display.setCursor(0, 50);  
+		display.print(chronoToPrint);
+	}
 
 	//display voltage values
-	display.setCursor(60, 50);
-	display.print(voltageToPrint);
+	if (_isVoltmeter) {
+		display.setCursor(60, 50);
+		display.print(voltageToPrint);
+	}
 
-	  //display fire mode
-	display.setCursor(80, 50);  
-	display.print(firingModeToPrint);
+	//display fire mode
+	if (_isSelectFire) {
+		display.setCursor(80, 50);  
+		display.print(firingModeToPrint);
+	}	
   
 	display.display(); //display the text
 }
