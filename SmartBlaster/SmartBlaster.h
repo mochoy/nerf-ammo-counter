@@ -44,6 +44,12 @@ class SmartBlaster {
         byte _magInsertionDetectionInputPin;
         byte _magSizeToggleInputPin; 
         byte _voltMeterInputPin;
+        byte _toggleSelectFireInputPin;
+
+        byte _I2C-SPA-Pin;
+        byte _I2C-SCK-Pin;   
+
+        byte _selectFireOutputPin; 
 
         //stuff for dealing with modes: chrono, voltmeter, etc.
         bool _isIRGate;  
