@@ -14,6 +14,9 @@ SmartBlaster (bool[] modes, byte[] IOPins, byte[] buttons, init[] magSizes) {
 
     fireMode = 0;
 
+    IR_MAP_TRIP_VAL = 95;
+    DART_LEGNTH_FEET = 0.2362208333;
+
 	initModes().initIOPins().initButtons();
 }
 
@@ -168,7 +171,7 @@ void resetChronoVals() {
 }
 
 double calculateChronoReadings(double firstTime, double secondTime) {
-	 if ( (tripTime > -10) && (exitTime > -10) ) {
+	if ( (tripTime > -10) && (exitTime > -10) ) {
         resetChronoVals();
         return (DART_LEGNTH_FEET) / ((secondTime-firstTime)/1000000.0);
 	}

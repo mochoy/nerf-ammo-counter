@@ -8,9 +8,6 @@
 
 #include <Button.h>
 
-#define IR_MAP_TRIP_VAL 95
-#define DART_LEGNTH_FEET 0.2362208333
-
 //stuff to help keep track of magazine stuff
 //
 //
@@ -38,6 +35,8 @@ class SmartBlaster {
 
         byte fireMode;
 
+        static const int IR_MAP_TRIP_VAL;
+        static const float DART_LEGNTH_FEET;
 
         //stuff to help keep track of magazine stuff
         //
