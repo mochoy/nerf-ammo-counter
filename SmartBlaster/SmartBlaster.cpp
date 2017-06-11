@@ -207,5 +207,34 @@ void chrono() {
     } 
 }
 
+void changeMags() {
+	//make sure the magazine insertion detection button is pressed from not being pressed
+    if (btnArr[1].isBtnPressed(true) ) {   //when the magazine is inserted
+        currentAmmo = maxAmmo;  //set current ammo to the max amount of ammo
+        displayAmmo();  //display ammo
+	}
+}
+
+void toggleMags() {
+	//check if the magazine toggle button is pressed
+  if (btnArr[2].isBtnPressed(false)) {
+      //make sure the value doesn't overflow:
+      //if the we're trying to access the 10th element of the array, but there are only 9 elements, the program will break
+        //must keep the value trying to access is within the amount of values there are. 
+        if (currentMagSize < ((sizeof(magSizeArr)/sizeof(magSizeArr[0])) - 1) ) {
+            currentMagSize ++;  //change current magazine size
+        } else {  
+            currentMagSize = 0;
+        }
+
+        //there's a new max ammo, because there's a new magazine size
+        maxAmmo = magSizeArr[currentMagSize];
+        currentAmmo = maxAmmo;
+
+        displayAmmo();    //display the maxAmmo
+
+	} 
+}
+
 
 
