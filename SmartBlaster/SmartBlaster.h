@@ -17,7 +17,7 @@
 //stores, and the number between the parenthesis indicates which place they are, their "index", where they are in the list/array. 
 //If I want to access the value 1, which is the first value of the array/list, which the computer sees as the 
 //"zeroith" value, I would do array[0]. If I want to access the value 3, the third value of the array, I would do array[2]
-class AmmoCounter {
+class SmartBlaster {
 	public:
         //stuff to help keep track of magazine stuff
         //
@@ -62,8 +62,8 @@ class AmmoCounter {
     //methods
     public:
         //init stuff
-        AmmoCounter initModes();
-        AmmoCounter initButtons();
+        SmartBlaster initModes();
+        SmartBlaster initButtons();
 
         //display stuff
         void displayValues();
