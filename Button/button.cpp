@@ -1,5 +1,5 @@
 #include "Arduino.h"
-#include "Morse.h"
+#include "Button.h"
 
 Button::Button(int pin){
   	pinMode(pin, INPUT);
