@@ -60,3 +60,18 @@ SmartBlaster& initButtons () {
 	return *this;
 }
 
+SmartBlaster& initMagSizes(int[] magSizes) {
+	for (int i = 0; i < ((sizeof(magSizes)/sizeof(magSizes[0])) - 1), i++) {
+		magSizeArr[i] = magSizes[i];
+	}
+    currentMagSize = 0;
+    maxAmmo = magSizeArr[currentMagSize];
+    curretAmmo = maxAmmo;
+
+	return *this;
+}
+
+SmartBlaster& initDisplay() {
+
+	return *this;
+}
