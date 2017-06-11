@@ -37,6 +37,8 @@ class SmartBlaster {
 
         static const int IR_MAP_TRIP_VAL;
         static const float DART_LEGNTH_FEET;
+        static const float R1;
+        static const float R2;
 
         //stuff to help keep track of magazine stuff
         //

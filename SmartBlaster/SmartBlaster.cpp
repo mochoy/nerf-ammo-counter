@@ -17,6 +17,9 @@ SmartBlaster (bool[] modes, byte[] IOPins, byte[] buttons, init[] magSizes) {
     IR_MAP_TRIP_VAL = 95;
     DART_LEGNTH_FEET = 0.2362208333;
 
+    R1 = 100000.0 
+    R2 = 10000.0
+
 	initModes().initIOPins().initButtons();
 }
 
@@ -234,6 +237,23 @@ void toggleMags() {
         displayAmmo();    //display the maxAmmo
 
 	} 
+}
+
+void voltMeter () {
+	//make sure only prints every .5 sec
+    if (millis() >= lastVoltageCheckTime + delayTime) {
+        //calculate voltage
+        float voltageIn = ((analogRead(VOLTMETER_PIN) * 5.0) / 1024.0) / (R2/ (R1 + R2));
+    
+        //make sure voltage is above 0.03, since it could be an error
+        if (voltageIn < 0.5) {
+            voltageIn = 0; 
+        }
+
+        displayVoltage(voltageIn);
+
+        lastVoltageCheckTime = millis();
+	}
 }
 
 
