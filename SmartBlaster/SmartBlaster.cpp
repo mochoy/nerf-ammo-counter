@@ -94,7 +94,7 @@ void displayValues () {
 	display.print(ammoToPrint);    //print the text
 
 	display.setTextSize(1);
-	
+
 	//display chrono values
 	if (_isChrono) {
 		display.setCursor(0, 50);  
@@ -115,3 +115,50 @@ void displayValues () {
   
 	display.display(); //display the text
 }
+
+void initDisplayVoltage (Double voltage) {
+	voltageToPrint = (String)voltage + " v";
+	displayValues();
+}
+
+void initDisplayAmmo () {
+	String textToDisplay = "00";    //create something to store what to print. This is empty now
+    //if the ammo to print, current ammo, is less that 10, make it like '01' or '04'  
+    if (currentAmmo < 10) {
+      textToDisplay = "0" + (String)currentAmmo; //fill the thing we used to store what to print
+    } else {    //if not, leave it as is
+      textToDisplay = (String)currentAmmo;   //fill the thing we used to store what to print
+    }
+
+    ammoToPrint = textToDisplay;  //display the text, the ammo
+
+	displayValues();
+}
+
+void initDisplayChrono (double fps) {
+	if (fps == -1) {
+	        chronoToPrint = ("ERR");
+	    } else if (fps == -2) {
+	        chronoToPrint = ("NO FPS");
+	    } else {
+	        chronoToPrint = ( (String)(fps)  + " fps" );
+	}
+
+	displayValues();	
+}
+
+void initDisplayFireMode() {
+	//print text based on mode: 0 == S == Safety, 1 == SS == Single Shot, 2 == 3B == 3 Round Burst, 3 == A == Automatic
+	if (fireMode == 0) {
+	    modeToPrint = "S";
+	} else if (fireMode == 1) {
+	    modeToPrint = "SS";
+	} else if (fireMode == 2) {
+	    modeToPrint = "3B";
+	} else if (fireMode == 3) {
+	    modeToPrint = "A";
+	}	
+
+	displayValues();
+}
+
