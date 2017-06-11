@@ -4,6 +4,10 @@
 Button::Button(int pin){
   	pinMode(pin, INPUT);
   	_pin = pin;
+
+    debounceDelay = 50;
+    lastBtnState = LOW;
+    numTimesPressed = 0;
 }
 
 bool Button::isButtonPressed(bool isCheckHighVal){

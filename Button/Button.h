@@ -13,16 +13,16 @@ class Button {
 		//some special values for checking if the button is pressed, called debouncing
         //simply checking if a button has been pressed isn't always so easy, so we do this. 
         unsigned long lastDebounceTime;   //keep track of when the button was pressed
-        unsigned long debounceDelay = 50;  //create a delay between when to check. Here, its 50 milliseconds. 
+        unsigned long debounceDelay;  //create a delay between when to check. Here, its 50 milliseconds. 
 
         int btnState;   //keep track of the state of the button: pressed(HIGH), or not pressed(LOW)
-        int lastBtnState = LOW;   //and the last state of the button
+        int lastBtnState;   //and the last state of the button
 
 
 	public:
         bool isPressed = false;   //so we can check the state of the button in other places
 
-        unsigned long numTimesPressed = 0;    //keep track of how many times the button is pressed
+        unsigned long numTimesPressed;    //keep track of how many times the button is pressed
 
 
        	//initialze some stuff for the button when its created
