@@ -8,6 +8,9 @@
 
 #include <Button.h>
 
+#define IR_MAP_TRIP_VAL 95
+#define DART_LEGNTH_FEET 0.2362208333
+
 //stuff to help keep track of magazine stuff
 //
 //

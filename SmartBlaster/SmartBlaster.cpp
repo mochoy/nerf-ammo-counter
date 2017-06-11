@@ -162,3 +162,47 @@ void initDisplayFireMode() {
 	displayValues();
 }
 
+void resetChronoVals() {
+	tripTime = -10;
+	exitTime = -10;
+}
+
+double calculateChronoReadings(double firstTime, double secondTime) {
+	 if ( (tripTime > -10) && (exitTime > -10) ) {
+        resetChronoVals();
+        return (DART_LEGNTH_FEET) / ((secondTime-firstTime)/1000000.0);
+	}
+}
+
+void chrono() {
+    //when tripped and expecting first value
+    if ((map(analogRead(_ammoCountingInputPin), 0, 1023, 0, 100) > IR_MAP_TRIP_VAL) && (tripTime == -10) ) { 
+        tripTime = micros();
+    //when tripped and expecting second value
+    } else if ( (tripTime != -10) && (exitTime == -10) && (map(analogRead(_ammoCountingInputPin), 0, 1023, 0, 100) < IR_MAP_TRIP_VAL) )  {
+        exitTime = micros();
+        initDisplayChronoValues(calculateChronoReadings(tripTime, exitTime));
+
+        //count ammo stuff
+        //make sure that the ammo is less than 99 so it doesnt overflow the display
+        //make sure it's in increment mode
+        if ( (magSizeArr[currentMagSize] == 0) && (currentAmmo < 99) ) {
+            currentAmmo++;    //increment ammo
+        
+        //make sure that the ammo is more than 0 so no negative numbers are displayed
+        //make sure it's in increment mode
+        } else if ( (currentAmmo > 0) && (magSizeArr[currentMagSize] != 0) ){
+            currentAmmo--;    //decrement ammo
+        }
+    
+        displayAmmo();    //display the ammo    
+        
+    //when no second value within 1 second
+    } else if ( (tripTime != -10) && (tripTime + 2000000) < micros() ) {
+        resetChronoVals();
+        initDisplayChronoValues(-1);
+    } 
+}
+
+
+
