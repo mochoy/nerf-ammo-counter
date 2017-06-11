@@ -76,7 +76,7 @@ class SmartBlaster {
         void displayVoltage();
         void displayAmmo();
 
-        //crhono stuff
+        //chrono stuff
         void resetChronoVals();
         double calculateChronoReadings(double firstTime, double secondTime);
         void initDisplayChronoValues(double fps);

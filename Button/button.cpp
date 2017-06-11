@@ -1,7 +1,9 @@
 #include "Arduino.h"
 #include "Button.h"
 
-Button::Button(int pin){
+using namespace Button;
+
+Button(int pin){
   	pinMode(pin, INPUT);
   	_pin = pin;
 
@@ -10,7 +12,7 @@ Button::Button(int pin){
     numTimesPressed = 0;
 }
 
-bool Button::isButtonPressed(bool isCheckHighVal){
+bool isButtonPressed(bool isCheckHighVal){
 	//here, we actually check if the button is pressed, "debounce"
     bool returnVal = false;     //flag so can return at end of method
 
