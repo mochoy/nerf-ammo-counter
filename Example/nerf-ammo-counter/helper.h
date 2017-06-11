@@ -1,5 +1,4 @@
-//since we have three buttons, I don't want to type the exact same code 3 times. So I use this. 
-//Here, each button has all its own values, all for itself, and I only have to type the code once
+
 class Button {
     public:
         //a variable to store the value of the pin, so the computer knows which one to check
