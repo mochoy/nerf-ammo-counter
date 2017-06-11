@@ -67,9 +67,13 @@ class SmartBlaster {
 
     //methods
     public:
+        //constructor
+        SmartBlaster();
+
         //init stuff
-        SmartBlaster initModes();
-        SmartBlaster initButtons();
+        SmartBlaster initModes(bool isIRGate, bool isChrono, bool isVoltmeter, bool isSelectFire);
+        SmartBlaster initIOPins(byte ammoCountingInputPin, byte magInsertionDetectionInputPin, byte magSizeToggleInputPin, byte voltMeterInputPin, byte toggleSelectFireInputPin, byte selectFireOutputPin);
+        SmartBlaster initButton(byte buttonPin);
 
         //display stuff
         void displayValues();
