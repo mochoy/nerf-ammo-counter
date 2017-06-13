@@ -54,16 +54,16 @@ class SmartBlaster {
         byte curretAmmo;
 
         //stuff for dealing with pins
-        byte _ammoCountingInputPin;
-        byte _magInsertionDetectionInputPin;
-        byte _magSizeToggleInputPin; 
-        byte _voltMeterInputPin;
-        byte _toggleSelectFireInputPin;
+        byte _AMMO_COUNTING_INPUT_PIN;
+        byte _MAG_INSERTION_DETECTION_PIN;
+        byte _MAG_SIZE_TOGGLE_INPUT_PIN; 
+        byte _VOLTMETER_INPUT_PIN;
+        byte _TOGGLE_SELECT_FIRE_INPUT_PIN;
 
         byte _I2C-SDA-Pin;
         byte _I2C-SCL-Pin;   
 
-        byte _selectFireOutputPin; 
+        byte _SELECT_FIRE_OUTPUT_PIN; 
 
         //to keep buttons simpler
         Button buttonArr[];

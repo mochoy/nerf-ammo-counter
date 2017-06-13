@@ -33,18 +33,18 @@ SmartBlaster& initModes (bool[] modes) {
 }
 
 SmartBlaster& initIOPins (byte[] pins) {
-	_ammoCountingInputPin = pins[0];
-	_magInsertionDetectionInputPin = pins[1];
-	_magSizeToggleInputPin = pins[2];
+	_AMMO_COUNTING_INPUT_PIN = pins[0];
+	_MAG_INSERTION_DETECTION_PIN = pins[1];
+	_MAG_SIZE_TOGGLE_INPUT_PIN = pins[2];
 
 	if (_isVoltmeter) {
-		_voltMeterInputPin = pins[3];
+		_VOLTMETER_INPUT_PIN = pins[3];
 	}
 
 	if (_isSelectFire) {
-		_toggleSelectFireInputPin = pins[4];
-		_selectFireOutputPin = pins[5];
-		pinMode(_selectFireOutputPin, OUTPUT);
+		_TOGGLE_SELECT_FIRE_INPUT_PIN = pins[4];
+		_SELECT_FIRE_OUTPUT_PIN = pins[5];
+		pinMode(_SELECT_FIRE_OUTPUT_PIN, OUTPUT);
 	}
 
 	_I2C-SDA-Pin = 4;
@@ -60,16 +60,16 @@ SmartBlaster& initIOPins (byte[] pins) {
 // buttonArr[3] = toggle select fire, if select fire mode selected
 SmartBlaster& initButtons () {
 	if (!_isIRGate) {
-		buttonArr[0] = Button(_ammoCountingInputPin);
+		buttonArr[0] = Button(_AMMO_COUNTING_INPUT_PIN);
 	} else {
 		buttonArr[0] = Button(-1);
 	}
 
-	buttonArr[1] = Button(_magInsertionDetectionInputPin);
-	buttonArr[2] = Button(_magSizeToggleInputPin);
+	buttonArr[1] = Button(_MAG_INSERTION_DETECTION_PIN);
+	buttonArr[2] = Button(_MAG_SIZE_TOGGLE_INPUT_PIN);
 
 	if (_isSelectFire) {
-		buttonArr[3] = Button(_toggleSelectFireInputPin);
+		buttonArr[3] = Button(_TOGGLE_SELECT_FIRE_INPUT_PIN);
 	} else {
 		buttonArr[3] = Button(-1);
 	}
@@ -187,10 +187,10 @@ double calculateChronoReadings(double firstTime, double secondTime) {
 
 void chrono() {
     //when tripped and expecting first value
-    if ((map(analogRead(_ammoCountingInputPin), 0, 1023, 0, 100) > IR_MAP_TRIP_VAL) && (tripTime == -10) ) { 
+    if ((map(analogRead(_AMMO_COUNTING_INPUT_PIN), 0, 1023, 0, 100) > IR_MAP_TRIP_VAL) && (tripTime == -10) ) { 
         tripTime = micros();
     //when tripped and expecting second value
-    } else if ( (tripTime != -10) && (exitTime == -10) && (map(analogRead(_ammoCountingInputPin), 0, 1023, 0, 100) < IR_MAP_TRIP_VAL) )  {
+    } else if ( (tripTime != -10) && (exitTime == -10) && (map(analogRead(_AMMO_COUNTING_INPUT_PIN), 0, 1023, 0, 100) < IR_MAP_TRIP_VAL) )  {
         exitTime = micros();
         initDisplayChronoValues(calculateChronoReadings(tripTime, exitTime));
 
@@ -238,7 +238,7 @@ void ammoCounter () {
 			countAmmo();
 		}
 	} else {
-		if (map(analogRead(_ammoCountingInputPin), 0, 1023, 0, 100) > IR_MAP_TRIP_VAL) {
+		if (map(analogRead(_AMMO_COUNTING_INPUT_PIN), 0, 1023, 0, 100) > IR_MAP_TRIP_VAL) {
 			countAmmo();
 		}
 	}
@@ -264,7 +264,7 @@ void voltMeter () {
 	//make sure only prints every .5 sec
     if (millis() >= lastVoltageCheckTime + delayTime) {
         //calculate voltage
-        float voltageIn = ((analogRead(VOLTMETER_PIN) * 5.0) / 1024.0) / (R2/ (R1 + R2));
+        float voltageIn = ((analogRead(_VOLTMETER_INPUT_PIN) * 5.0) / 1024.0) / (R2/ (R1 + R2));
     
         //make sure voltage is above 0.03, since it could be an error
         if (voltageIn < 0.5) {
@@ -315,9 +315,9 @@ void fireModeMotorControl() {
 
     //using the logic above, determine whether to shoot
     if (canShoot) {
-        digitalWrite(_selectFireOutputPin, HIGH);
+        digitalWrite(_SELECT_FIRE_OUTPUT_PIN, HIGH);
     } else {
-        digitalWrite(_selectFireOutputPin, LOW);
+        digitalWrite(_SELECT_FIRE_OUTPUT_PIN, LOW);
 	}
 }
 
