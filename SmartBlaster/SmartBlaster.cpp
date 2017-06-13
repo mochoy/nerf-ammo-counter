@@ -53,25 +53,22 @@ SmartBlaster& initIOPins (byte[] pins) {
     return *this;	
 }
 
-//buttons stored in array:
-// buttonArr[0] = trigger switch, if in trigger mode 
-// buttonArr[1] = magazine insertion detection switch
-// buttonAtt[2] = mag size toggle button
-// buttonArr[3] = toggle select fire, if select fire mode selected
+//buttons using the Buttons library
 SmartBlaster& initButtons () {
 	if (!_isIRGate) {
-		buttonArr[0] = Button(_AMMO_COUNTING_INPUT_PIN);
+		ammoCountingButton = Button(_AMMO_COUNTING_INPUT_PIN, false, false, 25);
 	} else {
-		buttonArr[0] = Button(-1);
+		ammoCountingButton = 0;
 	}
 
-	buttonArr[1] = Button(_MAG_INSERTION_DETECTION_PIN);
-	buttonArr[2] = Button(_MAG_SIZE_TOGGLE_INPUT_PIN);
+	magInsertionDetectionButton = Button(_MAG_INSERTION_DETECTION_PIN, false, false, 25);
+	magSizeToggleButton = Button(_MAG_SIZE_TOGGLE_INPUT_PIN, false, false, 25);
+
 
 	if (_isSelectFire) {
-		buttonArr[3] = Button(_TOGGLE_SELECT_FIRE_INPUT_PIN);
+		toggleSelectFireButton = Button(_TOGGLE_SELECT_FIRE_INPUT_PIN, false, false, 25);
 	} else {
-		buttonArr[3] = Button(-1);
+		buttonArr[3] = 0;
 	}
 
 
@@ -205,7 +202,7 @@ void chrono() {
 
 void changeMags() {
 	//make sure the magazine insertion detection button is pressed from not being pressed
-    if (btnArr[1].isBtnPressed(true) ) {   //when the magazine is inserted
+    if (magInsertionDetectionButton.isPressed()) {   //when the magazine is inserted
         currentAmmo = maxAmmo;  //set current ammo to the max amount of ammo
         displayAmmo();  //display ammo
 	}
@@ -213,7 +210,7 @@ void changeMags() {
 
 void toggleMags() {
 	//check if the magazine toggle button is pressed
-  if (btnArr[2].isBtnPressed(false)) {
+  if (magSizeToggleButton.isPressed()) {
       //make sure the value doesn't overflow:
       //if the we're trying to access the 10th element of the array, but there are only 9 elements, the program will break
         //must keep the value trying to access is within the amount of values there are. 
@@ -233,8 +230,8 @@ void toggleMags() {
 }
 
 void ammoCounter () {
-	if (!_isIRGate {
-		if (btnArr[2].isBtnPressed(false)) {
+	if (!_isIRGate) {
+		if (ammoCountingButton.isPressed()) {
 			countAmmo();
 		}
 	} else {
@@ -280,7 +277,7 @@ void voltMeter () {
 void fireModeMotorControl() {
 	boolean canShoot = false, wasDartFired = false;    //flags enabling shooting    
     //check trigger switch was pressed
-    if (btnArr[1].isBtnPressed(true)) {
+    if (toggleSelectFireButton.isPressed()) {
         wasDartFired = true;
     }
     
@@ -304,10 +301,17 @@ void fireModeMotorControl() {
             wasDartFired = false;
         }
     } else if (fireMode == 3) { //if in full auto
-        //make sure trigger switch pressed 
-        if (btnArr[1].isPressed) {
-            canShoot = true;
-        }
+        //make sure trigger switch pressed/blaster fired
+        if (_isIRGate) {
+        	if (map(analogRead(_AMMO_COUNTING_INPUT_PIN), 0, 1023, 0, 100) > IR_MAP_TRIP_VAL) {
+				canShoot = true;
+			}
+		} else {
+			if (ammoCountingButton.isPressed()) {
+            	canShoot = true;
+        	}
+		}
+        
     } else {    //if not in fully auto, single shot, or burst
         //can't shoot
         canShoot = false;
@@ -322,7 +326,7 @@ void fireModeMotorControl() {
 }
 
 void toggleFireModeControl () {
-	if (buttonArr[3].isPressed(true)) {
+	if (toggleSelectFireButton.isPressed()) {
 		if (fireMode < 3) {
 			fireMode++;
 		} else {

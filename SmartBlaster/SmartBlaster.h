@@ -65,8 +65,11 @@ class SmartBlaster {
 
         byte _SELECT_FIRE_OUTPUT_PIN; 
 
-        //to keep buttons simpler
-        Button buttonArr[];
+        //to keep keep track of the buttons
+        Button ammoCountingButton;
+        Button magInsertionDetectionButton;
+        Button magSizeToggleButton;
+        button toggleSelectFireButton;
 
         // Strings to know what to print
         String chronoToPrint;
