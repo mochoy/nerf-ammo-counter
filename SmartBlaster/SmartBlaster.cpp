@@ -329,7 +329,8 @@ void toggleFireModeControl () {
 			fireMode = 0;
 		}
 
-		
+		initDisplayFireMode();
+
 	}
 }
 
