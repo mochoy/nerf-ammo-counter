@@ -334,5 +334,25 @@ void toggleFireModeControl () {
 	}
 }
 
+void smartMyBlaster () {
+	toggleMags();
+	changeMags();
+
+	if (!_isChrono) {
+		ammoCounter();
+	} else {
+		chrono();
+	}
+
+	if (_isVoltmeter) {
+		voltMeter();
+	}
+
+	if (_isSelectFire) {
+		fireModeMotorControl();
+		toggleFireModeControl();
+
+	}
+}
 
 
