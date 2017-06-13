@@ -189,19 +189,7 @@ void chrono() {
         exitTime = micros();
         initDisplayChronoValues(calculateChronoReadings(tripTime, exitTime));
 
-        //count ammo stuff
-        //make sure that the ammo is less than 99 so it doesnt overflow the display
-        //make sure it's in increment mode
-        if ( (magSizeArr[currentMagSize] == 0) && (currentAmmo < 99) ) {
-            currentAmmo++;    //increment ammo
-        
-        //make sure that the ammo is more than 0 so no negative numbers are displayed
-        //make sure it's in increment mode
-        } else if ( (currentAmmo > 0) && (magSizeArr[currentMagSize] != 0) ){
-            currentAmmo--;    //decrement ammo
-        }
-    
-        displayAmmo();    //display the ammo    
+        countAmmo();  
         
     //when no second value within 1 second
     } else if ( (tripTime != -10) && (tripTime + 2000000) < micros() ) {
@@ -239,6 +227,34 @@ void toggleMags() {
 	} 
 }
 
+void ammoCounter () {
+	if (!_isIRGate {
+		if (btnArr[2].isBtnPressed(false)) {
+			countAmmo();
+		}
+	} else {
+		if (map(analogRead(_ammoCountingInputPin), 0, 1023, 0, 100) > IR_MAP_TRIP_VAL) {
+			countAmmo();
+		}
+	}
+}
+
+void countAmmo () {
+	//count ammo stuff
+    //make sure that the ammo is less than 99 so it doesnt overflow the display
+    //make sure it's in increment mode
+    if ( (magSizeArr[currentMagSize] == 0) && (currentAmmo < 99) ) {
+        currentAmmo++;    //increment ammo
+    
+    //make sure that the ammo is more than 0 so no negative numbers are displayed
+    //make sure it's in increment mode
+    } else if ( (currentAmmo > 0) && (magSizeArr[currentMagSize] != 0) ){
+        currentAmmo--;    //decrement ammo
+    }
+
+    displayAmmo();    //display the ammo  
+}
+
 void voltMeter () {
 	//make sure only prints every .5 sec
     if (millis() >= lastVoltageCheckTime + delayTime) {
@@ -253,19 +269,8 @@ void voltMeter () {
         displayVoltage(voltageIn);
 
         lastVoltageCheckTime = millis();
-	}f
-}
-
-void ammoCounter () {
-	if (!_isIRGate {
-		if (btnArr[2].isBtnPressed(false)) {
-			countAmmo();
-		}
-	} else {
-		if (map(analogRead(_ammoCountingInputPin), 0, 1023, 0, 100) > IR_MAP_TRIP_VAL) {
-			countAmmo();
-		}
 	}
-
 }
+
+
 
