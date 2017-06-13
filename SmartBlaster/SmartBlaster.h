@@ -90,7 +90,7 @@ class SmartBlaster {
 
         //value for dealing with select-fire
         byte lastAmmo;
-        byte fireMode;
+        byte fireMode;  //0 = safe = SF, 1 = semi-automatic = SA, 2 = 3 round burst = 3b, 3 = fully automatic = AM
 
     //methods
     public:

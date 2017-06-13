@@ -12,7 +12,7 @@ SmartBlaster (bool[] modes, byte[] IOPins, byte[] buttons, init[] magSizes) {
     voltageToPrint = "";
     firingModeToPrint = "";
 
-    fireMode = 0;
+    fireMode = 0;	//0 = safe = SF, 1 = semi-automatic = SA, 2 = 3 round burst = 3b, 3 = fully automatic = AM
 
     IR_MAP_TRIP_VAL = 95;
     DART_LEGNTH_FEET = 0.2362208333;
@@ -53,6 +53,11 @@ SmartBlaster& initIOPins (byte[] pins) {
     return *this;	
 }
 
+//buttons stored in array:
+// buttonArr[0] = trigger switch, if in trigger mode 
+// buttonArr[1] = magazine insertion detection switch
+// buttonAtt[2] = mag size toggle button
+// buttonArr[3] = toggle select fire, if select fire mode selected
 SmartBlaster& initButtons () {
 	if (!_isIRGate) {
 		buttonArr[0] = Button(_ammoCountingInputPin);
@@ -310,9 +315,21 @@ void fireModeMotorControl() {
 
     //using the logic above, determine whether to shoot
     if (canShoot) {
-        digitalWrite(PUSHER_MOTOR_PIN, HIGH);
+        digitalWrite(_selectFireOutputPin, HIGH);
     } else {
-        digitalWrite(PUSHER_MOTOR_PIN, LOW);
+        digitalWrite(_selectFireOutputPin, LOW);
+	}
+}
+
+void toggleFireModeControl () {
+	if (buttonArr[3].isPressed(true)) {
+		if (fireMode < 3) {
+			fireMode++;
+		} else {
+			fireMode = 0;
+		}
+
+		
 	}
 }
 
