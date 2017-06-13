@@ -24,17 +24,11 @@
 //"zeroith" value, I would do array[0]. If I want to access the value 3, the third value of the array, I would do array[2]
 class SmartBlaster {
 	public:
-        Button buttonArr[];
-
+        //display
         Adafruit_SSD1306 display;
 
-        String chronoToPrint;
-        String ammoToPrint;
-        String voltageToPrint;
-        String firingModeToPrint;
-
-        byte fireMode;
-
+    private:
+        //usefule constant values needed to deal with specific functions
         static const int IR_MAP_TRIP_VAL;
         static const float DART_LEGNTH_FEET;
         static const float R1;
@@ -59,7 +53,6 @@ class SmartBlaster {
         byte maxAmmo;
         byte curretAmmo;
 
-    private: 
         //stuff for dealing with pins
         byte _ammoCountingInputPin;
         byte _magInsertionDetectionInputPin;
@@ -71,6 +64,15 @@ class SmartBlaster {
         byte _I2C-SCL-Pin;   
 
         byte _selectFireOutputPin; 
+
+        //to keep buttons simpler
+        Button buttonArr[];
+
+        // Strings to know what to print
+        String chronoToPrint;
+        String ammoToPrint;
+        String voltageToPrint;
+        String firingModeToPrint;
 
         //stuff for dealing with modes: chrono, voltmeter, etc.
         bool _isIRGate;  
@@ -85,6 +87,10 @@ class SmartBlaster {
         //values for dealing with voltmeter stuff
         double lastVoltageCheckTime;
         int delayTime;
+
+        //value for dealing with select-fire
+        byte lastAmmo;
+        byte fireMode;
 
     //methods
     public:
@@ -119,7 +125,9 @@ class SmartBlaster {
         void countAmmo();
 
         void voltmeter();
+
         void fireModeMotorControl();
+        void toggleFireModeControl();
 
         void smartMyBlaster();
 };

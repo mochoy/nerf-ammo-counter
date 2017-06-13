@@ -272,5 +272,49 @@ void voltMeter () {
 	}
 }
 
+void fireModeMotorControl() {
+	boolean canShoot = false, wasTriggerPressed = false;    //flags enabling shooting    
+    //check trigger switch was pressed
+    if (btnArr[1].isBtnPressed(true)) {
+        wasTriggerPressed = true;
+    }
+    
+    if ((fireMode == 1 || fireMode == 2) && wasTriggerPressed == true) {    // if in burst mode or single shot mode, and if trigger pressed
+        //based on the fire mode (single shot or burst), we will only fire a certain number if shots
+        byte modeAmmoIndex;
+        if (fireMode == 1) {
+            modeAmmoIndex = 1;
+        } else {
+            modeAmmoIndex = 3;
+        }
+
+        //make sure haven't fired more than 1/3 shots, depending on the fire mode
+        if ((currentAmmo - modeAmmoIndex) < (lastAmmo - 1)) {   
+            //if haven't fired more than 1/3 shot, depending on fireMode, still can shoot more
+            canShoot = true;
+            lastAmmo = currentAmmo;
+        } else {
+            //if fired more than 1/3 shots, depending on mode, can't shoot anymore, and wait for next time trigger pressed
+            canShoot = false;
+            wasTriggerPressed = false;
+        }
+    } else if (fireMode == 3) { //if in full auto
+        //make sure trigger switch pressed 
+        if (btnArr[1].isPressed) {
+            canShoot = true;
+        }
+    } else {    //if not in fully auto, single shot, or burst
+        //can't shoot
+        canShoot = false;
+    }
+
+    //using the logic above, determine whether to shoot
+    if (canShoot) {
+        digitalWrite(PUSHER_MOTOR_PIN, HIGH);
+    } else {
+        digitalWrite(PUSHER_MOTOR_PIN, LOW);
+	}
+}
+
 
 
