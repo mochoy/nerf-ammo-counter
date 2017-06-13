@@ -54,7 +54,7 @@ SmartBlaster& initIOPins (byte[] pins) {
 }
 
 //buttons using the Buttons library
-SmartBlaster& initButtons () {
+SmartBlaster& initButtons (void) {
 	if (!_isIRGate) {
 		ammoCountingButton = Button(_AMMO_COUNTING_INPUT_PIN, false, false, 25);
 	} else {
@@ -92,7 +92,7 @@ SmartBlaster& initDisplay(Adafruit_SSD1306 displayArg) {
 	return *this;
 }
 
-void displayValues () {
+void displayValues (void) {
 	//display ammo
 	display.clearDisplay(); //clear the display, so the stuff that was here before is no longer here
 	display.setTextSize(6);  //set the size of the text
@@ -129,7 +129,7 @@ void initDisplayVoltage (Double voltage) {
 	displayValues();
 }
 
-void initDisplayAmmo () {
+void initDisplayAmmo (void) {
 	String textToDisplay = "00";    //create something to store what to print. This is empty now
     //if the ammo to print, current ammo, is less that 10, make it like '01' or '04'  
     if (currentAmmo < 10) {
@@ -155,7 +155,7 @@ void initDisplayChrono (double fps) {
 	displayValues();	
 }
 
-void initDisplayFireMode() {
+void initDisplayFireMode(void) {
 	//print text based on mode: 0 == S == Safety, 1 == SS == Single Shot, 2 == 3B == 3 Round Burst, 3 == A == Automatic
 	if (fireMode == 0) {
 	    modeToPrint = "S";
@@ -170,7 +170,7 @@ void initDisplayFireMode() {
 	displayValues();
 }
 
-void resetChronoVals() {
+void resetChronoVals(void) {
 	tripTime = -10;
 	exitTime = -10;
 }
@@ -182,7 +182,7 @@ double calculateChronoReadings(double firstTime, double secondTime) {
 	}
 }
 
-void chrono() {
+void chrono(void) {
     //when tripped and expecting first value
     if ((map(analogRead(_AMMO_COUNTING_INPUT_PIN), 0, 1023, 0, 100) > IR_MAP_TRIP_VAL) && (tripTime == -10) ) { 
         tripTime = micros();
@@ -200,7 +200,7 @@ void chrono() {
     } 
 }
 
-void changeMags() {
+void changeMags(void) {
 	//make sure the magazine insertion detection button is pressed from not being pressed
     if (magInsertionDetectionButton.isPressed()) {   //when the magazine is inserted
         currentAmmo = maxAmmo;  //set current ammo to the max amount of ammo
@@ -208,7 +208,7 @@ void changeMags() {
 	}
 }
 
-void toggleMags() {
+void toggleMags(void) {
 	//check if the magazine toggle button is pressed
   if (magSizeToggleButton.isPressed()) {
       //make sure the value doesn't overflow:
@@ -230,7 +230,7 @@ void toggleMags() {
 }
 
 //detect if dart has been fired, based on IR gate or not
-void ammoCounter () {
+void ammoCounter (void) {
 	//check to see if IR gate
 	if (!_isIRGate) {
 		//if not ir gate, then using switch, so it will be checking if button/switch is pressed
@@ -246,7 +246,7 @@ void ammoCounter () {
 }
 
 //actually decrement or increment ammo
-void countAmmo () {
+void countAmmo (void) {
 	//count ammo stuff
     //make sure that the ammo is less than 99 so it doesnt overflow the display
     //make sure it's in increment mode
@@ -262,7 +262,7 @@ void countAmmo () {
     displayAmmo();    //display the ammo  
 }
 
-void voltMeter () {
+void voltMeter (void) {
 	//make sure only prints every .5 sec
     if (millis() >= lastVoltageCheckTime + delayTime) {
         //calculate voltage
@@ -279,7 +279,7 @@ void voltMeter () {
 	}
 }
 
-void fireModeMotorControl() {
+void fireModeMotorControl(void) {
 	boolean canShoot = false, wasDartFired = false;    //flags enabling shooting    
     //check trigger switch was pressed
     if (toggleSelectFireButton.isPressed()) {
@@ -330,7 +330,7 @@ void fireModeMotorControl() {
 	}
 }
 
-void toggleFireModeControl () {
+void toggleFireModeControl (void) {
 	if (toggleSelectFireButton.isPressed()) {
 		if (fireMode < 3) {
 			fireMode++;
@@ -343,7 +343,7 @@ void toggleFireModeControl () {
 	}
 }
 
-void smartMyBlaster () {
+void smartMyBlaster (void) {
 	toggleMags();
 	changeMags();
 
