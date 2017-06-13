@@ -29,10 +29,10 @@ class SmartBlaster {
 
     private:
         //usefule constant values needed to deal with specific functions
-        static const int IR_MAP_TRIP_VAL;
-        static const float DART_LEGNTH_FEET;
-        static const float R1;
-        static const float R2;
+        static int IR_MAP_TRIP_VAL;
+        static float DART_LEGNTH_FEET;
+        static float R1;
+        static float R2;
 
         //stuff to help keep track of magazine stuff
         //
