@@ -118,6 +118,7 @@ class SmartBlaster {
         void voltmeter();
         void ammoCounter();
         void fireModeMotorControl();
+        void countAmmo()
 
 
         void smartMyBlaster();

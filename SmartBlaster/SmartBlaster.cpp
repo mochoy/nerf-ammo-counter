@@ -253,8 +253,19 @@ void voltMeter () {
         displayVoltage(voltageIn);
 
         lastVoltageCheckTime = millis();
-	}
+	}f
 }
 
+void ammoCounter () {
+	if (!_isIRGate {
+		if (btnArr[2].isBtnPressed(false)) {
+			countAmmo();
+		}
+	} else {
+		if (map(analogRead(_ammoCountingInputPin), 0, 1023, 0, 100) > IR_MAP_TRIP_VAL) {
+			countAmmo();
+		}
+	}
 
+}
 
