@@ -229,18 +229,23 @@ void toggleMags() {
 	} 
 }
 
+//detect if dart has been fired, based on IR gate or not
 void ammoCounter () {
+	//check to see if IR gate
 	if (!_isIRGate) {
+		//if not ir gate, then using switch, so it will be checking if button/switch is pressed
 		if (ammoCountingButton.isPressed()) {
 			countAmmo();
 		}
 	} else {
+		//if it is IR gate, then check to see if IR gate broken by dart
 		if (map(analogRead(_AMMO_COUNTING_INPUT_PIN), 0, 1023, 0, 100) > IR_MAP_TRIP_VAL) {
 			countAmmo();
 		}
 	}
 }
 
+//actually decrement or increment ammo
 void countAmmo () {
 	//count ammo stuff
     //make sure that the ammo is less than 99 so it doesnt overflow the display
