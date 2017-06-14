@@ -48,22 +48,22 @@ class SmartBlaster {
         //stores, and the number between the parenthesis indicates which place they are, their "index", where they are in the list/array. 
         //If I want to access the value 1, which is the first value of the array/list, which the computer sees as the 
         //"zeroith" value, I would do array[0]. If I want to access the value 3, the third value of the array, I would do array[2]
-        byte magSizeArr[];
-        byte currentMagSize;
-        byte maxAmmo;
-        byte curretAmmo;
+        uint8_t magSizeArr[];
+        uint8_t currentMagSize;
+        uint8_t maxAmmo;
+        uint8_t curretAmmo;
 
         //stuff for dealing with pins
-        byte _AMMO_COUNTING_INPUT_PIN;
-        byte _MAG_INSERTION_DETECTION_PIN;
-        byte _MAG_SIZE_TOGGLE_INPUT_PIN; 
-        byte _VOLTMETER_INPUT_PIN;
-        byte _TOGGLE_SELECT_FIRE_INPUT_PIN;
+        uint8_t _AMMO_COUNTING_INPUT_PIN;
+        uint8_t _MAG_INSERTION_DETECTION_PIN;
+        uint8_t _MAG_SIZE_TOGGLE_INPUT_PIN; 
+        uint8_t _VOLTMETER_INPUT_PIN;
+        uint8_t _TOGGLE_SELECT_FIRE_INPUT_PIN;
 
-        byte _I2C-SDA-Pin;
-        byte _I2C-SCL-Pin;   
+        uint8_t _I2C-SDA-Pin;
+        uint8_t _I2C-SCL-Pin;   
 
-        byte _SELECT_FIRE_OUTPUT_PIN; 
+        uint8_t _SELECT_FIRE_OUTPUT_PIN; 
 
         //to keep keep track of the buttons
         Button _ammoCountingButton;
@@ -78,10 +78,10 @@ class SmartBlaster {
         String _firingModeToPrint;
 
         //stuff for dealing with modes: chrono, voltmeter, etc.
-        bool _isIRGate;  
-        bool _isChrono;
-        bool _isVoltmeter;
-        bool _isSelectFire;
+        uint8_t _isIRGate;  
+        uint8_t _isChrono;
+        uint8_t _isVoltmeter;
+        uint8_t _isSelectFire;
 
         //stuff for dealing with chrono calculations
         double _tripTime;
@@ -92,19 +92,19 @@ class SmartBlaster {
         int _delayTime;
 
         //value for dealing with select-fire
-        byte _lastAmmo;
-        byte _fireMode;  //0 = safe = SF, 1 = semi-automatic = SA, 2 = 3 round burst = 3b, 3 = fully automatic = AM
+        uint8_t _lastAmmo;
+        uint8_t _fireMode;  //0 = safe = SF, 1 = semi-automatic = SA, 2 = 3 round burst = 3b, 3 = fully automatic = AM
 
     //methods
     public:
         //constructor
-        SmartBlaster(bool[], byte[], byte[], init[]);
+        SmartBlaster(bool[], uint8_t[], uint8_t[], uint8_t[]);
 
         //init stuff
-        SmartBlaster& initModes(bool, bool, bool, bool);
-        SmartBlaster& initIOPins(byte, byte, byte, byte, byte, byte);
-        SmartBlaster& initButtons(byte[]);
-        SmartBlaster& initMagSizes(int[]);
+        SmartBlaster& initModes(uint8_t, uint8_t, uint8_t, uint8_t);
+        SmartBlaster& initIOPins(uint8_t, uint8_t, uint8_t, uint8_t, uint8_t, uint8_t);
+        SmartBlaster& initButtons(uint8_t[]);
+        SmartBlaster& initMagSizes(uint8_t[]);
         SmartBlaster& initDisplay(Adafruit_SSD1306);
 
 

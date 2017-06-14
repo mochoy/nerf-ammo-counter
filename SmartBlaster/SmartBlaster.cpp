@@ -3,7 +3,7 @@
 
 using namespace SmartBlaster;
 
-SmartBlaster (bool[] modes, byte[] IOPins, byte[] buttons, init[] magSizes) {
+SmartBlaster (bool[] modes, uint8_t[] IOPins, uint8_t[] buttons, uint8_t[] magSizes) {
 	_lastVoltageCheckTime = 0;
 	_delayTime = 500;
 
@@ -23,7 +23,7 @@ SmartBlaster (bool[] modes, byte[] IOPins, byte[] buttons, init[] magSizes) {
 	initModes().initIOPins().initButtons();
 }
 
-SmartBlaster& initModes (bool[] modes) {
+SmartBlaster& initModes (uint8_t[] modes) {
 	_isIRGate = modes[0];
 	_isChrono = modes[1];
 	_isVoltmeter = modes[2];
@@ -32,7 +32,7 @@ SmartBlaster& initModes (bool[] modes) {
 	return *this;
 }
 
-SmartBlaster& initIOPins (byte[] pins) {
+SmartBlaster& initIOPins (uint8_t[] pins) {
 	_AMMO_COUNTING_INPUT_PIN = pins[0];
 	_MAG_INSERTION_DETECTION_PIN = pins[1];
 	_MAG_SIZE_TOGGLE_INPUT_PIN = pins[2];
@@ -288,7 +288,7 @@ void fireModeMotorControl(void) {
     
     if ((_fireMode == 1 || _fireMode == 2) && wasDartFired == true) {    // if in burst mode or single shot mode, and if trigger pressed
         //based on the fire mode (single shot or burst), we will only fire a certain number if shots
-        byte modeAmmoIndex;
+        uint8_t modeAmmoIndex;
         if (_fireMode == 1) {
             modeAmmoIndex = 1;
         } else {
