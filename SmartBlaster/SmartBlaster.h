@@ -66,16 +66,16 @@ class SmartBlaster {
         byte _SELECT_FIRE_OUTPUT_PIN; 
 
         //to keep keep track of the buttons
-        Button ammoCountingButton;
-        Button magInsertionDetectionButton;
-        Button magSizeToggleButton;
-        button toggleSelectFireButton;
+        Button _ammoCountingButton;
+        Button _magInsertionDetectionButton;
+        Button _magSizeToggleButton;
+        button _toggleSelectFireButton;
 
         // Strings to know what to print
-        String chronoToPrint;
-        String ammoToPrint;
-        String voltageToPrint;
-        String firingModeToPrint;
+        String _chronoToPrint;
+        String _ammoToPrint;
+        String _voltageToPrint;
+        String _firingModeToPrint;
 
         //stuff for dealing with modes: chrono, voltmeter, etc.
         bool _isIRGate;  
@@ -84,16 +84,16 @@ class SmartBlaster {
         bool _isSelectFire;
 
         //stuff for dealing with chrono calculations
-        double tripTime;
-        double exitTime;
+        double _tripTime;
+        double _exitTime;
 
         //values for dealing with voltmeter stuff
-        double lastVoltageCheckTime;
-        int delayTime;
+        double _lastVoltageCheckTime;
+        int _delayTime;
 
         //value for dealing with select-fire
-        byte lastAmmo;
-        byte fireMode;  //0 = safe = SF, 1 = semi-automatic = SA, 2 = 3 round burst = 3b, 3 = fully automatic = AM
+        byte _lastAmmo;
+        byte _fireMode;  //0 = safe = SF, 1 = semi-automatic = SA, 2 = 3 round burst = 3b, 3 = fully automatic = AM
 
     //methods
     public:

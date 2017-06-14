@@ -4,15 +4,15 @@
 using namespace SmartBlaster;
 
 SmartBlaster (bool[] modes, byte[] IOPins, byte[] buttons, init[] magSizes) {
-	lastVoltageCheckTime = 0;
-	delayTime = 500;
+	_lastVoltageCheckTime = 0;
+	_delayTime = 500;
 
-	chronoToPrint = "";
-    ammoToPrint = "";
-    voltageToPrint = "";
-    firingModeToPrint = "";
+	_chronoToPrint = "";
+    _ammoToPrint = "";
+    _voltageToPrint = "";
+    _firingModeToPrint = "";
 
-    fireMode = 0;	//0 = safe = SF, 1 = semi-automatic = SA, 2 = 3 round burst = 3b, 3 = fully automatic = AM
+    _fireMode = 0;	//0 = safe = SF, 1 = semi-automatic = SA, 2 = 3 round burst = 3b, 3 = fully automatic = AM
 
     IR_MAP_TRIP_VAL = 95;
     DART_LEGNTH_FEET = 0.2362208333;
@@ -56,17 +56,17 @@ SmartBlaster& initIOPins (byte[] pins) {
 //buttons using the Buttons library
 SmartBlaster& initButtons (void) {
 	if (!_isIRGate) {
-		ammoCountingButton = Button(_AMMO_COUNTING_INPUT_PIN, false, false, 25);
+		_ammoCountingButton = Button(_AMMO_COUNTING_INPUT_PIN, false, false, 25);
 	} else {
-		ammoCountingButton = 0;
+		_ammoCountingButton = 0;
 	}
 
-	magInsertionDetectionButton = Button(_MAG_INSERTION_DETECTION_PIN, false, false, 25);
-	magSizeToggleButton = Button(_MAG_SIZE_TOGGLE_INPUT_PIN, false, false, 25);
+	_magInsertionDetectionButton = Button(_MAG_INSERTION_DETECTION_PIN, false, false, 25);
+	_magSizeToggleButton = Button(_MAG_SIZE_TOGGLE_INPUT_PIN, false, false, 25);
 
 
 	if (_isSelectFire) {
-		toggleSelectFireButton = Button(_TOGGLE_SELECT_FIRE_INPUT_PIN, false, false, 25);
+		_toggleSelectFireButton = Button(_TOGGLE_SELECT_FIRE_INPUT_PIN, false, false, 25);
 	} else {
 		buttonArr[3] = 0;
 	}
@@ -98,34 +98,34 @@ void displayValues (void) {
 	display.setTextSize(6);  //set the size of the text
 	display.setTextColor(WHITE);    //set the color of text text
 	//tell the display where to draw the text
-	display.setCursor( (SCREEN_WIDTH/2) - ((ammoToPrint.length()*2) * 9) , (SCREEN_HEIGHT/2) - 30 );  //center text
-	display.print(ammoToPrint);    //print the text
+	display.setCursor( (SCREEN_WIDTH/2) - ((_ammoToPrint.length()*2) * 9) , (SCREEN_HEIGHT/2) - 30 );  //center text
+	display.print(_ammoToPrint);    //print the text
 
 	display.setTextSize(1);
 
 	//display chrono values
 	if (_isChrono) {
 		display.setCursor(0, 50);  
-		display.print(chronoToPrint);
+		display.print(_chronoToPrint);
 	}
 
 	//display voltage values
 	if (_isVoltmeter) {
 		display.setCursor(60, 50);
-		display.print(voltageToPrint);
+		display.print(_voltageToPrint);
 	}
 
 	//display fire mode
 	if (_isSelectFire) {
 		display.setCursor(80, 50);  
-		display.print(firingModeToPrint);
+		display.print(_firingModeToPrint);
 	}	
   
 	display.display(); //display the text
 }
 
 void initDisplayVoltage (Double voltage) {
-	voltageToPrint = (String)voltage + " v";
+	_voltageToPrint = (String)voltage + " v";
 	displayValues();
 }
 
@@ -138,18 +138,18 @@ void initDisplayAmmo (void) {
       textToDisplay = (String)currentAmmo;   //fill the thing we used to store what to print
     }
 
-    ammoToPrint = textToDisplay;  //display the text, the ammo
+    _ammoToPrint = textToDisplay;  //display the text, the ammo
 
 	displayValues();
 }
 
 void initDisplayChrono (double fps) {
 	if (fps == -1) {
-	        chronoToPrint = ("ERR");
+	        _chronoToPrint = ("ERR");
 	    } else if (fps == -2) {
-	        chronoToPrint = ("NO FPS");
+	        _chronoToPrint = ("NO FPS");
 	    } else {
-	        chronoToPrint = ( (String)(fps)  + " fps" );
+	        _chronoToPrint = ( (String)(fps)  + " fps" );
 	}
 
 	displayValues();	
@@ -158,21 +158,21 @@ void initDisplayChrono (double fps) {
 void initDisplayFireMode(void) {
 	//print text based on mode: 0 == S == Safety, 1 == SS == Single Shot, 2 == 3B == 3 Round Burst, 3 == A == Automatic
 	if (fireMode == 0) {
-	    modeToPrint = "S";
+	    _modeToPrint = "S";
 	} else if (fireMode == 1) {
-	    modeToPrint = "SS";
+	    _modeToPrint = "SS";
 	} else if (fireMode == 2) {
-	    modeToPrint = "3B";
+	    _modeToPrint = "3B";
 	} else if (fireMode == 3) {
-	    modeToPrint = "A";
+	    _modeToPrint = "A";
 	}	
 
 	displayValues();
 }
 
 void resetChronoVals(void) {
-	tripTime = -10;
-	exitTime = -10;
+	_tripTime = -10;
+	_exitTime = -10;
 }
 
 double calculateChronoReadings(double firstTime, double secondTime) {
@@ -184,17 +184,17 @@ double calculateChronoReadings(double firstTime, double secondTime) {
 
 void chrono(void) {
     //when tripped and expecting first value
-    if ((map(analogRead(_AMMO_COUNTING_INPUT_PIN), 0, 1023, 0, 100) > IR_MAP_TRIP_VAL) && (tripTime == -10) ) { 
-        tripTime = micros();
+    if ((map(analogRead(_AMMO_COUNTING_INPUT_PIN), 0, 1023, 0, 100) > IR_MAP_TRIP_VAL) && (_tripTime == -10) ) { 
+        _tripTime = micros();
     //when tripped and expecting second value
-    } else if ( (tripTime != -10) && (exitTime == -10) && (map(analogRead(_AMMO_COUNTING_INPUT_PIN), 0, 1023, 0, 100) < IR_MAP_TRIP_VAL) )  {
+    } else if ( (_tripTime != -10) && (_exitTime == -10) && (map(analogRead(_AMMO_COUNTING_INPUT_PIN), 0, 1023, 0, 100) < IR_MAP_TRIP_VAL) )  {
         exitTime = micros();
-        initDisplayChronoValues(calculateChronoReadings(tripTime, exitTime));
+        initDisplayChronoValues(calculateChronoReadings(_tripTime, _exitTime));
 
         countAmmo();  
         
     //when no second value within 1 second
-    } else if ( (tripTime != -10) && (tripTime + 2000000) < micros() ) {
+    } else if ( (_tripTime != -10) && (_tripTime + 2000000) < micros() ) {
         resetChronoVals();
         initDisplayChronoValues(-1);
     } 
@@ -202,7 +202,7 @@ void chrono(void) {
 
 void changeMags(void) {
 	//make sure the magazine insertion detection button is pressed from not being pressed
-    if (magInsertionDetectionButton.isPressed()) {   //when the magazine is inserted
+    if (_magInsertionDetectionButton.isPressed()) {   //when the magazine is inserted
         currentAmmo = maxAmmo;  //set current ammo to the max amount of ammo
         displayAmmo();  //display ammo
 	}
@@ -210,7 +210,7 @@ void changeMags(void) {
 
 void toggleMags(void) {
 	//check if the magazine toggle button is pressed
-  if (magSizeToggleButton.isPressed()) {
+  if (_magSizeToggleButton.isPressed()) {
       //make sure the value doesn't overflow:
       //if the we're trying to access the 10th element of the array, but there are only 9 elements, the program will break
         //must keep the value trying to access is within the amount of values there are. 
@@ -234,7 +234,7 @@ void ammoCounter (void) {
 	//check to see if IR gate
 	if (!_isIRGate) {
 		//if not ir gate, then using switch, so it will be checking if button/switch is pressed
-		if (ammoCountingButton.isPressed()) {
+		if (_ammoCountingButton.isPressed()) {
 			countAmmo();
 		}
 	} else {
@@ -264,7 +264,7 @@ void countAmmo (void) {
 
 void voltMeter (void) {
 	//make sure only prints every .5 sec
-    if (millis() >= lastVoltageCheckTime + delayTime) {
+    if (millis() >= _lastVoltageCheckTime + _delayTime) {
         //calculate voltage
         float voltageIn = ((analogRead(_VOLTMETER_INPUT_PIN) * 5.0) / 1024.0) / (R2/ (R1 + R2));
     
@@ -275,44 +275,44 @@ void voltMeter (void) {
 
         displayVoltage(voltageIn);
 
-        lastVoltageCheckTime = millis();
+        _lastVoltageCheckTime = millis();
 	}
 }
 
 void fireModeMotorControl(void) {
 	boolean canShoot = false, wasDartFired = false;    //flags enabling shooting    
     //check trigger switch was pressed
-    if (toggleSelectFireButton.isPressed()) {
+    if (_toggleSelectFireButton.isPressed()) {
         wasDartFired = true;
     }
     
-    if ((fireMode == 1 || fireMode == 2) && wasDartFired == true) {    // if in burst mode or single shot mode, and if trigger pressed
+    if ((_fireMode == 1 || _fireMode == 2) && wasDartFired == true) {    // if in burst mode or single shot mode, and if trigger pressed
         //based on the fire mode (single shot or burst), we will only fire a certain number if shots
         byte modeAmmoIndex;
-        if (fireMode == 1) {
+        if (_fireMode == 1) {
             modeAmmoIndex = 1;
         } else {
             modeAmmoIndex = 3;
         }
 
         //make sure haven't fired more than 1 or 3 shots, depending on the fire mode
-        if ((currentAmmo - modeAmmoIndex) < (lastAmmo - 1)) {   
+        if ((currentAmmo - modeAmmoIndex) < (_lastAmmo - 1)) {   
             //if haven't fired more than 1/3 shot, depending on fireMode, still can shoot more
             canShoot = true;
-            lastAmmo = currentAmmo;
+            _lastAmmo = currentAmmo;
         } else {
             //if fired more than 1 or 3 shots, depending on mode, can't shoot anymore, and wait for next time trigger pressed
             canShoot = false;
             wasDartFired = false;
         }
-    } else if (fireMode == 3) { //if in full auto
+    } else if (_fireMode == 3) { //if in full auto
         //make sure trigger switch pressed/blaster fired
         if (_isIRGate) {
         	if (map(analogRead(_AMMO_COUNTING_INPUT_PIN), 0, 1023, 0, 100) > IR_MAP_TRIP_VAL) {
 				canShoot = true;
 			}
 		} else {
-			if (ammoCountingButton.isPressed()) {
+			if (_ammoCountingButton.isPressed()) {
             	canShoot = true;
         	}
 		}
@@ -331,11 +331,11 @@ void fireModeMotorControl(void) {
 }
 
 void toggleFireModeControl (void) {
-	if (toggleSelectFireButton.isPressed()) {
-		if (fireMode < 3) {
-			fireMode++;
+	if (_toggleSelectFireButton.isPressed()) {
+		if (_fireMode < 3) {
+			_fireMode++;
 		} else {
-			fireMode = 0;
+			_fireMode = 0;
 		}
 
 		initDisplayFireMode();
