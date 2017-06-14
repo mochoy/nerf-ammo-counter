@@ -66,7 +66,7 @@ SmartBlaster& initButtons (void) {
 
 
 	if (_isSelectFire) {
-		_toggleSelectFireButton = Button(_TOGGLE_SELECT_FIRE_INPUT_PIN, false, false, 25);
+		_selectFireToggleButton = Button(_TOGGLE_SELECT_FIRE_INPUT_PIN, false, false, 25);
 	} else {
 		buttonArr[3] = 0;
 	}
@@ -282,7 +282,7 @@ void voltMeter (void) {
 void fireModeMotorControl(void) {
 	boolean canShoot = false, wasDartFired = false;    //flags enabling shooting    
     //check trigger switch was pressed
-    if (_toggleSelectFireButton.isPressed()) {
+    if (_selectFireToggleButton.isPressed()) {
         wasDartFired = true;
     }
     
@@ -331,7 +331,7 @@ void fireModeMotorControl(void) {
 }
 
 void toggleFireModeControl (void) {
-	if (_toggleSelectFireButton.isPressed()) {
+	if (_selectFireToggleButton.isPressed()) {
 		if (_fireMode < 3) {
 			_fireMode++;
 		} else {

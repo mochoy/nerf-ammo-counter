@@ -69,7 +69,7 @@ class SmartBlaster {
         Button _ammoCountingButton;
         Button _magInsertionDetectionButton;
         Button _magSizeToggleButton;
-        button _toggleSelectFireButton;
+        button _selectFireToggleButton;
 
         // Strings to know what to print
         String _chronoToPrint;
