@@ -2,7 +2,7 @@
 #include "SmartBlaster.h"
 
 
-SmartBlaster::SmartBlaster (bool modes[], uint8_t IOPins[], uint8_t buttons[], uint8_t magSizes[]) {
+SmartBlaster::SmartBlaster (bool modes[], uint8_t IOPins[], uint8_t magSizes[]) {
 	_lastVoltageCheckTime = 0;
 	_delayTime = 500;
 
@@ -19,7 +19,7 @@ SmartBlaster::SmartBlaster (bool modes[], uint8_t IOPins[], uint8_t buttons[], u
     R1 = 100000.0 
     R2 = 10000.0
 
-	initModes().initIOPins().initButtons();
+	initModes(modes).initIOPins(IOPins).initButtons().initMagSizes();
 }
 
 SmartBlaster& SmartBlaster::initModes (uint8_t modes[]) {
@@ -45,9 +45,6 @@ SmartBlaster& SmartBlaster::initIOPins (uint8_t pins[]) {
 		_SELECT_FIRE_OUTPUT_PIN = pins[5];
 		pinMode(_SELECT_FIRE_OUTPUT_PIN, OUTPUT);
 	}
-
-	_I2C-SDA-Pin = 4;
-    _I2C-SCL-Pin = 5;
 
     return *this;	
 }

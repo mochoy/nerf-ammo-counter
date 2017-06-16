@@ -93,7 +93,7 @@ class SmartBlaster {
     //methods
     public:
         //constructor
-        SmartBlaster(bool[], uint8_t[], uint8_t[], uint8_t[]);
+        SmartBlaster(bool[], uint8_t[], uint8_t[]);
 
         //init stuff
         SmartBlaster& initModes(uint8_t, uint8_t, uint8_t, uint8_t);
