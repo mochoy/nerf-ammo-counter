@@ -56,16 +56,13 @@ class SmartBlaster {
         uint8_t _VOLTMETER_INPUT_PIN;
         uint8_t _TOGGLE_SELECT_FIRE_INPUT_PIN;
 
-        uint8_t _I2C-SDA-Pin;
-        uint8_t _I2C-SCL-Pin;   
-
         uint8_t _SELECT_FIRE_OUTPUT_PIN; 
 
         //to keep keep track of the buttons
         Button _ammoCountingButton;
         Button _magInsertionDetectionButton;
         Button _magSizeToggleButton;
-        button _selectFireToggleButton;
+        Button _selectFireToggleButton;
 
         // Strings to know what to print
         String _chronoToPrint;

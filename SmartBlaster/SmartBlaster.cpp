@@ -1,9 +1,8 @@
 #include "Arduino.h"
 #include "SmartBlaster.h"
 
-using namespace SmartBlaster;
 
-SmartBlaster (bool[] modes, uint8_t[] IOPins, uint8_t[] buttons, uint8_t[] magSizes) {
+SmartBlaster::SmartBlaster (bool[] modes, uint8_t[] IOPins, uint8_t[] buttons, uint8_t[] magSizes) {
 	_lastVoltageCheckTime = 0;
 	_delayTime = 500;
 
@@ -23,7 +22,7 @@ SmartBlaster (bool[] modes, uint8_t[] IOPins, uint8_t[] buttons, uint8_t[] magSi
 	initModes().initIOPins().initButtons();
 }
 
-SmartBlaster& initModes (uint8_t[] modes) {
+SmartBlaster& SmartBlaster::initModes (uint8_t[] modes) {
 	_isIRGate = modes[0];
 	_isChrono = modes[1];
 	_isVoltmeter = modes[2];
@@ -32,7 +31,7 @@ SmartBlaster& initModes (uint8_t[] modes) {
 	return *this;
 }
 
-SmartBlaster& initIOPins (uint8_t[] pins) {
+SmartBlaster& SmartBlaster::initIOPins (uint8_t[] pins) {
 	_AMMO_COUNTING_INPUT_PIN = pins[0];
 	_MAG_INSERTION_DETECTION_PIN = pins[1];
 	_MAG_SIZE_TOGGLE_INPUT_PIN = pins[2];
@@ -54,7 +53,7 @@ SmartBlaster& initIOPins (uint8_t[] pins) {
 }
 
 //buttons using the Buttons library
-SmartBlaster& initButtons (void) {
+SmartBlaster& SmartBlaster::initButtons (void) {
 	if (!_isIRGate) {
 		_ammoCountingButton = Button(_AMMO_COUNTING_INPUT_PIN, false, false, 25);
 	} else {
@@ -75,7 +74,7 @@ SmartBlaster& initButtons (void) {
 	return *this;
 }
 
-SmartBlaster& initMagSizes(int[] magSizes) {
+SmartBlaster& SmartBlaster::initMagSizes(int[] magSizes) {
 	for (int i = 0; i < ((sizeof(magSizes)/sizeof(magSizes[0])) - 1), i++) {
 		magSizeArr[i] = magSizes[i];
 	}
@@ -86,17 +85,17 @@ SmartBlaster& initMagSizes(int[] magSizes) {
 	return *this;
 }
 
-Adafruit_SSD1306 setDisplay(Adafruit_SSD1306 displayArg) {
+Adafruit_SSD1306 SmartBlaster::setDisplay(Adafruit_SSD1306 displayArg) {
 	display = displayArg;
 
 	return display;
 }
 
-Adafruit_SSD1306 setDisplay() {
+Adafruit_SSD1306 SmartBlaster::setDisplay() {
 	return display;
 }
 
-void displayValues (void) {
+void SmartBlaster::displayValues (void) {
 	//display ammo
 	display.clearDisplay(); //clear the display, so the stuff that was here before is no longer here
 	display.setTextSize(6);  //set the size of the text
@@ -128,12 +127,12 @@ void displayValues (void) {
 	display.display(); //display the text
 }
 
-void initDisplayVoltage (Double voltage) {
+void SmartBlaster::initDisplayVoltage (Double voltage) {
 	_voltageToPrint = (String)voltage + " v";
 	displayValues();
 }
 
-void initDisplayAmmo (void) {
+void SmartBlaster::initDisplayAmmo (void) {
 	String textToDisplay = "00";    //create something to store what to print. This is empty now
     //if the ammo to print, current ammo, is less that 10, make it like '01' or '04'  
     if (currentAmmo < 10) {
@@ -147,7 +146,7 @@ void initDisplayAmmo (void) {
 	displayValues();
 }
 
-void initDisplayChrono (double fps) {
+void SmartBlaster::initDisplayChrono (double fps) {
 	if (fps == -1) {
 	        _chronoToPrint = ("ERR");
 	    } else if (fps == -2) {
@@ -159,7 +158,7 @@ void initDisplayChrono (double fps) {
 	displayValues();	
 }
 
-void initDisplayFireMode(void) {
+void SmartBlaster::initDisplayFireMode(void) {
 	//print text based on mode: 0 == S == Safety, 1 == SS == Single Shot, 2 == 3B == 3 Round Burst, 3 == A == Automatic
 	if (fireMode == 0) {
 	    _modeToPrint = "S";
@@ -174,19 +173,19 @@ void initDisplayFireMode(void) {
 	displayValues();
 }
 
-void resetChronoVals(void) {
+void SmartBlaster::resetChronoVals(void) {
 	_tripTime = -10;
 	_exitTime = -10;
 }
 
-double calculateChronoReadings(double firstTime, double secondTime) {
+double SmartBlaster::calculateChronoReadings(double firstTime, double secondTime) {
 	if ( (tripTime > -10) && (exitTime > -10) ) {
         resetChronoVals();
         return (DART_LEGNTH_FEET) / ((secondTime-firstTime)/1000000.0);
 	}
 }
 
-void chrono(void) {
+void SmartBlaster::chrono(void) {
     //when tripped and expecting first value
     if ((map(analogRead(_AMMO_COUNTING_INPUT_PIN), 0, 1023, 0, 100) > IR_MAP_TRIP_VAL) && (_tripTime == -10) ) { 
         _tripTime = micros();
@@ -204,7 +203,7 @@ void chrono(void) {
     } 
 }
 
-void changeMags(void) {
+void SmartBlaster::changeMags(void) {
 	//make sure the magazine insertion detection button is pressed from not being pressed
     if (_magInsertionDetectionButton.isPressed()) {   //when the magazine is inserted
         currentAmmo = maxAmmo;  //set current ammo to the max amount of ammo
@@ -212,7 +211,7 @@ void changeMags(void) {
 	}
 }
 
-void toggleMags(void) {
+void SmartBlaster::toggleMags(void) {
 	//check if the magazine toggle button is pressed
   if (_magSizeToggleButton.isPressed()) {
       //make sure the value doesn't overflow:
@@ -234,7 +233,7 @@ void toggleMags(void) {
 }
 
 //detect if dart has been fired, based on IR gate or not
-void ammoCounter (void) {
+void SmartBlaster::ammoCounter (void) {
 	//check to see if IR gate
 	if (!_isIRGate) {
 		//if not ir gate, then using switch, so it will be checking if button/switch is pressed
@@ -250,7 +249,7 @@ void ammoCounter (void) {
 }
 
 //actually decrement or increment ammo
-void countAmmo (void) {
+void SmartBlaster::countAmmo (void) {
 	//count ammo stuff
     //make sure that the ammo is less than 99 so it doesnt overflow the display
     //make sure it's in increment mode
@@ -266,7 +265,7 @@ void countAmmo (void) {
     displayAmmo();    //display the ammo  
 }
 
-void voltMeter (void) {
+void SmartBlaster::voltMeter (void) {
 	//make sure only prints every .5 sec
     if (millis() >= _lastVoltageCheckTime + _delayTime) {
         //calculate voltage
@@ -283,7 +282,7 @@ void voltMeter (void) {
 	}
 }
 
-void fireModeMotorControl(void) {
+void SmartBlaster::fireModeMotorControl(void) {
 	boolean canShoot = false, wasDartFired = false;    //flags enabling shooting    
     //check trigger switch was pressed
     if (_selectFireToggleButton.isPressed()) {
@@ -334,7 +333,7 @@ void fireModeMotorControl(void) {
 	}
 }
 
-void toggleFireModeControl (void) {
+void SmartBlaster::toggleFireModeControl (void) {
 	if (_selectFireToggleButton.isPressed()) {
 		if (_fireMode < 3) {
 			_fireMode++;
@@ -347,7 +346,7 @@ void toggleFireModeControl (void) {
 	}
 }
 
-void smartMyBlaster (void) {
+void SmartBlaster::smartMyBlaster (void) {
 	toggleMags();
 	changeMags();
 
