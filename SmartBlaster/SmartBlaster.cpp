@@ -2,7 +2,7 @@
 #include "SmartBlaster.h"
 
 
-SmartBlaster::SmartBlaster (bool[] modes, uint8_t[] IOPins, uint8_t[] buttons, uint8_t[] magSizes) {
+SmartBlaster::SmartBlaster (bool modes[], uint8_t IOPins[], uint8_t buttons[], uint8_t magSizes[]) {
 	_lastVoltageCheckTime = 0;
 	_delayTime = 500;
 
@@ -22,7 +22,7 @@ SmartBlaster::SmartBlaster (bool[] modes, uint8_t[] IOPins, uint8_t[] buttons, u
 	initModes().initIOPins().initButtons();
 }
 
-SmartBlaster& SmartBlaster::initModes (uint8_t[] modes) {
+SmartBlaster& SmartBlaster::initModes (uint8_t modes[]) {
 	_isIRGate = modes[0];
 	_isChrono = modes[1];
 	_isVoltmeter = modes[2];
@@ -31,7 +31,7 @@ SmartBlaster& SmartBlaster::initModes (uint8_t[] modes) {
 	return *this;
 }
 
-SmartBlaster& SmartBlaster::initIOPins (uint8_t[] pins) {
+SmartBlaster& SmartBlaster::initIOPins (uint8_t pins[]) {
 	_AMMO_COUNTING_INPUT_PIN = pins[0];
 	_MAG_INSERTION_DETECTION_PIN = pins[1];
 	_MAG_SIZE_TOGGLE_INPUT_PIN = pins[2];
@@ -74,7 +74,7 @@ SmartBlaster& SmartBlaster::initButtons (void) {
 	return *this;
 }
 
-SmartBlaster& SmartBlaster::initMagSizes(int[] magSizes) {
+SmartBlaster& SmartBlaster::initMagSizes(int magSizes[]) {
 	for (int i = 0; i < ((sizeof(magSizes)/sizeof(magSizes[0])) - 1), i++) {
 		magSizeArr[i] = magSizes[i];
 	}
