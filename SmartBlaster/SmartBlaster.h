@@ -96,9 +96,9 @@ class SmartBlaster {
         SmartBlaster(bool[], uint8_t[], uint8_t[]);
 
         //init stuff
-        SmartBlaster& initModes(uint8_t, uint8_t, uint8_t, uint8_t);
-        SmartBlaster& initIOPins(uint8_t, uint8_t, uint8_t, uint8_t, uint8_t, uint8_t);
-        SmartBlaster& initButtons(uint8_t[]);
+        SmartBlaster& initModes(uint8_t[]);
+        SmartBlaster& initIOPins(uint8_t[]);
+        SmartBlaster& initButtons();
         SmartBlaster& initMagSizes(uint8_t[]);
 
         //getter and setter for display
