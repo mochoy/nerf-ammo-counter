@@ -23,10 +23,6 @@
 //If I want to access the value 1, which is the first value of the array/list, which the computer sees as the 
 //"zeroith" value, I would do array[0]. If I want to access the value 3, the third value of the array, I would do array[2]
 class SmartBlaster {
-	public:
-        //display
-        Adafruit_SSD1306 display;
-
     private:
         //usefule constant values needed to deal with specific functions
         static int IR_MAP_TRIP_VAL;
@@ -95,6 +91,8 @@ class SmartBlaster {
         uint8_t _lastAmmo;
         uint8_t _fireMode;  //0 = safe = SF, 1 = semi-automatic = SA, 2 = 3 round burst = 3b, 3 = fully automatic = AM
 
+        Adafruit_SSD1306 display;
+
     //methods
     public:
         //constructor
@@ -105,8 +103,10 @@ class SmartBlaster {
         SmartBlaster& initIOPins(uint8_t, uint8_t, uint8_t, uint8_t, uint8_t, uint8_t);
         SmartBlaster& initButtons(uint8_t[]);
         SmartBlaster& initMagSizes(uint8_t[]);
-        SmartBlaster& initDisplay(Adafruit_SSD1306);
 
+        //getter and setter for display
+        void setDisplay(Adafruit_SSD1306);
+        Adafruit_SSD1306 getDisplay ();
 
         //display stuff
         void displayValues();

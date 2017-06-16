@@ -86,10 +86,14 @@ SmartBlaster& initMagSizes(int[] magSizes) {
 	return *this;
 }
 
-SmartBlaster& initDisplay(Adafruit_SSD1306 displayArg) {
+Adafruit_SSD1306 setDisplay(Adafruit_SSD1306 displayArg) {
 	display = displayArg;
 
-	return *this;
+	return display;
+}
+
+Adafruit_SSD1306 setDisplay() {
+	return display;
 }
 
 void displayValues (void) {
