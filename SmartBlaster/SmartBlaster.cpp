@@ -204,7 +204,7 @@ void SmartBlaster::changeMags(void) {
 	//make sure the magazine insertion detection button is pressed from not being pressed
     if (_magInsertionDetectionButton.isPressed()) {   //when the magazine is inserted
         _currentAmmo = _maxAmmo;  //set current ammo to the max amount of ammo
-        displayAmmo();  //display ammo
+        initDisplayAmmo();  //display ammo
 	}
 }
 
@@ -224,7 +224,7 @@ void SmartBlaster::toggleMags(void) {
         _maxAmmo = _magSizeArr[_currentMagSize];
         _currentAmmo = _maxAmmo;
 
-        displayAmmo();    //display the maxAmmo
+        initDisplayAmmo();    //display the maxAmmo
 
 	} 
 }
@@ -259,7 +259,7 @@ void SmartBlaster::countAmmo (void) {
         _currentAmmo--;    //decrement ammo
     }
 
-    displayAmmo();    //display the ammo  
+    initDisplayAmmo();    //display the ammo  
 }
 
 void SmartBlaster::voltmeter (void) {
@@ -273,7 +273,7 @@ void SmartBlaster::voltmeter (void) {
             voltageIn = 0; 
         }
 
-        displayVoltage(voltageIn);
+        initDisplayVoltage(voltageIn);
 
         _lastVoltageCheckTime = millis();
 	}
