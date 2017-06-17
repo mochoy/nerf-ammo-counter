@@ -44,10 +44,10 @@ class SmartBlaster {
         //stores, and the number between the parenthesis indicates which place they are, their "index", where they are in the list/array. 
         //If I want to access the value 1, which is the first value of the array/list, which the computer sees as the 
         //"zeroith" value, I would do array[0]. If I want to access the value 3, the third value of the array, I would do array[2]
-        uint8_t magSizeArr[];
-        uint8_t currentMagSize;
-        uint8_t maxAmmo;
-        uint8_t curretAmmo;
+        uint8_t _magSizeArr[];
+        uint8_t _currentMagSize;
+        uint8_t _maxAmmo;
+        uint8_t _curretAmmo;
 
         //stuff for dealing with pins
         uint8_t _AMMO_COUNTING_INPUT_PIN;

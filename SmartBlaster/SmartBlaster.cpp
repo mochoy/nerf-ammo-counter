@@ -72,12 +72,12 @@ SmartBlaster& SmartBlaster::initButtons (void) {
 }
 
 SmartBlaster& SmartBlaster::initMagSizes(int magSizes[]) {
-	for (int i = 0; i < ((sizeof(magSizes)/sizeof(magSizes[0])) - 1), i++) {
-		magSizeArr[i] = magSizes[i];
+	for (int i = 0; i < ((sizeof(magSizes)/sizeof(_magSizes[0])) - 1), i++) {
+		_magSizeArr[i] = magSizes[i];
 	}
-    currentMagSize = 0;
-    maxAmmo = magSizeArr[currentMagSize];
-    curretAmmo = maxAmmo;
+    _currentMagSize = 0;
+    _maxAmmo = _magSizeArr[_currentMagSize];
+    _curretAmmo = _maxAmmo;
 
 	return *this;
 }
@@ -132,10 +132,10 @@ void SmartBlaster::initDisplayVoltage (Double voltage) {
 void SmartBlaster::initDisplayAmmo (void) {
 	String textToDisplay = "00";    //create something to store what to print. This is empty now
     //if the ammo to print, current ammo, is less that 10, make it like '01' or '04'  
-    if (currentAmmo < 10) {
-      textToDisplay = "0" + (String)currentAmmo; //fill the thing we used to store what to print
+    if (_currentAmmo < 10) {
+      textToDisplay = "0" + (String)_currentAmmo; //fill the thing we used to store what to print
     } else {    //if not, leave it as is
-      textToDisplay = (String)currentAmmo;   //fill the thing we used to store what to print
+      textToDisplay = (String)_currentAmmo;   //fill the thing we used to store what to print
     }
 
     _ammoToPrint = textToDisplay;  //display the text, the ammo
@@ -203,7 +203,7 @@ void SmartBlaster::chrono(void) {
 void SmartBlaster::changeMags(void) {
 	//make sure the magazine insertion detection button is pressed from not being pressed
     if (_magInsertionDetectionButton.isPressed()) {   //when the magazine is inserted
-        currentAmmo = maxAmmo;  //set current ammo to the max amount of ammo
+        _currentAmmo = _maxAmmo;  //set current ammo to the max amount of ammo
         displayAmmo();  //display ammo
 	}
 }
@@ -214,15 +214,15 @@ void SmartBlaster::toggleMags(void) {
       //make sure the value doesn't overflow:
       //if the we're trying to access the 10th element of the array, but there are only 9 elements, the program will break
         //must keep the value trying to access is within the amount of values there are. 
-        if (currentMagSize < ((sizeof(magSizeArr)/sizeof(magSizeArr[0])) - 1) ) {
-            currentMagSize ++;  //change current magazine size
+        if (_currentMagSize < ((sizeof(_magSizeArr)/sizeof(_magSizeArr[0])) - 1) ) {
+            _currentMagSize ++;  //change current magazine size
         } else {  
-            currentMagSize = 0;
+            _currentMagSize = 0;
         }
 
         //there's a new max ammo, because there's a new magazine size
-        maxAmmo = magSizeArr[currentMagSize];
-        currentAmmo = maxAmmo;
+        _maxAmmo = _magSizeArr[_currentMagSize];
+        _currentAmmo = _maxAmmo;
 
         displayAmmo();    //display the maxAmmo
 
@@ -250,13 +250,13 @@ void SmartBlaster::countAmmo (void) {
 	//count ammo stuff
     //make sure that the ammo is less than 99 so it doesnt overflow the display
     //make sure it's in increment mode
-    if ( (magSizeArr[currentMagSize] == 0) && (currentAmmo < 99) ) {
-        currentAmmo++;    //increment ammo
+    if ( (_magSizeArr[_currentMagSize] == 0) && (_currentAmmo < 99) ) {
+        _currentAmmo++;    //increment ammo
     
     //make sure that the ammo is more than 0 so no negative numbers are displayed
     //make sure it's in increment mode
-    } else if ( (currentAmmo > 0) && (magSizeArr[currentMagSize] != 0) ){
-        currentAmmo--;    //decrement ammo
+    } else if ( (_currentAmmo > 0) && (_magSizeArr[_currentMagSize] != 0) ){
+        _currentAmmo--;    //decrement ammo
     }
 
     displayAmmo();    //display the ammo  
@@ -296,10 +296,10 @@ void SmartBlaster::fireModeMotorControl(void) {
         }
 
         //make sure haven't fired more than 1 or 3 shots, depending on the fire mode
-        if ((currentAmmo - modeAmmoIndex) < (_lastAmmo - 1)) {   
+        if ((_currentAmmo - modeAmmoIndex) < (_lastAmmo - 1)) {   
             //if haven't fired more than 1/3 shot, depending on fireMode, still can shoot more
             canShoot = true;
-            _lastAmmo = currentAmmo;
+            _lastAmmo = _currentAmmo;
         } else {
             //if fired more than 1 or 3 shots, depending on mode, can't shoot anymore, and wait for next time trigger pressed
             canShoot = false;
