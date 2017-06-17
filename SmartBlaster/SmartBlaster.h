@@ -8,6 +8,9 @@
 
 #include <Button.h>
 
+#define SCREEN_WIDTH 128
+#define SCREEN_HEIGHT 64
+
 //stuff to help keep track of magazine stuff
 //
 //
@@ -88,7 +91,7 @@ class SmartBlaster {
         uint8_t _lastAmmo;
         uint8_t _fireMode;  //0 = safe = SF, 1 = semi-automatic = SA, 2 = 3 round burst = 3b, 3 = fully automatic = AM
 
-        Adafruit_SSD1306 display;
+        Adafruit_SSD1306 _display;
 
     //methods
     public:
@@ -102,8 +105,8 @@ class SmartBlaster {
         SmartBlaster& initMagSizes(uint8_t[]);
 
         //getter and setter for display
-        void setDisplay(Adafruit_SSD1306);
-        Adafruit_SSD1306 getDisplay ();
+        Adafruit_SSD1306 setDisplay(Adafruit_SSD1306);
+        Adafruit_SSD1306 getDisplay();
 
         //display stuff
         void displayValues();

@@ -1,6 +1,11 @@
 #include "Arduino.h"
 #include "SmartBlaster.h"
 
+#include <Adafruit_GFX.h>
+#include <Adafruit_SSD1306.h>
+
+#include <Button.h>
+
 
 SmartBlaster::SmartBlaster (bool modes[], uint8_t IOPins[], uint8_t magSizes[]) {
 	_lastVoltageCheckTime = 0;
@@ -16,8 +21,8 @@ SmartBlaster::SmartBlaster (bool modes[], uint8_t IOPins[], uint8_t magSizes[]) 
     IR_MAP_TRIP_VAL = 95;
     DART_LEGNTH_FEET = 0.2362208333;
 
-    R1 = 100000.0 
-    R2 = 10000.0
+    R1 = 100000.0;
+    R2 = 10000.0;
 
 	initModes(modes).initIOPins(IOPins).initButtons().initMagSizes();
 }
@@ -54,7 +59,7 @@ SmartBlaster& SmartBlaster::initButtons (void) {
 	if (!_isIRGate) {
 		Button _ammoCountingButton(_AMMO_COUNTING_INPUT_PIN, false, false, 20);
 	} else {
-		_ammoCountingButton = 0;
+		_ammoCountingButton = null;
 	}
 
 	Button _magInsertionDetectionButton(_MAG_INSERTION_DETECTION_PIN, false, false, 20);
@@ -64,67 +69,67 @@ SmartBlaster& SmartBlaster::initButtons (void) {
 	if (_isSelectFire) {
 		Button _selectFireToggleButton(_TOGGLE_SELECT_FIRE_INPUT_PIN, false, false, 20);
 	} else {
-		_selectFireToggleButton = 0;
+		_selectFireToggleButton = null;
 	}
 
 
 	return *this;
 }
 
-SmartBlaster& SmartBlaster::initMagSizes(int magSizes[]) {
+SmartBlaster& SmartBlaster::initMagSizes(uint8_t magSizes[]) {
 	for (int i = 0; i < ((sizeof(magSizes)/sizeof(_magSizes[0])) - 1), i++) {
 		_magSizeArr[i] = magSizes[i];
 	}
     _currentMagSize = 0;
     _maxAmmo = _magSizeArr[_currentMagSize];
-    _curretAmmo = _maxAmmo;
+    _currentAmmo = _maxAmmo;
 
 	return *this;
 }
 
 Adafruit_SSD1306 SmartBlaster::setDisplay(Adafruit_SSD1306 displayArg) {
-	display = displayArg;
+	_display = displayArg;
 
-	return display;
+	return _display;
 }
 
-Adafruit_SSD1306 SmartBlaster::setDisplay() {
-	return display;
+Adafruit_SSD1306 SmartBlaster::getDisplay() {
+	return _display;
 }
 
 void SmartBlaster::displayValues (void) {
 	//display ammo
-	display.clearDisplay(); //clear the display, so the stuff that was here before is no longer here
-	display.setTextSize(6);  //set the size of the text
-	display.setTextColor(WHITE);    //set the color of text text
+	_display.clearDisplay(); //clear the display, so the stuff that was here before is no longer here
+	_display.setTextSize(6);  //set the size of the text
+	_display.setTextColor(WHITE);    //set the color of text text
 	//tell the display where to draw the text
-	display.setCursor( (SCREEN_WIDTH/2) - ((_ammoToPrint.length()*2) * 9) , (SCREEN_HEIGHT/2) - 30 );  //center text
-	display.print(_ammoToPrint);    //print the text
+	_display.setCursor( (SCREEN_WIDTH/2) - ((_ammoToPrint.length()*2) * 9) , (SCREEN_HEIGHT/2) - 30 );  //center text
+	_display.print(_ammoToPrint);    //print the text
 
-	display.setTextSize(1);
+	_display.setTextSize(1);
 
 	//display chrono values
 	if (_isChrono) {
-		display.setCursor(0, 50);  
-		display.print(_chronoToPrint);
+		_display.setCursor(0, 50);  
+		_display.print(_chronoToPrint);
 	}
 
 	//display voltage values
 	if (_isVoltmeter) {
-		display.setCursor(60, 50);
-		display.print(_voltageToPrint);
+		_display.setCursor(60, 50);
+		_display.print(_voltageToPrint);
 	}
 
 	//display fire mode
 	if (_isSelectFire) {
-		display.setCursor(80, 50);  
-		display.print(_firingModeToPrint);
+		_display.setCursor(80, 50);  
+		_display.print(_firingModeToPrint);
 	}	
   
-	display.display(); //display the text
+	_display.display(); //display the text
 }
 
-void SmartBlaster::initDisplayVoltage (Double voltage) {
+void SmartBlaster::initDisplayVoltage (double voltage) {
 	_voltageToPrint = (String)voltage + " v";
 	displayValues();
 }
@@ -157,14 +162,14 @@ void SmartBlaster::initDisplayChronoReadings (double fps) {
 
 void SmartBlaster::initDisplayFireMode(void) {
 	//print text based on mode: 0 == S == Safety, 1 == SS == Single Shot, 2 == 3B == 3 Round Burst, 3 == A == Automatic
-	if (fireMode == 0) {
-	    _modeToPrint = "S";
-	} else if (fireMode == 1) {
-	    _modeToPrint = "SS";
-	} else if (fireMode == 2) {
-	    _modeToPrint = "3B";
-	} else if (fireMode == 3) {
-	    _modeToPrint = "A";
+	if (_fireMode == 0) {
+	    _firingModeToPrint = "S";
+	} else if (_fireMode == 1) {
+	    _firingModeToPrint = "SS";
+	} else if (_fireMode == 2) {
+	    _firingModeToPrint = "3B";
+	} else if (_fireMode == 3) {
+	    _firingModeToPrint = "A";
 	}	
 
 	displayValues();
