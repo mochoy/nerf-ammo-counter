@@ -108,7 +108,7 @@ class SmartBlaster {
         //display stuff
         void displayValues();
         void initDisplayAmmo();
-        void initDisplayChrono(double);
+        void initDisplayChronoReadings(double);
         void initDisplayFireMode();
         void initDisplayVoltage(double);
 

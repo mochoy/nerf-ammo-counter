@@ -143,7 +143,7 @@ void SmartBlaster::initDisplayAmmo (void) {
 	displayValues();
 }
 
-void SmartBlaster::initDisplayChrono (double fps) {
+void SmartBlaster::initDisplayChronoReadings (double fps) {
 	if (fps == -1) {
 	        _chronoToPrint = ("ERR");
 	    } else if (fps == -2) {
@@ -189,14 +189,14 @@ void SmartBlaster::chrono(void) {
     //when tripped and expecting second value
     } else if ( (_tripTime != -10) && (_exitTime == -10) && (map(analogRead(_AMMO_COUNTING_INPUT_PIN), 0, 1023, 0, 100) < IR_MAP_TRIP_VAL) )  {
         exitTime = micros();
-        initDisplayChronoValues(calculateChronoReadings(_tripTime, _exitTime));
+        initDisplayChronoReadings(calculateChronoReadings(_tripTime, _exitTime));
 
         countAmmo();  
         
     //when no second value within 1 second
     } else if ( (_tripTime != -10) && (_tripTime + 2000000) < micros() ) {
         resetChronoVals();
-        initDisplayChronoValues(-1);
+        initDisplayChronoReadings(-1);
     } 
 }
 
