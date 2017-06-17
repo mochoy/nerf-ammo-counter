@@ -176,7 +176,7 @@ void SmartBlaster::resetChronoVals(void) {
 }
 
 double SmartBlaster::calculateChronoReadings(double firstTime, double secondTime) {
-	if ( (tripTime > -10) && (exitTime > -10) ) {
+	if ( (_tripTime > -10) && (_exitTime > -10) ) {
         resetChronoVals();
         return (DART_LEGNTH_FEET) / ((secondTime-firstTime)/1000000.0);
 	}
@@ -188,7 +188,7 @@ void SmartBlaster::chrono(void) {
         _tripTime = micros();
     //when tripped and expecting second value
     } else if ( (_tripTime != -10) && (_exitTime == -10) && (map(analogRead(_AMMO_COUNTING_INPUT_PIN), 0, 1023, 0, 100) < IR_MAP_TRIP_VAL) )  {
-        exitTime = micros();
+        _exitTime = micros();
         initDisplayChronoReadings(calculateChronoReadings(_tripTime, _exitTime));
 
         countAmmo();  
