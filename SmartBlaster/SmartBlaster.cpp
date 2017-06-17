@@ -262,7 +262,7 @@ void SmartBlaster::countAmmo (void) {
     displayAmmo();    //display the ammo  
 }
 
-void SmartBlaster::voltMeter (void) {
+void SmartBlaster::voltmeter (void) {
 	//make sure only prints every .5 sec
     if (millis() >= _lastVoltageCheckTime + _delayTime) {
         //calculate voltage
@@ -354,7 +354,7 @@ void SmartBlaster::smartMyBlaster (void) {
 	}
 
 	if (_isVoltmeter) {
-		voltMeter();
+		voltmeter();
 	}
 
 	if (_isSelectFire) {
