@@ -47,7 +47,7 @@ class SmartBlaster {
         uint8_t _magSizeArr[];
         uint8_t _currentMagSize;
         uint8_t _maxAmmo;
-        uint8_t _curretAmmo;
+        uint8_t _currentAmmo;
 
         //stuff for dealing with pins
         uint8_t _AMMO_COUNTING_INPUT_PIN;
