@@ -6,7 +6,7 @@ ___
 
 ## Contents:
 - [Features Included](#features-included)
-- [Hardware, Parts, and Tools Needed](#hardware,-parts,-and-tools-needed)
+- [Parts and Tools Needed](#parts-and-tools-needed)
 - [Installation](#installation)
 
 
@@ -22,7 +22,7 @@ ___
 7. **Count-Up Mode**: Instead of counting down, it can count up every time a shot is fired.
 ___
 
-## Hardware, Parts, and Tools Needed
+## Parts and Tools Needed:
 All builds require some sort of Arduino-compatible microcontroller. I recommend the [Adafruit Pro Trinket](https://www.adafruit.com/product/2000). Also make sure to have the [Arduino IDE](https://www.arduino.cc/en/Main/Software) installed.
 
 ### Parts:
