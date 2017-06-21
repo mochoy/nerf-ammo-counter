@@ -14,9 +14,9 @@ Arduino library to make ammo counters and more for highly modified NERF blasters
 7. **Count-Up Mode**: Instead of counting down, it can count up every time a shot is fired.
 ___
 
-###Hardware and Parts Needed
+###Hardware, Parts, and Tools Needed
 All builds require some sort of Arduino-compatible microcontroller. I recommend the [Adafruit Pro Trinket](https://www.adafruit.com/product/2000). Also make sure to have the [Arduino IDE](https://www.arduino.cc/en/Main/Software) installed.
-
+####Parts:
 |Features vs Parts Required | Ammo Counter - Switch | Ammo Counter - IR Gate| Chronograph | Voltmeter| Select - Fire | Usages| Notes
 |:--------------------------|:---------------------:|:-------:|:--------:| :------:|
 | Microcontroller           | X                     | X | X | X | X | Brains of everything. | Microcontroller recommendation above |
@@ -28,6 +28,18 @@ All builds require some sort of Arduino-compatible microcontroller. I recommend 
 | Resistors (10K and 100k) |  |  |  | X | | Used for voltage divider to drop the voltage to a safe level for the microcontroller. | Resistors can be different values, just make sure the battery being checked has its voltage dropped to a voltage safe for the microcontroller. |
 | [Relay](https://www.amazon.com/Tolako-Arduino-Indicator-Channel-Official/dp/B00VRUAHLE/ref=sr_1_2?ie=UTF8&qid=1498071951&sr=8-2&keywords=arduino+relay)| | | | | X | Used to control the NERF blaster's motors through the microcontroller |
 
+####Tools:
+1. Phillips Head Screwdriver
+2. Drill
+3. Soldering Iron and Solder + soldering materials/tools (flux, shrink wrap, helping hands, etc.)
+3. Dremel or rotary tool (recommended, not required)
+4. Hot glue and/or Epoxy putty (recommended, not required)
+5. Sandpaper and/or files (recommened, not required)
+
+
+**Extra Notes on Parts and Tools**: 
+ 1. Most of the parts can be bought cheaper from EBay or Digikey or other electronics stores.
+ 2. Microcontroller will need a battery to power it. A 9v will work fine. If the blaster is an electronic blaster, the microcontroller can be powered off the same batttery as the blaster, at the cost of a slight decrease in the blaster's performance.
 
 
 
@@ -43,5 +55,3 @@ All builds require some sort of Arduino-compatible microcontroller. I recommend 
 
 `git clone https://github.com/adafruit/Adafruit_SSD1306`
 
-
-> Written with [StackEdit](https://stackedit.io/).
