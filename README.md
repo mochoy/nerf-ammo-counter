@@ -7,7 +7,7 @@ ___
 ## Contents:
 - [Features Included](#features-included)
 - [Parts and Tools Needed](#parts-and-tools-needed)
-- [Installation](#installation)
+- [Getting Started](#getting-started)
 
 
 ## Features Included:
@@ -53,14 +53,17 @@ All builds require some sort of Arduino-compatible microcontroller. I recommend 
 
 ___
 
-## Installation
+## Getting Started
+
+### Installation
+Go to folder 'libraries' to add some libraries which can be accessed through the Arduino IDE:
 `cd ../Arduino/libraries`
-
+Install library to Smart Your Blaster:
 `git clone https://github.com/etnom/nerf-ammo-counter`
-
+Install Adafruit's library to work with display:
 `git clone https://github.com/adafruit/Adafruit_SSD1306`
-
+Install library to work with graphics on the dosplay:
 `git clone https://github.com/adafruit/Adafruit-GFX-Library.git`
-
-`git clone https://github.com/adafruit/Adafruit_SSD1306`
+Install library to deal with buttons and debouncing:
+`git clone https://github.com/JChristensen/Button.git`
 
