@@ -2,7 +2,7 @@
 
 Arduino library to make ammo counters and more for highly modified NERF blasters. 
 
-####Features Included:
+#### Features Included:
 1. **Ammo Counting:** Count your ammo. Whenever you fire a dart, it's detected using one of these methods:
 	1. **Switch**: Detect shots every time the trigger is pressed. Orient a tactile switch to be pressed when the blaster's trigger is pressed, and wire it up to the microcontroller. May not be ideal for fully-automatic blasters.
 	2. **Infrared (IR) Gate**: Using both an IR transmitter diode and IR receiver diode to detect dart passage rather than physical trigger pulls. The transmitter and receiver should be positioned so the transmitter shines directly on the receiver along the diameter of the barrel, forming a "gate". When a dart is fired, the gate is broken, which is detected with the microcontroller.
@@ -14,11 +14,12 @@ Arduino library to make ammo counters and more for highly modified NERF blasters
 7. **Count-Up Mode**: Instead of counting down, it can count up every time a shot is fired.
 ___
 
-###Hardware, Parts, and Tools Needed
+### Hardware, Parts, and Tools Needed
 All builds require some sort of Arduino-compatible microcontroller. I recommend the [Adafruit Pro Trinket](https://www.adafruit.com/product/2000). Also make sure to have the [Arduino IDE](https://www.arduino.cc/en/Main/Software) installed.
-####Parts:
-|Features vs Parts Required | Ammo Counter - Switch | Ammo Counter - IR Gate| Chronograph | Voltmeter| Select - Fire | Usages| Notes
-|:--------------------------|:---------------------:|:-------:|:--------:| :------:|
+
+#### Parts:
+|Features vs Parts Required | Ammo Counter - Switch | Ammo Counter - IR Gate| Chronograph | Voltmeter| Select - Fire | Usages| Notes |
+|:--------------------------|:---------------------:|:---------------------:|:-----------:| :-------:|:-------------:|:-----:|:-----:|
 | Microcontroller           | X                     | X | X | X | X | Brains of everything. | Microcontroller recommendation above |
 | [Slider Switch](https://www.amazon.com/Uxcell-a13042200ux0676-Solder-Position-Switch/dp/B00CQNQN4Q/ref=sr_1_7?ie=UTF8&qid=1498072224&sr=8-7&keywords=slider+switch) | X | X | X | X | X | Used to toggle power/on of microcontroller | Can be replaced by rocker switch |
 | [I2C OLED Display](https://www.amazon.com/Diymall-Yellow-Serial-Arduino-Display/dp/B00O2LLT30/ref=sr_1_1?ie=UTF8&qid=1498070241&sr=8-1&keywords=i2c+oled+display)                  | X | X | X | X |X | Used for displaying ammo, and if applicable, mode, voltage, and chrono readings |
@@ -28,7 +29,7 @@ All builds require some sort of Arduino-compatible microcontroller. I recommend 
 | Resistors (10K and 100k) |  |  |  | X | | Used for voltage divider to drop the voltage to a safe level for the microcontroller. | Resistors can be different values, just make sure the battery being checked has its voltage dropped to a voltage safe for the microcontroller. |
 | [Relay](https://www.amazon.com/Tolako-Arduino-Indicator-Channel-Official/dp/B00VRUAHLE/ref=sr_1_2?ie=UTF8&qid=1498071951&sr=8-2&keywords=arduino+relay)| | | | | X | Used to control the NERF blaster's motors through the microcontroller |
 
-####Tools:
+#### Tools:
 1. Phillips Head Screwdriver
 2. Drill
 3. Soldering Iron and Solder + soldering materials/tools (flux, shrink wrap, helping hands, etc.)
@@ -44,7 +45,7 @@ All builds require some sort of Arduino-compatible microcontroller. I recommend 
 
 
 
-###Installation
+### Installation
 `cd ../Arduino/libraries`
 
 `git clone https://github.com/etnom/nerf-ammo-counter`
