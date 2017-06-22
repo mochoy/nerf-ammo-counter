@@ -1,6 +1,7 @@
-# Smart Blaster Library v1.2
+# Smart Blaster v1.2
+## Completely outclass your opponents at your next NERF war.
 
-Arduino library to make ammo counters and more for highly modified NERF blasters. 
+Arduino library to make ammo counters and more for highly modified NERF blasters. All sketches require corresponding hardware.
 
 ___
 
@@ -9,6 +10,7 @@ ___
 - [Parts and Tools Needed](#parts-and-tools-needed)
 - [Getting Started](#getting-started)
 - [Usage](#usage)
+- [Examples](#examples)
 
 
 ## Features Included:
@@ -16,7 +18,7 @@ To include any of these features, the corresponding hardware must be included.
 
 1. **Ammo Counting:** Count your ammo. Whenever you fire a dart, it's detected using one of these methods:
 	1. **Switch**: Detect shots every time the trigger is pressed. Orient a tactile switch to be pressed when the blaster's trigger is pressed, and wire it up to the microcontroller. May not be ideal for fully-automatic blasters.
-	f2. **Infrared (IR) Gate**: Using both an IR transmitter diode and IR receiver diode to detect dart passage rather than physical trigger pulls. The transmitter and receiver should be positioned so the transmitter shines directly on the receiver along the diameter of the barrel, forming a "gate". When a dart is fired, the gate is broken, which is detected with the microcontroller.
+	2. **Infrared (IR) Gate**: Using both an IR transmitter diode and IR receiver diode to detect dart passage rather than physical trigger pulls. The transmitter and receiver should be positioned so the transmitter shines directly on the receiver along the diameter of the barrel, forming a "gate". When a dart is fired, the gate is broken, which is detected with the microcontroller.
 2. **Chronograph**: Using an IR gate, a chronograph can be implemented by recording the time it took for the dart to completely break through the gate, divided by the known length of the dart. Units are in feet per second (fps).
 3. **Voltmeter**: Using a voltage divider, the Arduino can read the voltage of the battery used. Ideal for electronic-powered blasters, so you know when to switch out the batteries. Can detect the voltage of the battery powering the blaster, or of the battery powering the microcontroller.
 4. **Select-Fire**:  Want to conserve ammo in your fully-automatic blaster? Toggle between safety, single-shot. three-round-burst, or fully-automatic with this feature. Requires a relay or MOSFET to control the pusher motor. IR gate required.
@@ -56,7 +58,6 @@ All builds require some sort of Arduino-compatible microcontroller. I recommend 
  1. Most of the parts can be bought cheaper from EBay or Digikey or other electronics stores.
  2. Microcontroller will need a battery to power it. A 9v will work fine. If the blaster is an electronic blaster, the microcontroller can be powered off the same batttery as the blaster, at the cost of a slight decrease in the blaster's performance.
 
-
 ___
 
 ## Getting Started
@@ -70,7 +71,7 @@ Install library to Smart Your Blaster:
 
 `git clone https://github.com/etnom/nerf-ammo-counter.git`
 
-=Install Adafruit's library to work with display:
+Install Adafruit's library to work with display:
 
 `git clone https://github.com/adafruit/Adafruit_SSD1306.git`
 
@@ -81,6 +82,7 @@ Install library to work with graphics on the dosplay:
 Install library to deal with buttons and debouncing:
  
 `git clone https://github.com/JChristensen/Button.git`
+
 
 
 Alternatively, the libraries can be installed the easy way:
@@ -94,14 +96,16 @@ Alternatively, the libraries can be installed the easy way:
 In an Arduino sketch, include the requirfed libraries:
 
 ```
- #include <Adafruit_GFX.h>
+#include <Adafruit_GFX.h>
 #include <Adafruit_SSD1306.h>
 #include <Button.h>
 #include <SmartBlaster.h>
 ```
 
+### Usage
+
 Also set up some stuff for the display:
-```
+ ```
 #define OLED_RESET 4
 Adafruit_SSD1306 display(OLED_RESET);
 
@@ -111,7 +115,7 @@ Adafruit_SSD1306 display(OLED_RESET);
 ```
 
 Set up modes:
-
+A
 `byte modes[] = {isIRAmmoCounter, isChronograph, isVoltmeter, isSelectFire};`
 - All items in array are boolean values.
 - First item specifies if ammo counting will be detected through a switch or IR gate. `false` if switch, `true` if IR gate. Can't be both switch and IR gate.
@@ -130,13 +134,36 @@ Setup IO Pins:
 - Fifth item is the digital pin which the fire mode toggle button is connected to. 
 - Sixth item is the digital pin which the relay for connecting the automatic blaster's motor is connected to. 
 
+Setup magazines sizes:
+`byte magSizes[] = {5, 6, 8, 10, 12, 15, 18, 19, 20, 22, 25, 36, 0};`
+- All items in array are integer values.
+- Put all desired magazine sizes to use in the array. Above are all of the magazines sizes of every NERF compatable magazine in existence.
+- The countup mode is specified by `0` is the magazine size.
+- When the magazine size is toggled, it goes from left to right in the array. When the last item is reached, it starts back at the beginning.
+
+Setup SmartBlaster:
+
+`SmartBlaster smartBlaster(modes, pins, magSizes);`
+
 Also for the display, in `void setup()`:
+
 ```
 display.begin(SSD1306_SWITCHCAPVCC, 0x3C);
 SmartBlaster.initDisplay(display);
 ```
 
+Now lets Smart the Blaster! In `void loop()`:
+
+`smartBlaster.smartMyBlaster();`
 
 ___
 
-## Usage
+## Examples
+The following examples are included with the **Smart Blaster** library in the **Examples** folder:
+1. **Ammo Counter**: A simple ammo counter for NERF blasters, using the switch mechanism. Includes ammo counting, magazine insertion detecion, and magazines size toggling all displayed on a 128 x 64 OLED display.
+2. **Chrono-Ammo Counter**: A simple ammo counter, but also includes the chronograph feature. Uses the IR gate mechanism, with all data displayed on a 128 x 64 OLED display.
+3. **Voltmeter-Ammo Counter**: A simple ammo counter using the switch mechanism, including all of the features in the Ammo Counter example sketch, with the voltmeter feature implemented. 
+4. **Select fire-Ammo Counter**: A simple IR gate ammo counter, including all of the features in the Ammo Counter example sketch, with select-fire implemented.
+5. **Smartest Blaster**: Includes all the features: IR gate ammo counter, chronograph, voltmeter, and select-fire.
+
+___
