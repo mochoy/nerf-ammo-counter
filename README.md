@@ -1,4 +1,4 @@
-# Smart Blaster v1.2
+# Smart Blaster v1.9
 ## Completely outclass your opponents at your next NERF war.
 
 Arduino library to make ammo counters and more for highly modified NERF blasters. All sketches require corresponding hardware.
@@ -6,12 +6,21 @@ Arduino library to make ammo counters and more for highly modified NERF blasters
 ___
 
 ## Contents:
+- [How it all Works](#how-it-all-works)
 - [Features Included](#features-included)
 - [Parts and Tools Needed](#parts-and-tools-needed)
 - [Getting Started](#getting-started)
 - [Usage](#usage)
 - [Examples](#examples)
+- [Version History](#version-history)
+- [How to Contribute](#how-to-contribute)
 
+___
+
+## How it all Works:
+An Arduino microcontroller is placed in the blaster. Through a series of inputs, the microcontroller can detect when a dart is fired, when the magazine is removed and re-inserted (reloading), and much more. These inputs are made visible to the user through a small, 0.96" 128 x 64 OLED display, which displays the ammo and more, depending on the mode. Both the code and electronics are requried to make everything work. This README includes instructions on installing the code, as well as schematics for each of the components for you to make your very own.
+
+___
 
 ## Features Included:
 To include any of these features, the corresponding hardware must be included.
@@ -61,8 +70,9 @@ All builds require some sort of Arduino-compatible microcontroller. I recommend 
 ___
 
 ## Getting Started
-A good foundation in basic electronics and a bit of physics as well a programming will help dramatically when building your blaster. 
-### Installation
+A good foundation in basic electronics and a bit of physics as well a programming will help dramatically when building your blaster. The microcontroller needs to be programmed before it can be put into the blaster: 
+
+### 1) Installation
 Go to folder 'libraries' to add some libraries which can be accessed through the Arduino IDE:
 
 `cd ../Arduino/libraries`
@@ -92,7 +102,7 @@ Alternatively, the libraries can be installed the easy way:
 - Copy the renamed folder to the Arduino/libraries folder.
 - Open the folder **Libraries** in **nerf-ammo-counter**. Copy the three folders out to the Arduino/libraries folder.
 
-### Importation
+### 2) Importation
 In an Arduino sketch, include the requirfed libraries:
 
 ```
@@ -102,7 +112,7 @@ In an Arduino sketch, include the requirfed libraries:
 #include <SmartBlaster.h>
 ```
 
-### Usage
+### 3) Usage
 
 Also set up some stuff for the display:
  ```
@@ -110,17 +120,17 @@ Also set up some stuff for the display:
 Adafruit_SSD1306 display(OLED_RESET);
 
 
-#define SCREEN_WIDTH 128
+s#define SCREEN_WIDTH 128
 #define SCREEN_HEIGHT 64
 ```
 
 Set up modes:
-A
+
 `byte modes[] = {isIRAmmoCounter, isChronograph, isVoltmeter, isSelectFire};`
 - All items in array are boolean values.
 - First item specifies if ammo counting will be detected through a switch or IR gate. `false` if switch, `true` if IR gate. Can't be both switch and IR gate.
 - Second item specifies whether or not the chronograph feature will be implemented, third for voltmeter, and fourth for select-fire.
-
+e
 Setup IO Pins:
 
 `byte pins[] = {ammoCountingInputPin, magazineInsertionDetectionPin, magazineSizeTogglePin, voltmeterPin, firingModeTogglePin, firingModeOutputPin};`
@@ -130,12 +140,14 @@ Setup IO Pins:
 - Make sure if the ammo counting mechanism is switch, it's connecting to a digital pin. If the ammo counting mechanism is the IR gate, make sure it's connected to an analog pin. 
 - Second item is digital pin which the magazine insertion detection switch is connected to.
 - Third item is digital pin which the magazine size toggle button is connected to. 
-- Fourth item is the analog pin which the voltage divider for the voltmeter is connected to. 
+v- Fourth item is the analog pin which the voltage divider for the voltmeter is connected to. 
 - Fifth item is the digital pin which the fire mode toggle button is connected to. 
 - Sixth item is the digital pin which the relay for connecting the automatic blaster's motor is connected to. 
 
 Setup magazines sizes:
+
 `byte magSizes[] = {5, 6, 8, 10, 12, 15, 18, 19, 20, 22, 25, 36, 0};`
+
 - All items in array are integer values.
 - Put all desired magazine sizes to use in the array. Above are all of the magazines sizes of every NERF compatable magazine in existence.
 - The countup mode is specified by `0` is the magazine size.
@@ -167,3 +179,12 @@ The following examples are included with the **Smart Blaster** library in the **
 5. **Smartest Blaster**: Includes all the features: IR gate ammo counter, chronograph, voltmeter, and select-fire.
 
 ___
+
+## Version History
+- **v1.9**: Added a ton more features, including voltmeter, chronograph, and fire modes.
+- **v1.0**: Just a simple ammo counter.
+
+___
+
+## How to Contribute
+Want to add more features, or missing something? You can add it! Made a blaster with Smart Blaster? We'd love to hear from you! 
