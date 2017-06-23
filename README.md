@@ -26,7 +26,7 @@ ___
 To include any of these features, the corresponding hardware must be included.
 
 1. **Ammo Counting:** Count your ammo. Whenever you fire a dart, it's detected using one of these methods:
-	1. **Switch**: Detect shots every time the trigger is pressed. Orient a tactile switch to be pressed when the blaster's trigger is pressed, and wire it up to the microcontroller. May not be ideal for fully-automatic blasters.
+	1. **Switch**: Detect shots every time the trigger is pressed. Orient a tactile switch to be pressed when the blaster's trigger is pressed, and wire it up to the microcontroller. May not be ideal for blasters where 1 trigger pull will fire more than one dart, including fully automatic blasters. 
 	2. **Infrared (IR) Gate**: Using both an IR transmitter diode and IR receiver diode to detect dart passage rather than physical trigger pulls. The transmitter and receiver should be positioned so the transmitter shines directly on the receiver along the diameter of the barrel, forming a "gate". When a dart is fired, the gate is broken, which is detected with the microcontroller.
 2. **Chronograph**: Using an IR gate, a chronograph can be implemented by recording the time it took for the dart to completely break through the gate, divided by the known length of the dart. Units are in feet per second (fps).
 3. **Voltmeter**: Using a voltage divider, the Arduino can read the voltage of the battery used. Ideal for electronic-powered blasters, so you know when to switch out the batteries. Can detect the voltage of the battery powering the blaster, or of the battery powering the microcontroller.
@@ -52,7 +52,6 @@ All builds require some sort of Arduino-compatible microcontroller. I recommend 
 | [IR Transmitter and Receiver Diode](https://www.amazon.com/Gikfun-Infrared-Emitter-Receiver-Arduino/dp/B01HGIQ8NG/ref=pd_sim_60_2?_encoding=UTF8&pd_rd_i=B01HGIQ8NG&pd_rd_r=M28XT7S0DNCFMEJPPKXT&pd_rd_w=INV1r&pd_rd_wg=61093&psc=1&refRID=M28XT7S0DNCFMEJPPKXT)                   | | X | X | | X | Used for IR gate |
 | Resistors (10K and 100k) |  |  |  | X | | Used for voltage divider to drop the voltage to a safe level for the microcontroller. | Resistors can be different values, just make sure the battery being checked has its voltage dropped to a voltage safe for the microcontroller. |
 | [Relay](https://www.amazon.com/Tolako-Arduino-Indicator-Channel-Official/dp/B00VRUAHLE/ref=sr_1_2?ie=UTF8&qid=1498071951&sr=8-2&keywords=arduino+relay)| | | | | X | Used to control the NERF blaster's motors through the microcontroller |
-
 ### Tools:
 1. Phillips Head Screwdriver
 2. Drill
@@ -89,7 +88,7 @@ Install library to work with graphics on the dosplay:
 
 `git clone https://github.com/adafruit/Adafruit-GFX-Library.git`
 
-Install library to deal with buttons and debouncing:
+ Install library to deal with buttons and debouncing:
  
 `git clone https://github.com/JChristensen/Button.git`
 
@@ -99,11 +98,11 @@ Alternatively, the libraries can be installed the easy way:
 - Go to https://github.com/etnom/nerf-ammo-counter, click the **Download ZIP** button and save the ZIP file to a convenient location on your PC. 
 - Uncompress the downloaded file.  This will result in a folder containing all the files for the library, that has a name that includes the branch name, usually **nerf-ammo-counter-master**.
 - Rename the folder to just **nerf-ammo-counter**.
-- Copy the renamed folder to the Arduino/libraries folder.
+r- Copy the renamed folder to the Arduino/libraries folder.
 - Open the folder **Libraries** in **nerf-ammo-counter**. Copy the three folders out to the Arduino/libraries folder.
 
 ### 2) Importation
-In an Arduino sketch, include the requirfed libraries:
+In an Arduino sketch, include the required libraries:
 
 ```
 #include <Adafruit_GFX.h>
@@ -121,7 +120,7 @@ Adafruit_SSD1306 display(OLED_RESET);
 
 
 s#define SCREEN_WIDTH 128
-#define SCREEN_HEIGHT 64
+r#define SCREEN_HEIGHT 64
 ```
 
 Set up modes:
@@ -129,9 +128,9 @@ Set up modes:
 `byte modes[] = {isIRAmmoCounter, isChronograph, isVoltmeter, isSelectFire};`
 - All items in array are boolean values.
 - First item specifies if ammo counting will be detected through a switch or IR gate. `false` if switch, `true` if IR gate. Can't be both switch and IR gate.
-- Second item specifies whether or not the chronograph feature will be implemented, third for voltmeter, and fourth for select-fire.
+t- Second item specifies whether or not the chronograph feature will be implemented, third for voltmeter, and fourth for select-fire.
 e
-Setup IO Pins:
+CSetup IO Pins:
 
 `byte pins[] = {ammoCountingInputPin, magazineInsertionDetectionPin, magazineSizeTogglePin, voltmeterPin, firingModeTogglePin, firingModeOutputPin};`
 - All items in array are integer values.
@@ -140,11 +139,12 @@ Setup IO Pins:
 - Make sure if the ammo counting mechanism is switch, it's connecting to a digital pin. If the ammo counting mechanism is the IR gate, make sure it's connected to an analog pin. 
 - Second item is digital pin which the magazine insertion detection switch is connected to.
 - Third item is digital pin which the magazine size toggle button is connected to. 
-v- Fourth item is the analog pin which the voltage divider for the voltmeter is connected to. 
+- Fourth item is the analog pin which the voltage divider for the voltmeter is connected to. 
 - Fifth item is the digital pin which the fire mode toggle button is connected to. 
 - Sixth item is the digital pin which the relay for connecting the automatic blaster's motor is connected to. 
 
 Setup magazines sizes:
+
 
 `byte magSizes[] = {5, 6, 8, 10, 12, 15, 18, 19, 20, 22, 25, 36, 0};`
 
@@ -167,6 +167,21 @@ SmartBlaster.initDisplay(display);
 Now lets Smart the Blaster! In `void loop()`:
 
 `smartBlaster.smartMyBlaster();`
+
+Once everything is done, upload the sketch to the microcontroller. 
+
+### 4) Blaster/Shell Modifications
+After the code has been uploaded the the microcontroller, it's time to modify a bit of the shell to integrate all the features to best Smart your Blaster. 
+- Remove all the screws to open up the blaster. 
+- For the magazine insertion detection switch, it should not be accessible from the exterior of the blaster. Orient the switch so it closes the circuit when the magazine is inserted, and opens the circuit when the magazine is removed. The best spot to place the magazine insertion detection switch is usually in the magazine well.
+- If the switch variant of the ammo counter has been specified, place the switch in a position where the switch closes the circuit when the trigger is pressed, and opens the circuit when the trigger is not pressed. The best spot is usually directly behind the physical trigger of the blaster.
+- Drill some holes in the shell to fit the rest the buttons and switches. Make sure the buttons and switches are accessible when the blasters is closed. 
+- Attach these switches and buttons with epoxy putty or hot glue. 
+
+
+
+#### Schematics
+Based on your included features, wire up the microcontroller and the required electronic components to match the schematics:
 
 ___
 
