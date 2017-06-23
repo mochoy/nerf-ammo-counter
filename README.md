@@ -10,7 +10,6 @@ ___
 - [Features Included](#features-included)
 - [Parts and Tools Needed](#parts-and-tools-needed)
 - [Getting Started](#getting-started)
-- [Usage](#usage)
 - [Examples](#examples)
 - [Version History](#version-history)
 - [How to Contribute](#how-to-contribute)
@@ -74,19 +73,27 @@ A good foundation in basic electronics and a bit of physics as well a programmin
 ### 1) Installation
 Go to folder 'libraries' to add some libraries which can be accessed through the Arduino IDE:
 
-`cd ../Arduino/libraries`
+```sh
+cd ../Arduino/libraries
+```
 
 Install library to Smart Your Blaster:
 
-`git clone https://github.com/etnom/nerf-ammo-counter.git`
+```sh
+git clone https://github.com/etnom/nerf-ammo-counter.git
+```
 
 Install Adafruit's library to work with display:
 
-`git clone https://github.com/adafruit/Adafruit_SSD1306.git`
+```sh
+git clone https://github.com/adafruit/Adafruit_SSD1306.git
+```
 
 Install library to work with graphics on the dosplay:
 
-`git clone https://github.com/adafruit/Adafruit-GFX-Library.git`
+```sh
+git clone https://github.com/adafruit/Adafruit-GFX-Library.git
+```
 
 Install library to deal with buttons and debouncing:
  
@@ -126,14 +133,18 @@ Adafruit_SSD1306 display(OLED_RESET);
 
 Set up modes:
 
-`byte modes[] = {isIRAmmoCounter, isChronograph, isVoltmeter, isSelectFire};`
+```c++
+byte modes[] = {isIRAmmoCounter, isChronograph, isVoltmeter, isSelectFire};
+```
 - All items in array are boolean values.
 - First item specifies if ammo counting will be detected through a switch or IR gate. `false` if switch, `true` if IR gate. Can't be both switch and IR gate.
 - Second item specifies whether or not the chronograph feature will be implemented, third for voltmeter, and fourth for select-fire.
 
 Setup IO Pins:
 
-`byte pins[] = {ammoCountingInputPin, magazineInsertionDetectionPin, magazineSizeTogglePin, voltmeterPin, firingModeTogglePin, firingModeOutputPin};`
+```c++
+byte pins[] = {ammoCountingInputPin, magazineInsertionDetectionPin, magazineSizeTogglePin, voltmeterPin, firingModeTogglePin, firingModeOutputPin};
+```
 - All items in array are integer values.
 - If the corresponding mode for the pin was not set up, put `-1` for the pin value.
 - First item will be pin which the ammo counting mechanism (switch or IR gate) is connected to. 
@@ -146,8 +157,9 @@ Setup IO Pins:
 
 Setup magazines sizes:
 
-
-`byte magSizes[] = {5, 6, 8, 10, 12, 15, 18, 19, 20, 22, 25, 36, 0};`
+```c++
+byte magSizes[] = {5, 6, 8, 10, 12, 15, 18, 19, 20, 22, 25, 36, 0};
+```
 
 - All items in array are integer values.
 - Put all desired magazine sizes to use in the array. Above are all of the magazines sizes of every NERF compatable magazine in existence.
@@ -156,11 +168,13 @@ Setup magazines sizes:
 
 Setup SmartBlaster:
 
-`SmartBlaster smartBlaster(modes, pins, magSizes);`
+```c++
+SmartBlaster smartBlaster(modes, pins, magSizes);
+```
 
 Also for the display, in `void setup()`:
 
-```C++
+```c++
 display.begin(SSD1306_SWITCHCAPVCC, 0x3C);
 SmartBlaster.initDisplay(display);
 ```
@@ -169,7 +183,7 @@ Now lets Smart the Blaster! In `void loop()`:
 
 ```c++
 smartBlaster.smartMyBlaster();
-````
+```
 
 Once everything is done, upload the sketch to the microcontroller. 
 
