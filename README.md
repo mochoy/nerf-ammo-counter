@@ -1,4 +1,4 @@
-# Smart Blaster v1.9
+# Smart Blaster v1.9:
 ## Completely outclass your opponents at your next NERF war.
 
 Arduino library to make ammo counters and more for highly modified NERF blasters. All sketches require corresponding hardware.
@@ -36,7 +36,6 @@ To include any of these features, the corresponding hardware must be included.
 
 ___
 
-
 ## Parts and Tools Needed:
 All builds require some sort of Arduino-compatible microcontroller. I recommend the [Adafruit Pro Trinket](https://www.adafruit.com/product/2000). Also make sure to have the [Arduino IDE](https://www.arduino.cc/en/Main/Software) installed.
 
@@ -51,6 +50,7 @@ All builds require some sort of Arduino-compatible microcontroller. I recommend 
 | [IR Transmitter and Receiver Diode](https://www.amazon.com/Gikfun-Infrared-Emitter-Receiver-Arduino/dp/B01HGIQ8NG/ref=pd_sim_60_2?_encoding=UTF8&pd_rd_i=B01HGIQ8NG&pd_rd_r=M28XT7S0DNCFMEJPPKXT&pd_rd_w=INV1r&pd_rd_wg=61093&psc=1&refRID=M28XT7S0DNCFMEJPPKXT)                   | | X | X | | X | Used for IR gate |
 | Resistors (10K and 100k) |  |  |  | X | | Used for voltage divider to drop the voltage to a safe level for the microcontroller. | Resistors can be different values, just make sure the battery being checked has its voltage dropped to a voltage safe for the microcontroller. |
 | [Relay](https://www.amazon.com/Tolako-Arduino-Indicator-Channel-Official/dp/B00VRUAHLE/ref=sr_1_2?ie=UTF8&qid=1498071951&sr=8-2&keywords=arduino+relay)| | | | | X | Used to control the NERF blaster's motors through the microcontroller |
+
 ### Tools:
  1. Phillips Head Screwdriver
 2. Drill
@@ -59,7 +59,6 @@ All builds require some sort of Arduino-compatible microcontroller. I recommend 
 4. Hot glue and/or Epoxy putty (recommended, not required)
 5. Sandpaper and/or files (recommened, not required)
 6. Nuts and bolts to mount display and/or microcontroller
-
 
 **Extra Notes on Parts and Tools**: 
  1. Most of the parts can be bought cheaper from EBay or Digikey or other electronics stores.
@@ -99,14 +98,12 @@ Install library to deal with buttons and debouncing:
  
 `git clone https://github.com/JChristensen/Button.git`
 
-
-
 Alternatively, the libraries can be installed the easy way:
-- Go to https://github.com/etnom/nerf-ammo-counter, click the **Download ZIP** button and save the ZIP file to a convenient location on your PC. 
-- Uncompress the downloaded file.  This will result in a folder containing all the files for the library, that has a name that includes the branch name, usually **nerf-ammo-counter-master**.
-- Rename the folder to just **nerf-ammo-counter**.
-- Copy the renamed folder to the Arduino/libraries folder.
-- Open the folder **Libraries** in **nerf-ammo-counter**. Copy the three folders out to the Arduino/libraries folder.
+1. Go to https://github.com/etnom/nerf-ammo-counter, click the **Download ZIP** button and save the ZIP file to a convenient location on your PC. 
+2. Uncompress the downloaded file.  This will result in a folder containing all the files for the library, that has a name that includes the branch name, usually **nerf-ammo-counter-master**.
+3.  Rename the folder to just **nerf-ammo-counter**.
+4.  Copy the renamed folder to the Arduino/libraries folder.
+5.  Open the folder **Libraries** in **nerf-ammo-counter**. Copy the three folders out to the Arduino/libraries folder.
 
 ### 2) Importation
 In an Arduino sketch, include the required libraries:
@@ -117,7 +114,6 @@ In an Arduino sketch, include the required libraries:
 #include <Button.h>
 #include <SmartBlaster.h>
 ```
-
 ### 3) Usage
 
 Also set up some stuff for the display:
@@ -145,6 +141,7 @@ Setup IO Pins:
 ```c++
 byte pins[] = {ammoCountingInputPin, magazineInsertionDetectionPin, magazineSizeTogglePin, voltmeterPin, firingModeTogglePin, firingModeOutputPin};
 ```
+
 - All items in array are integer values.
 - If the corresponding mode for the pin was not set up, put `-1` for the pin value.
 - First item will be pin which the ammo counting mechanism (switch or IR gate) is connected to. 
@@ -195,10 +192,17 @@ After the code has been uploaded the the microcontroller, it's time to modify a 
 - Drill some holes in the shell to fit the rest the buttons and switches. Make sure the buttons and switches are accessible when the blasters is closed. 
 - Attach these switches and buttons with epoxy putty or hot glue. 
 
-
-
 #### Schematics
 Based on your included features, wire up the microcontroller and the required electronic components to match the schematics:
+- Magazine Insertion Detection Switch (same as Switch component of Ammo Counter - Switch variant) - Individual component
+- Magazine size toggle button (same as toggle fire mode button component of Select-Fire) - Individual Component
+- Ammo Counter - IR Gate variant, same as Chronograph - Individual Component
+- Voltmeter - Individual Component
+- Select fire + firemode toggle button
+- Complete Ammo Counter: Switch
+- Complete Chrono-Ammo Counter
+- Complete Select-Fire-Ammo 
+- Complete Smartest Blaster
 
 ___
 
@@ -207,7 +211,7 @@ The following examples are included with the **Smart Blaster** library in the **
 1. **Ammo Counter**: A simple ammo counter for NERF blasters, using the switch mechanism. Includes ammo counting, magazine insertion detecion, and magazines size toggling all displayed on a 128 x 64 OLED display.
 2. **Chrono-Ammo Counter**: A simple ammo counter, but also includes the chronograph feature. Uses the IR gate mechanism, with all data displayed on a 128 x 64 OLED display.
 3. **Voltmeter-Ammo Counter**: A simple ammo counter using the switch mechanism, including all of the features in the Ammo Counter example sketch, with the voltmeter feature implemented. 
-4. **Select fire-Ammo Counter**: A simple IR gate ammo counter, including all of the features in the Ammo Counter example sketch, with select-fire implemented.
+4. **Select-fire-Ammo Counter**: A simple IR gate ammo counter, including all of the features in the Ammo Counter example sketch, with select-fire implemented.
 5. **Smartest Blaster**: Includes all the features: IR gate ammo counter, chronograph, voltmeter, and select-fire.
 
 ___
@@ -220,3 +224,4 @@ ___
 
 ## How to Contribute
 Want to add more features, or missing something? You can add it! Made a blaster with Smart Blaster? We'd love to hear from you! 
+
