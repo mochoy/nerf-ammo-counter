@@ -53,7 +53,7 @@ All builds require some sort of Arduino-compatible microcontroller. I recommend 
 | Resistors (10K and 100k) |  |  |  | X | | Used for voltage divider to drop the voltage to a safe level for the microcontroller. | Resistors can be different values, just make sure the battery being checked has its voltage dropped to a voltage safe for the microcontroller. |
 | [Relay](https://www.amazon.com/Tolako-Arduino-Indicator-Channel-Official/dp/B00VRUAHLE/ref=sr_1_2?ie=UTF8&qid=1498071951&sr=8-2&keywords=arduino+relay)| | | | | X | Used to control the NERF blaster's motors through the microcontroller |
 ### Tools:
-1. Phillips Head Screwdriver
+ 1. Phillips Head Screwdriver
 2. Drill
 3. Soldering Iron and Solder + soldering materials/tools (wire, flux, shrink wrap, helping hands, etc.)
 3. Dremel or rotary tool (recommended, not required)
@@ -64,7 +64,7 @@ All builds require some sort of Arduino-compatible microcontroller. I recommend 
 
 **Extra Notes on Parts and Tools**: 
  1. Most of the parts can be bought cheaper from EBay or Digikey or other electronics stores.
- 2. Microcontroller will need a battery to power it. A 9v will work fine. If the blaster is an electronic blaster, the microcontroller can be powered off the same batttery as the blaster, at the cost of a slight decrease in the blaster's performance.
+2. Microcontroller will need a battery to power it. A 9v will work fine. If the blaster is an electronic blaster, the microcontroller can be powered off the same batttery as the blaster, at the cost of a slight decrease in the blaster's performance.
 
 ___
 
@@ -88,7 +88,7 @@ Install library to work with graphics on the dosplay:
 
 `git clone https://github.com/adafruit/Adafruit-GFX-Library.git`
 
- Install library to deal with buttons and debouncing:
+Install library to deal with buttons and debouncing:
  
 `git clone https://github.com/JChristensen/Button.git`
 
@@ -98,13 +98,13 @@ Alternatively, the libraries can be installed the easy way:
 - Go to https://github.com/etnom/nerf-ammo-counter, click the **Download ZIP** button and save the ZIP file to a convenient location on your PC. 
 - Uncompress the downloaded file.  This will result in a folder containing all the files for the library, that has a name that includes the branch name, usually **nerf-ammo-counter-master**.
 - Rename the folder to just **nerf-ammo-counter**.
-r- Copy the renamed folder to the Arduino/libraries folder.
+- Copy the renamed folder to the Arduino/libraries folder.
 - Open the folder **Libraries** in **nerf-ammo-counter**. Copy the three folders out to the Arduino/libraries folder.
 
 ### 2) Importation
 In an Arduino sketch, include the required libraries:
 
-```
+```c++
 #include <Adafruit_GFX.h>
 #include <Adafruit_SSD1306.h>
 #include <Button.h>
@@ -114,13 +114,14 @@ In an Arduino sketch, include the required libraries:
 ### 3) Usage
 
 Also set up some stuff for the display:
- ```
+
+```c++
 #define OLED_RESET 4
 Adafruit_SSD1306 display(OLED_RESET);
 
 
-s#define SCREEN_WIDTH 128
-r#define SCREEN_HEIGHT 64
+#define SCREEN_WIDTH 128
+#define SCREEN_HEIGHT 64
 ```
 
 Set up modes:
@@ -128,9 +129,9 @@ Set up modes:
 `byte modes[] = {isIRAmmoCounter, isChronograph, isVoltmeter, isSelectFire};`
 - All items in array are boolean values.
 - First item specifies if ammo counting will be detected through a switch or IR gate. `false` if switch, `true` if IR gate. Can't be both switch and IR gate.
-t- Second item specifies whether or not the chronograph feature will be implemented, third for voltmeter, and fourth for select-fire.
-e
-CSetup IO Pins:
+- Second item specifies whether or not the chronograph feature will be implemented, third for voltmeter, and fourth for select-fire.
+
+Setup IO Pins:
 
 `byte pins[] = {ammoCountingInputPin, magazineInsertionDetectionPin, magazineSizeTogglePin, voltmeterPin, firingModeTogglePin, firingModeOutputPin};`
 - All items in array are integer values.
@@ -159,14 +160,16 @@ Setup SmartBlaster:
 
 Also for the display, in `void setup()`:
 
-```
+```C++
 display.begin(SSD1306_SWITCHCAPVCC, 0x3C);
 SmartBlaster.initDisplay(display);
 ```
 
 Now lets Smart the Blaster! In `void loop()`:
 
-`smartBlaster.smartMyBlaster();`
+```c++
+smartBlaster.smartMyBlaster();
+````
 
 Once everything is done, upload the sketch to the microcontroller. 
 
