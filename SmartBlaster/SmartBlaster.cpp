@@ -7,7 +7,7 @@
 #include <Button.h>
 
 
-SmartBlaster::SmartBlaster (bool modes[], uint8_t IOPins[], uint8_t magSizes[]) {
+SmartBlaster::SmartBlaster (uint8_t modes[], uint8_t IOPins[], uint8_t magSizes[]) {
 	_lastVoltageCheckTime = 0;
 	_delayTime = 500;
 
@@ -24,7 +24,7 @@ SmartBlaster::SmartBlaster (bool modes[], uint8_t IOPins[], uint8_t magSizes[]) 
     R1 = 100000.0;
     R2 = 10000.0;
 
-	initModes(modes).initIOPins(IOPins).initButtons().initMagSizes();
+	initModes(modes).initIOPins(IOPins).initButtons().initMagSizes(magSizes);
 }
 
 SmartBlaster& SmartBlaster::initModes (uint8_t modes[]) {
@@ -58,9 +58,10 @@ SmartBlaster& SmartBlaster::initIOPins (uint8_t pins[]) {
 SmartBlaster& SmartBlaster::initButtons (void) {
 	if (!_isIRGate) {
 		Button _ammoCountingButton(_AMMO_COUNTING_INPUT_PIN, false, false, 20);
-	} else {
-		_ammoCountingButton = null;
-	}
+	} 
+	// else {
+	// 	_ammoCountingButton = NULL;
+	// }
 
 	Button _magInsertionDetectionButton(_MAG_INSERTION_DETECTION_PIN, false, false, 20);
 	Button _magSizeToggleButton(_MAG_SIZE_TOGGLE_INPUT_PIN, false, false, 20);
@@ -68,16 +69,17 @@ SmartBlaster& SmartBlaster::initButtons (void) {
 
 	if (_isSelectFire) {
 		Button _selectFireToggleButton(_TOGGLE_SELECT_FIRE_INPUT_PIN, false, false, 20);
-	} else {
-		_selectFireToggleButton = null;
-	}
+	} 
+	// else {
+	// 	_selectFireToggleButton = NULL;
+	// }
 
 
 	return *this;
 }
 
 SmartBlaster& SmartBlaster::initMagSizes(uint8_t magSizes[]) {
-	for (int i = 0; i < ((sizeof(magSizes)/sizeof(_magSizes[0])) - 1), i++) {
+	for (int i = 0; i < ((sizeof(magSizes)/sizeof(magSizes[0])) - 1); i++) {
 		_magSizeArr[i] = magSizes[i];
 	}
     _currentMagSize = 0;
