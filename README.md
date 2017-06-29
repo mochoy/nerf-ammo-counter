@@ -1,4 +1,4 @@
-# Smart Blaster v1.9:
+# Smart Blaster v2.0:
 ## Completely outclass your opponents at your next NERF war.
 
 Arduino library to make ammo counters and more for highly modified NERF blasters. All sketches require corresponding hardware.
@@ -217,7 +217,7 @@ The following examples are included with the **Smart Blaster** library in the **
 ___
 
 ## Version History
-- **v1.9**: Added a ton more features, including voltmeter, chronograph, and fire modes.
+- **v2.0**: Added a ton more features, including voltmeter, chronograph, and fire modes.
 - **v1.0**: Just a simple ammo counter.
 
 ___
