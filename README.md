@@ -30,9 +30,10 @@ To include any of these features, the corresponding hardware must be included.
 2. **Chronograph**: Using an IR gate, a chronograph can be implemented by recording the time it took for the dart to completely break through the gate, divided by the known length of the dart. Units are in feet per second (fps).
 3. **Voltmeter**: Using a voltage divider, the Arduino can read the voltage of the battery used. Ideal for electronic-powered blasters, so you know when to switch out the batteries. Can detect the voltage of the battery powering the blaster, or of the battery powering the microcontroller.
 4. **Select-Fire**:  Want to conserve ammo in your fully-automatic blaster? Toggle between safety, single-shot. three-round-burst, or fully-automatic with this feature. Requires a relay or MOSFET to control the pusher motor. IR gate required.
-5. **Magazine Insertion Detection**:  Check if magazine is inserted in blaster, and when magazine is swapped out, the ammo will reset.
-6. **Different Magazine Sizes**: Toggle between various magazines sizes with the press of a button. All NERF-compatible magazines can be configured: 5, 6, 10, 12, 15, 18, 20, 21, 25, and 36.
-7. **Count-Up Mode**: Instead of counting down, it can count up every time a shot is fired.
+6. **Fire Velocity Control**: Using a potentiometer, the amount of power going into the motors can be controlled, so the speed of the motor can be controlled. The more power going into the motor, the faster the motor will spin, and the faster and further the dart will fire. Only works on motorized flywheel blasters. Requires a MOSFET to pwm the motors. 
+6. **Magazine Insertion Detection**:  Check if magazine is inserted in blaster, and when magazine is swapped out, the ammo will reset.
+7. **Different Magazine Sizes**: Toggle between various magazines sizes with the press of a button. All NERF-compatible magazines can be configured: 5, 6, 10, 12, 15, 18, 20, 21, 25, and 36.
+8. **Count-Up Mode**: Instead of counting down, it can count up every time a shot is fired.
 
 ___
 
@@ -48,8 +49,8 @@ All builds require some sort of Arduino-compatible microcontroller. I recommend 
 | [Lever Switch](https://www.amazon.com/Gikfun-Micro-Switch-Arduino-EK1713/dp/B015W8S8NA/ref=sr_1_2?ie=UTF8&qid=1498070421&sr=8-2&keywords=arduino+switch)                       | X (2)           | X | X | X | X | Used for magazine insertion detection. If switch varient of ammo counter is selected, then another switch will be used for ammo counting.
 | [Momentary Push Button](https://www.amazon.com/Gikfun-Micro-Switch-Arduino-EK1713/dp/B015W8S8NA/ref=sr_1_2?ie=UTF8&qid=1498070421&sr=8-2&keywords=arduino+switch)                     | X | X      | X | X | X (2) | Used for toggling between the various magazines sizes. If Select-Fire mode setup, then another button will be used to toggle through the various fire modes.
 | [IR Transmitter and Receiver Diode](https://www.amazon.com/Gikfun-Infrared-Emitter-Receiver-Arduino/dp/B01HGIQ8NG/ref=pd_sim_60_2?_encoding=UTF8&pd_rd_i=B01HGIQ8NG&pd_rd_r=M28XT7S0DNCFMEJPPKXT&pd_rd_w=INV1r&pd_rd_wg=61093&psc=1&refRID=M28XT7S0DNCFMEJPPKXT)                   | | X | X | | X | Used for IR gate |
-| Resistors (10K and 100k) |  |  |  | X | | Used for voltage divider to drop the voltage to a safe level for the microcontroller. | Resistors can be different values, just make sure the battery being checked has its voltage dropped to a voltage safe for the microcontroller. |
-| [Relay](https://www.amazon.com/Tolako-Arduino-Indicator-Channel-Official/dp/B00VRUAHLE/ref=sr_1_2?ie=UTF8&qid=1498071951&sr=8-2&keywords=arduino+relay)| | | | | X | Used to control the NERF blaster's motors through the microcontroller |
+| Resistors (100K and 1000k) |  |  |  | X | | Used for voltage divider to drop the voltage to a safe level for the microcontroller. | Resistors can be different values, just make sure the battery being checked has its voltage dropped to a voltage safe for the microcontroller. |
+| [Relay](https://www.amazon.com/Tolako-Arduino-Indicator-Channel-Official/dp/B00VRUAHLE/ref=sr_1_2?ie=UTF8&qid=1498071951&sr=8-2&keywords=arduino+relay)| | | | | X | Used to toggle power of the blaster's motors throught the microcontroller | Make sure the relay is rated for the power (voltage and curret) for your blaster. Will only work to toggle power, so only controls on/off. Will not work for an analog value, such as for fire velocity vontrol. |
 
 ### Tools:
  1. Phillips Head Screwdriver
