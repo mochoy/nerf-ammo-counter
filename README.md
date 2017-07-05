@@ -194,14 +194,6 @@ After the code has been uploaded the the microcontroller, it's time to modify a 
 
 #### Schematics
 Based on your included features, wire up the microcontroller and the required electronic components to match the schematics:
-- Magazine Insertion Detection Switch (same as Switch component of Ammo Counter - Switch variant) - Individual component
-- Magazine size toggle button (same as toggle fire mode button component of Select-Fire) - Individual Component
-- Ammo Counter - IR Gate variant, same as Chronograph - Individual Component
-- Voltmeter - Individual Component
-- Select fire + firemode toggle button. If you use the relay recommened above, you may follow the schematic exactly. If you use another relay, you will need two flyback diodes, one for the motor, and one for the coil of the relay. You may also need a transistor to power the motor. Schematics for that here.
-- Complete Ammo Counter: Switch
-- Complete Chrono-Ammo Counter
-- Complete Select-Fire-Ammo 
 - Complete Smartest Blaster
 
 ___
