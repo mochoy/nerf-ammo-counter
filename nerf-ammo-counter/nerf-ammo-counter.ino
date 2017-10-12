@@ -13,31 +13,38 @@
 //libraries, so the display can work
 #include <Adafruit_GFX.h>
 #include <Adafruit_SSD1306.h>
-
-//initialize stuff for display
-#define OLED_RESET 4
-Adafruit_SSD1306 display(OLED_RESET);
+#include <Button.h>
 
 //set the height and width of the screen
 #define SCREEN_WIDTH 128
 #define SCREEN_HEIGHT 64
 
-//include a seperate file for the other code
-#include "helper.h"
+//initialize stuff for display
+#define OLED_RESET 4
+
+//pins for button
+#define TRIGGER_BTN_PIN 1
+#define RELOAD_BTN_PIN 3
+#define MAG_SZ_TOG_BTN_PIN 5
+
+//parameters for buttons
+#define INVERT true
+#define PULLUP true
+#define DEBOUNCE_MS 20
+
+Adafruit_SSD1306 display(OLED_RESET);     //display
+
+Button triggerBtn (TRIGGER_BTN_PIN, INVERT, PULLUP, DEBOUNCE_MS);       //trigger button
+Button reloadBtn (RELOAD_BTN_PIN, INVERT, PULLUP, DEBOUNCE_MS);         //reloading button
+Button magSzTogBtn (MAG_SZ_TOG_BTN_PIN, INVERT, PULLUP, DEBOUNCE_MS);   //magazine size toggle button
 
 //this code will run when the Arduino turns on
 void setup() {
   //begin stuff for the display
   display.begin(SSD1306_SWITCHCAPVCC, 0x3C);
 
-  //set up buttons
-  initButtons(3);
   //show the ammo
   displayAmmo();
-
-  //turn on an LED on the board. This will make the red LED an indicator that the board is powered up and all. 
-  digitalWrite(13, HIGH);
-
 }
 
 //this code loops many times a second
