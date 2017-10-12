@@ -1,14 +1,13 @@
-//By Monty C
 
-/*Here's how it will work:
- * It's simple. When the trigger is pulled, count down 1 from the ammo. When a magazine is inserted, refill the ammo. A button can be 
- * used to toggle through the different magazine sizes: 5, 6, 10, 12, 15, 18, 22, 25, and 36. The last mode is counts up, starting from 0, 
- * which can be accessed from the toggling the magazine sizes. The magazine sizes will increment, with the press of the button, from 0, 
- * 5, 6, 12 … 36 and will not decrement, for the sake of simplicity.  
- * 
- * 
- * I am aware that the code isn't that good. It's not my best, not my neatest, and it's not too efficient for working with micro controllers, but it should be fine.
- */
+/*----------------------------------------------------------------------*
+ * nerf-ammo-counter                                                    *
+ * Monty Choy, 2017                                                     *
+ *                                                                      *
+ * Arduino sketch for ammo counters in NERF blasters                    * 
+ * Be sure to check out the links:                                      *
+ * Youtube Video: https://goo.gl/KjQfdK                                 *
+ * Tutorial: https://goo.gl/8JSXbc                                      *
+ *----------------------------------------------------------------------*/
 
 //libraries, so the display can work
 #include <Adafruit_GFX.h>
