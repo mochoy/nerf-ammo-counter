@@ -156,8 +156,7 @@ void displayAmmo(){
 void countAmmo() {
   //when the magazine is inserted AND the trigger switch is pressed
     if ( (btnArr[0].isBtnPressed(true)) && isMagInserted() ){
-      //make sure that the ammo is less than 99 so it doesnt overflow the display
-      //make sure it's in increment mode
+      
       if ( (magSizeArr[currentMagSize] == 0) && (currentAmmo < 99) ) {
           currentAmmo++;    //increment ammo
 
