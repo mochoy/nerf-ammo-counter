@@ -21,6 +21,7 @@
 
 //initialize stuff for display
 #define OLED_RESET 4
+#define TEXT_SIZE 8
 
 //pins for button
 #define TRIGGER_BTN_PIN 1
@@ -59,11 +60,8 @@ byte maxAmmo = magSizeArr[currentMagSize];    //keep track of what the max ammo 
 
 //this code will run when the Arduino turns on
 void setup() {
-  //begin stuff for the display
-  display.begin(SSD1306_SWITCHCAPVCC, 0x3C);
-
-  //show the ammo
-  displayAmmo();
+  display.begin(SSD1306_SWITCHCAPVCC, 0x3C);    //begin stuff for the display
+  initDisplayAmmo();     //show the ammo
 }
 
 //this code loops many times a second
@@ -74,5 +72,20 @@ void loop() {
   toggleMags();
   //change magazine, constantly check for the magazine switch to be pressed/not pressed
   changeMag();
-  
+}
+
+void displayAmmo (String ammoToDisplay) {
+  display.clearDisplay(); //clear the display, so the stuff that was here before is no longer here
+  display.setTextSize(TEXT_SIZE);  //set the size of the text
+  display.setTextColor(WHITE);    //set the color of text text
+  //tell the display where to draw the text
+  display.setCursor( (SCREEN_WIDTH/2) - ((text.length()*2) * (textSize * 1.5)), (SCREEN_HEIGHT/2) - (textSize * 3) );  //center text
+  display.print(ammoToDisplay);    //print the text
+  display.display();    //display the text
+}
+
+void initDisplayAmmo () {
+  //if the ammo to print, current ammo, is less that 10, make it like '01' or '04'  
+  String ammoToDisplay = currentAmmo < 10 ? ("0" + (String)currentAmmo) : (String)currentAmmo;
+  displayAmmo(ammoToDisplay);  //display the text, the ammo
 }
