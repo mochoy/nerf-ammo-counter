@@ -1,3 +1,7 @@
+# Smart Blaster v2.0:
+## Completely outclass your opponents at your next NERF war.
+
+Arduino library to make ammo counters and more for highly modified NERF blasters. All sketches require corresponding hardware.
 
 ___
 
@@ -212,7 +216,4 @@ ___
 
 ## How to Contribute
 Want to add more features, or missing something? You can add it! Made a blaster with Smart Blaster? We'd love to hear from you! 
-=======
-[Tutorial](http://nerfhaven.com/forums/topic/27337-ammo-counter-the-ultimate-simple-cheap-guide/)
 
-[Image Album](http://imgur.com/a/Y2vXC)

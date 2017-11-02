@@ -1,4 +1,14 @@
+<<<<<<< HEAD
+# Smart Blaster v2.0:
+## Completely outclass your opponents at your next NERF war.
+=======
+# Nerf Ammo Counter
+Arduino powered Ammo Counter for NERF blasters
+>>>>>>> f6ac6e4a640aa36408277ea197ae05609e4f3d76
 
+[Video](https://www.youtube.com/watch?v=rPU7j7KLtIw)
+
+<<<<<<< HEAD
 ___
 
 ## Contents:
@@ -214,5 +224,6 @@ ___
 Want to add more features, or missing something? You can add it! Made a blaster with Smart Blaster? We'd love to hear from you! 
 =======
 [Tutorial](http://nerfhaven.com/forums/topic/27337-ammo-counter-the-ultimate-simple-cheap-guide/)
+>>>>>>> f6ac6e4a640aa36408277ea197ae05609e4f3d76
 
 [Image Album](http://imgur.com/a/Y2vXC)

@@ -1,3 +1,7 @@
+# Smart Blaster v1.9:
+## Completely outclass your opponents at your next NERF war.
+
+Arduino library to make ammo counters and more for highly modified NERF blasters. All sketches require corresponding hardware.
 
 ___
 
@@ -190,6 +194,14 @@ After the code has been uploaded the the microcontroller, it's time to modify a 
 
 #### Schematics
 Based on your included features, wire up the microcontroller and the required electronic components to match the schematics:
+- Magazine Insertion Detection Switch (same as Switch component of Ammo Counter - Switch variant) - Individual component
+- Magazine size toggle button (same as toggle fire mode button component of Select-Fire) - Individual Component
+- Ammo Counter - IR Gate variant, same as Chronograph - Individual Component
+- Voltmeter - Individual Component
+- Select fire + firemode toggle button
+- Complete Ammo Counter: Switch
+- Complete Chrono-Ammo Counter
+- Complete Select-Fire-Ammo 
 - Complete Smartest Blaster
 
 ___
@@ -205,14 +217,11 @@ The following examples are included with the **Smart Blaster** library in the **
 ___
 
 ## Version History
-- **v2.0**: Added a ton more features, including voltmeter, chronograph, and fire modes.
+- **v1.9**: Added a ton more features, including voltmeter, chronograph, and fire modes.
 - **v1.0**: Just a simple ammo counter.
 
 ___
 
 ## How to Contribute
 Want to add more features, or missing something? You can add it! Made a blaster with Smart Blaster? We'd love to hear from you! 
-=======
-[Tutorial](http://nerfhaven.com/forums/topic/27337-ammo-counter-the-ultimate-simple-cheap-guide/)
 
-[Image Album](http://imgur.com/a/Y2vXC)
