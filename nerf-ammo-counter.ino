@@ -87,9 +87,9 @@ void initDisplayAmmo () {
 void countAmmo () {
   triggerBtn.read();              //read trigger button
   if (triggerBtn.wasPressed()) {   //trigger button pressed
-    if (maxAmmo != 0 && currentAmmo < 99) {  //make sure that the ammo is less than 99 so it doesnt overflow the display and not in count-up mode
+    if (maxAmmo != 0 && currentAmmo < 99 && currentAmmo > 0) {  //make sure that the ammo is less than 99 so it doesnt overflow the display and not in count-up mode
       currentAmmo--;    //increment ammo
-    } else if (maxAmmo == 0 && currentAmmo > 0) { //make sure that the ammo is more than 0 so no negative numbers are displayed and in count-up mode
+    } else if (maxAmmo == 0 && currentAmmo < 99) { //make sure that the ammo is more than 0 so no negative numbers are displayed and in count-up mode
       currentAmmo++;    //decrement ammo
     }
     initDisplayAmmo();    //display ammo
