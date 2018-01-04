@@ -1,4 +1,4 @@
-#nerf-ammo-counter
+# nerf-ammo-counter
 
 
 [Take a look](https://www.youtube.com/watch?v=rPU7j7KLtIw)
